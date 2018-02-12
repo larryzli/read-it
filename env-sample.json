@@ -1,0 +1,8 @@
+{
+  "env": {
+    // DONT FORGET ?ssl=true AT THE END
+    "CONNECTION_STRING": "STRING",
+    "SALT": "NUMBER",
+    "PORT": "NUMBER"
+  }
+}
