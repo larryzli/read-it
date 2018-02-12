@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-// import "./App.css";
+import "./App.css";
+import routes from "./routes";
 
 class App extends Component {
     render() {
-        return <div />;
+        return <div className="app-background">{routes}</div>;
     }
 }
 

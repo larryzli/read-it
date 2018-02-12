@@ -2,7 +2,10 @@
   "env": {
     // DONT FORGET ?ssl=true AT THE END
     "CONNECTION_STRING": "STRING",
-    "SALT": "NUMBER",
-    "PORT": "NUMBER"
+    "PORT": "NUMBER",
+    "APP_ID": "STRING",
+    "APP_SECRET": "STRING",
+    "API_HOST": "STRING",
+    "SESSION_SECRET": "STRING"
   }
 }
