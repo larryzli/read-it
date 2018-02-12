@@ -4,7 +4,7 @@ import promiseMiddleware from 'redux-promise-middleware'
 
 //Importing Reducers
 import userReducer from './ducks/userReducer'
-import subreddditReducer from './ducks/subredditReducer'
+import subredditReducer from './ducks/subredditReducer'
 import postRedeucer from './ducks/postReducer'
 import commentReducer from './ducks/commentReducer'
 import messageReducer from './ducks/messageReducer'
