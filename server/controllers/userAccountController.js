@@ -36,7 +36,7 @@ const login = (req, res, next) => {
 
 const getUserById = (req, res, next) => {
   const db = req.app.get("db");
-  const { id } = req.params;
+  const { user_id } = req.params;
   db
     .getUserById(id)
     .then(response => {
