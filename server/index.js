@@ -6,7 +6,11 @@ const massive = require("massive");
 //const session = require('express-session')
 const { CONNECTION_STRING, PORT } = process.env;
 
-const { register, login } = require("./controllers/userAccountController");
+const {
+  register,
+  login,
+  getUserById
+} = require("./controllers/userAccountController");
 
 const port = PORT || 3005;
 const app = express();
@@ -25,6 +29,9 @@ app.post("/api/users/register", register);
 
 // LOGIN USER - EXPECTS ( email, password )
 app.post("/api/users/login", login);
+
+// GET USER BY ID LOCAL STORAGE REQUEST
+app.get("/api/users/:id", getUserById);
 
 app.listen(port, () => {
   console.log("Server listening on port: ", port);
