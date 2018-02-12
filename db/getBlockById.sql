@@ -1,0 +1,1 @@
+SELECT * FROM block WHERE block_id = $1;
