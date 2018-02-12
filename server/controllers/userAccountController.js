@@ -34,7 +34,19 @@ const login = (req, res, next) => {
   });
 };
 
+const getUserById = (req, res, next) => {
+  const db = req.app.get("db");
+  const { id } = req.params;
+  db
+    .getUserById(id)
+    .then(response => {
+      res.status(200).json(response[0]);
+    })
+    .catch(console.log);
+};
+
 module.exports = {
   register,
-  login
+  login,
+  getUserById
 };
