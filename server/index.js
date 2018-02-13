@@ -22,7 +22,8 @@ const axios = require("axios");
 const {
   getUserById,
   createUserById,
-  pullHot
+  pullHot,
+  pullBest
 } = require("./controllers/userAccountController");
 
 const port = NODE_PORT || 3005;
@@ -100,6 +101,7 @@ app.get("/auth/reddit/callback", function(req, res, next) {
 });
 
 app.get("/api/hot", pullHot);
+app.get("/api/best", pullBest);
 app.get("/api/users/:user_id", getUserById);
 app.get("/api/users/create", createUserById);
 
