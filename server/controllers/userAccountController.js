@@ -28,7 +28,8 @@ const pullHot = (req, res, next) => {
   if (req.query) {
     if (limit) {
       baseURL += `limit=${limit}&`;
-    } else if (after) {
+    }
+    if (after) {
       baseURL += `after=${after}&`;
     }
   }

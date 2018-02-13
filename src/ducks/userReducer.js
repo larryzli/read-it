@@ -15,6 +15,7 @@ export function getUserById(user_id) {
     };
 }
 
+//Axios call to create user on the db by user's Reddit id
 export function createUserById(user_id) {
     return {
         type: CREATE_USER_BY_ID,
@@ -41,7 +42,7 @@ export default function userReducer(state = initialState, action) {
             return Object.assign({}, state, {
                  isLoading: true
                  });
-        //Adding GET_USER payload to the user_id object
+        //Adding GET_USER payload to the user_id object on state
         case `${GET_USER_BY_ID}_FULFILLED`:
             return Object.assign({}, state, {
                 isLoading: false,
