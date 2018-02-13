@@ -1,5 +1,6 @@
+// IMPORT DEPENDENCIES
 import React, { Component } from "react";
-// import './HomeNavigation.css';
+// IMPORT ICONS
 import menuIcon from "../../icons/ic_menu_white_24px.svg";
 import dropdownIcon from "../../icons/ic_arrow_drop_down_white_24px.svg";
 // import searchIcon from "../../icons/ic_search_white_24px.svg";
@@ -19,7 +20,9 @@ class HomeNavigation extends Component {
                     <div className="nav-page-container">
                         <div className="nav-title">
                             <span className="nav-page-name">frontpage</span>
-                            <span className="nav-page-filter">HOT</span>
+                            <span className="nav-page-filter">
+                                {this.props.filterName}
+                            </span>
                         </div>
                         <img src={dropdownIcon} alt="dropdown icon" />
                     </div>

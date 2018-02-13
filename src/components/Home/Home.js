@@ -1,27 +1,61 @@
+// IMPORT DEPENDENCIES
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import moment from "moment";
+// IMPORT COMPONENTS
 import HomeNavigation from "../Navigation/HomeNavigation";
-// import './Home.css';
 import PostCard from "../PostCard/PostCard";
+// IMPORT REDUX FUNCTIONS
+import { pullHot } from "../../ducks/subredditReducer";
 
+// COMPONENT
 class Home extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            filter: "HOT"
+        };
+    }
     componentDidMount() {
-        // get posts
+        // DEFAULT: PULL HOT POSTS
+        this.props.pullHot();
     }
     render() {
-        // const posts = [].map(post => {});
+        const posts = this.props.subreddit.posts.map((post, index) => {
+            return (
+                <PostCard
+                    key={index}
+                    title={post.post_title}
+                    domain={post.domain}
+                    subreddit={post.subreddit_title}
+                    author={post.author}
+                    thumbnail={post.post_thumbnail}
+                    comments={post.num_comments}
+                    score={post.score}
+                    subredditID={post.subreddit_id}
+                    created={moment(post.created_utc * 1000).fromNow()}
+                    // created={moment(post.created_utc * 1000).format(
+                    //     "YYYY MM DD"
+                    // )}
+                    // created={post.created_utc}
+                    over18={post.over_18}
+                    postID={post.post_id}
+                />
+            );
+        });
+        console.log(this.props);
         return (
             <div>
-                <HomeNavigation />
-                <div className="posts">
-                    {
-                        //posts
-                    }
-                    <PostCard />
-                    <PostCard />
-                </div>
+                <HomeNavigation filterName={this.state.filter} />
+                <div className="posts">{posts}</div>
             </div>
         );
     }
 }
 
-export default Home;
+// CONNECT TO REDUX
+const mapStateToProps = state => {
+    return state;
+};
+export default connect(mapStateToProps, { pullHot })(Home);
