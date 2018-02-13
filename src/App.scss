@@ -98,9 +98,11 @@ html {
             display: flex;
             flex-direction: column;
             justify-content: center;
+            flex-grow: 1;
 
             .post-title {
                 font-size: 12px;
+                font-weight: 300;
 
                 .post-domain {
                     color: $grey3;
@@ -112,6 +114,7 @@ html {
             .post-details {
                 font-size: 10px;
                 color: grey;
+                padding: 3px 0;
 
                 .post-subreddit {
                     color: $blue1;
@@ -121,12 +124,30 @@ html {
                 .post-author {
                     white-space: nowrap;
                 }
+            }
+            .post-data {
+                font-size: 10px;
+                color: grey;
+
                 .post-age {
                     white-space: nowrap;
                 }
                 .post-comments {
                     white-space: nowrap;
+
+                    .post-comment-count {
+                        margin-right: 3px;
+                    }
                 }
+            }
+        }
+
+        .post-score-container {
+            display: flex;
+            flex-direction: column;
+
+            .post-score {
+                font-size: 12px;
             }
         }
     }
