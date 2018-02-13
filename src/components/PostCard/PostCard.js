@@ -2,6 +2,8 @@
 import React from "react";
 // IMPORT ICONS
 import commentIcon from "../../icons/comment_tiny.svg";
+import upvoteIcon from "../../icons/ic_keyboard_arrow_up_white_24px.svg";
+import downvoteIcon from "../../icons/ic_keyboard_arrow_down_white_24px.svg";
 // import './PostCard.css';
 
 const PostCard = ({
@@ -19,8 +21,9 @@ const PostCard = ({
     over18 = false
 }) => {
     return (
+        // POST
         <div className="post-container">
-            {thumbnail ? (
+            {thumbnail && thumbnail !== "default" && thumbnail !== "image" ? (
                 <img className="post-thumbnail" src={thumbnail} alt="" />
             ) : null}
             <div className="post-info">
@@ -32,15 +35,23 @@ const PostCard = ({
                     <span className="post-subreddit">r/{subreddit}</span>
                     {" • "}
                     <span className="post-author">{author}</span>
-                    {" • "}
+                </div>
+                <div className="post-data">
                     <span className="post-age">{created}</span>
                     {" • "}
                     <span className="post-comments">
-                        {comments} <img src={commentIcon} alt="comment icon" />
+                        <span className="post-comment-count">{comments}</span>
+                        <img src={commentIcon} alt="comment icon" />
                     </span>
                 </div>
             </div>
-            <div className="post-score-container" />
+            <div className="post-score-container">
+                <img src={upvoteIcon} alt="upvote icon" />
+                <div className="post-score">
+                    {score > 10000 ? (score / 1000).toFixed(1) + "k" : score}
+                </div>
+                <img src={downvoteIcon} alt="downvote icon" />
+            </div>
         </div>
     );
 };

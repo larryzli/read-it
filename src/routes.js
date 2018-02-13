@@ -5,5 +5,7 @@ import Home from "./components/Home/Home";
 export default (
     <Switch>
         <Route exact path="/" component={Home} />
+        {/* <Route path="/r/:subreddit" component={Subreddit} />
+        <Route path="/r/:subreddit/:post" component={Post} /> */}
     </Switch>
 );
