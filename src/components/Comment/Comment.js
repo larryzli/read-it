@@ -24,6 +24,7 @@ class Comment extends Component {
                 this.setState({ moreComments: response.data.json.data.things });
             });
     };
+
     render() {
         console.log(this.props);
         let replies;

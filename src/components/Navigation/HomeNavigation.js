@@ -9,7 +9,7 @@ import moreIcon from "../../icons/ic_more_vert_white_24px.svg";
 // import searchIcon from "../../icons/ic_search_white_24px.svg";
 
 // COMPONENT
-const HomeNavigation = ({ filterName }) => {
+const HomeNavigation = ({ filterName, openMenu }) => {
     const rightIcons = [sortIcon, moreIcon];
     return (
         <Navigation
@@ -18,6 +18,7 @@ const HomeNavigation = ({ filterName }) => {
             leftIcon={menuIcon}
             rightIcons={rightIcons}
             dropdown={true}
+            openMenu={openMenu}
         />
     );
 };
