@@ -23,7 +23,8 @@ const {
   getUserById,
   createUserById,
   pullHot,
-  pullBest
+  pullBest,
+  getPost
 } = require("./controllers/userAccountController");
 
 const port = NODE_PORT || 3005;
@@ -57,7 +58,7 @@ passport.use(
       clientSecret: APP_SECRET,
       callbackURL: `${API_HOST}/auth/reddit/callback`
     },
-    function (accessToken, refreshToken, profile, done) {
+    function(accessToken, refreshToken, profile, done) {
       // CHECK TO SEE IF THERES ALREADY A USER WITH THAT AUTH ID IN OUR DATABASE
       axios
         .get(`${API_HOST}/api/users/${profile.id}`)
@@ -86,14 +87,14 @@ passport.use(
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
-app.get("/auth/reddit", function (req, res, next) {
+app.get("/auth/reddit", function(req, res, next) {
   passport.authenticate("reddit", {
     state: crypto.randomBytes(32).toString("hex"),
     duration: "permanent"
   })(req, res, next);
 });
 
-app.get("/auth/reddit/callback", function (req, res, next) {
+app.get("/auth/reddit/callback", function(req, res, next) {
   passport.authenticate("reddit", {
     successRedirect: "/",
     failureRedirect: "/"
@@ -104,6 +105,7 @@ app.get("/api/hot", pullHot);
 app.get("/api/best", pullBest);
 app.get("/api/users/:user_id", getUserById);
 app.get("/api/users/create/:user_id", createUserById);
+app.get("/api/post/:subreddit_title/:post_id", getPost);
 
 app.listen(port, () => {
   console.log("Server listening on port: ", port);
