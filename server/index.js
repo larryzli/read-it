@@ -8,7 +8,7 @@ const {
     NODE_PORT,
     APP_ID,
     APP_SECRET,
-    API_HOST,
+    REACT_APP_HOST,
     SESSION_SECRET
 } = process.env;
 const session = require("express-session");
@@ -20,8 +20,7 @@ const RedditStrategy = require("passport-reddit").Strategy;
 const axios = require("axios");
 
 const {
-    getUserById,
-    createUserById,
+    getUserInfo,
     pullHot,
     pullBest,
     getPost,
@@ -57,30 +56,28 @@ passport.use(
         {
             clientID: APP_ID,
             clientSecret: APP_SECRET,
-            callbackURL: `${API_HOST}/auth/reddit/callback`
+            callbackURL: `${REACT_APP_HOST}/auth/reddit/callback`
         },
         function(accessToken, refreshToken, profile, done) {
             // CHECK TO SEE IF THERES ALREADY A USER WITH THAT AUTH ID IN OUR DATABASE
-            axios
-                .get(`${API_HOST}/api/users/${profile.id}`)
+            app
+                .get("db")
+                .getUserById(profile.id)
                 .then(response => {
-                    // IF THERES ONE, JUST PUT IT ON SESSION
-                    if (response.data.user_id) {
+                    console.log(response);
+                    if (response[0].user_id) {
                         done(null, profile);
                     } else {
-                        // IF THERE ISNT ONE, CREATE ONE
-                        axios
-                            .get(`${API_HOST}/api/user/create/${profile.id}`)
-                            .then(userResponse => {
-                                // PUT USER ON SESSION
-                                if (userResponse.data.user_id) {
-                                    done(null, profile);
-                                }
+                        app
+                            .get("db")
+                            .createUserById(profile.id)
+                            .then(response => {
+                                done(null, profile);
                             })
-                            .catch(() => console.log("1st"));
+                            .catch(console.log);
                     }
                 })
-                .catch(() => console.log("2nd"));
+                .catch(console.log);
         }
     )
 );
@@ -89,6 +86,7 @@ passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
 app.get("/auth/reddit", function(req, res, next) {
+    console.log("hit api");
     passport.authenticate("reddit", {
         state: crypto.randomBytes(32).toString("hex"),
         duration: "permanent"
@@ -97,15 +95,14 @@ app.get("/auth/reddit", function(req, res, next) {
 
 app.get("/auth/reddit/callback", function(req, res, next) {
     passport.authenticate("reddit", {
-        successRedirect: "/",
+        successRedirect: "http://localhost:3000",
         failureRedirect: "/"
     })(req, res, next);
 });
 
 app.get("/api/hot", pullHot);
 app.get("/api/best", pullBest);
-app.get("/api/users/:user_id", getUserById);
-app.get("/api/users/create/:user_id", createUserById);
+app.get("/api/user/info", getUserInfo);
 app.get("/api/post/:subreddit_title/:post_id", getPost);
 app.get("/api/post/comments/more/:post_id/:children", getMoreComments);
 

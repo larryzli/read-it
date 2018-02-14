@@ -63,7 +63,8 @@ html {
         width: 62px;
         margin-right: 8px; }
     .posts .post-container .post-route {
-      text-decoration: none; }
+      text-decoration: none;
+      width: 100%; }
       .posts .post-container .post-route .post-info {
         display: flex;
         flex-direction: column;

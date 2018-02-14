@@ -25,6 +25,7 @@ class Navigation extends Component {
                         className="nav-left-icon"
                         src={this.props.leftIcon}
                         alt="menu icon"
+                        onClick={e => this.props.openMenu()}
                     />
                     <div className="nav-page-container">
                         <div className="nav-title">

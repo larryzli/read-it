@@ -1,25 +1,11 @@
 const axios = require("axios");
 
-const getUserById = (req, res, next) => {
-    const db = req.app.get("db");
-    const { user_id } = req.params;
-    db
-        .getUserById(user_id)
-        .then(response => {
-            res.status(200).json(response[0]);
-        })
-        .catch(console.log);
-};
-
-const createUserById = (req, res, next) => {
-    const db = req.app.get("db");
-    const { user_id } = req.params;
-    db
-        .createUserById(user_id)
-        .then(response => {
-            res.status(200).json(response[0]);
-        })
-        .catch(console.log);
+const getUserInfo = (req, res, next) => {
+    if (req.user) {
+        res.status(200).json(req.user._json);
+    } else {
+        res.status(200).json();
+    }
 };
 
 const pullHot = (req, res, next) => {
@@ -136,14 +122,12 @@ const getMoreComments = (req, res, next) => {
         )
         .then(response => {
             res.status(200).json(response.data);
-            // console.log(response.data);
         })
         .catch(console.log);
 };
 
 module.exports = {
-    getUserById,
-    createUserById,
+    getUserInfo,
     pullHot,
     pullBest,
     getPost,
