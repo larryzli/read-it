@@ -35,16 +35,12 @@ class Home extends Component {
                     score={post.score}
                     subredditID={post.subreddit_id}
                     created={moment(post.created_utc * 1000).fromNow()}
-                    // created={moment(post.created_utc * 1000).format(
-                    //     "YYYY MM DD"
-                    // )}
-                    // created={post.created_utc}
+                    url={post.url}
                     over18={post.over_18}
                     postID={post.post_id}
                 />
             );
         });
-        console.log(this.props);
         return (
             <div>
                 <HomeNavigation filterName={this.state.filter} />

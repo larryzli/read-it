@@ -8,6 +8,7 @@ import downvoteIcon from "../../icons/ic_keyboard_arrow_down_white_24px.svg";
 
 const PostCard = ({
     postID = null,
+    url = "",
     title = "test",
     thumbnail = "",
     author = "test",
@@ -23,9 +24,15 @@ const PostCard = ({
     return (
         // POST
         <div className="post-container">
-            {thumbnail && thumbnail !== "default" && thumbnail !== "image" ? (
-                <img className="post-thumbnail" src={thumbnail} alt="" />
-            ) : null}
+            {thumbnail === "self" ? null : thumbnail === "image" ? (
+                <a className="post-link" href={url}>
+                    <img className="post-thumbnail" src={url} alt="" />
+                </a>
+            ) : (
+                <a className="post-link" href={url}>
+                    <img className="post-thumbnail" src={thumbnail} alt="" />
+                </a>
+            )}
             <div className="post-info">
                 <div className="post-title">
                     {title}
@@ -46,11 +53,19 @@ const PostCard = ({
                 </div>
             </div>
             <div className="post-score-container">
-                <img src={upvoteIcon} alt="upvote icon" />
+                <img
+                    className="post-upvote"
+                    src={upvoteIcon}
+                    alt="upvote icon"
+                />
                 <div className="post-score">
                     {score > 10000 ? (score / 1000).toFixed(1) + "k" : score}
                 </div>
-                <img src={downvoteIcon} alt="downvote icon" />
+                <img
+                    className="post-downvote"
+                    src={downvoteIcon}
+                    alt="downvote icon"
+                />
             </div>
         </div>
     );
