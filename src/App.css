@@ -15,7 +15,9 @@ html {
   justify-content: space-between;
   align-items: center;
   padding-left: 15px;
-  padding-right: 10px; }
+  padding-right: 10px;
+  position: sticky;
+  top: 0; }
   .nav-background .nav-left {
     display: flex;
     width: 60%;
@@ -33,7 +35,7 @@ html {
         .nav-background .nav-left .nav-page-container .nav-title .nav-page-name {
           font-size: 14px;
           font-weight: 500; }
-        .nav-background .nav-left .nav-page-container .nav-title .nav-page-filter {
+        .nav-background .nav-left .nav-page-container .nav-title .nav-page-subtitle {
           font-size: 10px;
           font-weight: 100;
           color: #bbb; }
@@ -54,44 +56,54 @@ html {
     padding: 8px;
     margin-bottom: 10px;
     display: flex; }
-    .posts .post-container .post-thumbnail {
-      height: 62px;
-      width: 62px;
-      margin-right: 8px; }
-    .posts .post-container .post-info {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex-grow: 1; }
-      .posts .post-container .post-info .post-title {
-        font-size: 12px;
-        font-weight: 300; }
-        .posts .post-container .post-info .post-title .post-domain {
-          color: #bbb;
-          font-weight: 200;
-          font-size: 10px; }
-      .posts .post-container .post-info .post-details {
-        font-size: 10px;
-        color: grey;
-        padding: 3px 0; }
-        .posts .post-container .post-info .post-details .post-subreddit {
-          color: #4a90e2;
-          white-space: nowrap; }
-        .posts .post-container .post-info .post-details .post-author {
-          white-space: nowrap; }
-      .posts .post-container .post-info .post-data {
-        font-size: 10px;
-        color: grey; }
-        .posts .post-container .post-info .post-data .post-age {
-          white-space: nowrap; }
-        .posts .post-container .post-info .post-data .post-comments {
-          white-space: nowrap; }
-          .posts .post-container .post-info .post-data .post-comments .post-comment-count {
-            margin-right: 3px; }
+    .posts .post-container .post-link {
+      font-size: 0; }
+      .posts .post-container .post-link .post-thumbnail {
+        height: 62px;
+        width: 62px;
+        margin-right: 8px; }
+    .posts .post-container .post-route {
+      text-decoration: none; }
+      .posts .post-container .post-route .post-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-grow: 1; }
+        .posts .post-container .post-route .post-info .post-title {
+          font-size: 12px;
+          font-weight: 300;
+          color: #fff; }
+          .posts .post-container .post-route .post-info .post-title .post-domain {
+            color: #bbb;
+            font-weight: 200;
+            font-size: 10px; }
+        .posts .post-container .post-route .post-info .post-details {
+          font-size: 10px;
+          color: grey;
+          padding: 3px 0; }
+          .posts .post-container .post-route .post-info .post-details .post-subreddit {
+            color: #4a90e2;
+            white-space: nowrap; }
+          .posts .post-container .post-route .post-info .post-details .post-author {
+            white-space: nowrap; }
+        .posts .post-container .post-route .post-info .post-data {
+          font-size: 10px;
+          color: grey; }
+          .posts .post-container .post-route .post-info .post-data .post-age {
+            white-space: nowrap; }
+          .posts .post-container .post-route .post-info .post-data .post-comments {
+            white-space: nowrap; }
+            .posts .post-container .post-route .post-info .post-data .post-comments .post-comment-count {
+              margin-right: 3px; }
     .posts .post-container .post-score-container {
       display: flex;
       flex-direction: column; }
       .posts .post-container .post-score-container .post-score {
-        font-size: 12px; }
+        font-size: 12px;
+        padding: 2px 0; }
+      .posts .post-container .post-score-container .post-upvote {
+        margin-top: -2px; }
+      .posts .post-container .post-score-container .post-downvote {
+        margin-bottom: -2px; }
 
 /*# sourceMappingURL=App.css.map */
