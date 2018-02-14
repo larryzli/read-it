@@ -25,11 +25,19 @@ export function pullHot(after, limit) {
 }
 
 //Axios call to pull "best" posts from Reddit
-export function pullBest(){
+export function pullBest(after, limit){
+    let url=`/api/best?`
+    
+    if(after){
+        url += `after=${after}&`
+    }
+    if(limit){
+        url += `limit=${limit}&`
+    }
     return {
         type:PULL_BEST,
         payload: axios
-            .get(`/api/hot`)
+            .get(url)
             .then(response => response.data)
             .catch(console.log)
     }
@@ -61,6 +69,27 @@ export default function userReducer(state = initialState, action) {
         
         //PULL_HOT axios call failed
         case `${PULL_HOT}_REJECTED`:
+            return Object.assign({}, state, {
+                isLoading: false,
+                didError: true
+            });
+
+            
+        //PULL_BEST axios call is pending
+        case `${PULL_BEST}_PENDING`:
+            return Object.assign({}, state, { isLoading: true });
+
+        //Adding PULL_BEST response to the posts array on state
+        case `${PULL_BEST}_FULFILLED`:
+            console.log(action.payload)
+            return Object.assign({}, state, {
+                isLoading: false,
+                posts: action.payload.posts,
+                after: action.payload.after
+            });
+        
+        //PULL_BEST axios call failed
+        case `${PULL_BEST}_REJECTED`:
             return Object.assign({}, state, {
                 isLoading: false,
                 didError: true
