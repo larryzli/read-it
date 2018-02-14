@@ -1,5 +1,8 @@
 // IMPORT DEPENDENCIES
 import React from "react";
+import { Link } from "react-router-dom";
+// IMPORT COMPONENTS
+
 // IMPORT ICONS
 import commentIcon from "../../icons/comment_tiny.svg";
 import upvoteIcon from "../../icons/ic_keyboard_arrow_up_white_24px.svg";
@@ -33,25 +36,29 @@ const PostCard = ({
                     <img className="post-thumbnail" src={thumbnail} alt="" />
                 </a>
             )}
-            <div className="post-info">
-                <div className="post-title">
-                    {title}
-                    <span className="post-domain"> ({domain})</span>
+            <Link className="post-route" to={`/r/${subreddit}/${postID}`}>
+                <div className="post-info">
+                    <div className="post-title">
+                        {title}
+                        <span className="post-domain"> ({domain})</span>
+                    </div>
+                    <div className="post-details">
+                        <span className="post-subreddit">r/{subreddit}</span>
+                        {" • "}
+                        <span className="post-author">{author}</span>
+                    </div>
+                    <div className="post-data">
+                        <span className="post-age">{created}</span>
+                        {" • "}
+                        <span className="post-comments">
+                            <span className="post-comment-count">
+                                {comments}
+                            </span>
+                            <img src={commentIcon} alt="comment icon" />
+                        </span>
+                    </div>
                 </div>
-                <div className="post-details">
-                    <span className="post-subreddit">r/{subreddit}</span>
-                    {" • "}
-                    <span className="post-author">{author}</span>
-                </div>
-                <div className="post-data">
-                    <span className="post-age">{created}</span>
-                    {" • "}
-                    <span className="post-comments">
-                        <span className="post-comment-count">{comments}</span>
-                        <img src={commentIcon} alt="comment icon" />
-                    </span>
-                </div>
-            </div>
+            </Link>
             <div className="post-score-container">
                 <img
                     className="post-upvote"
