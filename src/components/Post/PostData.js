@@ -6,7 +6,15 @@ import moment from "moment";
 const PostData = ({ postData }) => {
   return (
     <div className="postdata-container">
-      <div>{/* <img src="" alt=""/> */} IMAGE AND LINK AND DOMAIN</div>
+      <div>
+        {postData.image ? (
+          <img
+            className="postdata-image"
+            src={postData.image}
+            alt="link preview"
+          />
+        ) : null}
+      </div>
       <div className="postdata-info-container">
         <div className="postdata-title">{postData.post_title}</div>
         <div className="postdata-data">
@@ -14,7 +22,7 @@ const PostData = ({ postData }) => {
           {" • "}
           <span>{moment(postData.created_at * 1000).fromNow()}</span>
           {" • "}
-          <span># COMMENTS</span>
+          <span>{postData.comments_num} comments</span>
         </div>
       </div>
     </div>
