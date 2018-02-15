@@ -20,6 +20,7 @@ const MessageCard = ({
             <div className="post-title">{subject}</div>
             <div className="post-subreddit">{author}</div>
             <div className="">{body}</div>
+            <div>{date}</div>
             <img
                 className="post-store-container"
                 src={moreIcon}
