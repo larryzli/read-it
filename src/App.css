@@ -144,7 +144,8 @@ html {
       margin-left: -3px; }
     .comment-wrapper .comment-container .comment-text {
       font-size: 12px;
-      font-weight: 300; }
+      font-weight: 300;
+      flex-grow: 1; }
       .comment-wrapper .comment-container .comment-text .comment-data {
         color: #bbb;
         margin-bottom: 3px; }
@@ -153,8 +154,7 @@ html {
       .comment-wrapper .comment-container .comment-text .comment-body {
         overflow-wrap: break-word;
         word-wrap: break-word;
-        word-break: break-word;
-        flex-grow: 1; }
+        word-break: break-word; }
 
 .load-more {
   font-size: 10px;

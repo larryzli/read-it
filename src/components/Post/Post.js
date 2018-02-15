@@ -39,7 +39,7 @@ class Post extends Component {
         <Comment
           postID={this.state.postData.post_id}
           key={index}
-          commentData={comment}
+          commentData={comment.data}
         />
       );
     });
