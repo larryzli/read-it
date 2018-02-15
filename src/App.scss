@@ -226,6 +226,7 @@ html {
     .comment-text {
       font-size: 12px;
       font-weight: 300;
+      flex-grow: 1;
       .comment-data {
         color: $grey3;
         margin-bottom: 3px;
@@ -237,7 +238,6 @@ html {
         overflow-wrap: break-word;
         word-wrap: break-word;
         word-break: break-word;
-        flex-grow: 1;
       }
     }
   }

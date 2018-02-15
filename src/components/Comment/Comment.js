@@ -133,8 +133,9 @@ class Comment extends Component {
               <span className="comment-author">
                 {this.props.commentData.author}
               </span>
+              {"   "}
               <span className="comment-score">
-                {/* {this.props.commentData.votes} points */}
+                {/* {this.props.commentData.score} points */}
               </span>
             </div>
             <div className="comment-body">{this.props.commentData.body}</div>
