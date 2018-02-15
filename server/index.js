@@ -50,10 +50,14 @@ passport.use(
     {
       clientID: APP_ID,
       clientSecret: APP_SECRET,
-      callbackURL: `${REACT_APP_HOST}/auth/reddit/callback`
+      callbackURL: `${REACT_APP_HOST}/auth/reddit/callback`,
+      scope:
+        "identity edit flair history modconfig modflair modlog modposts modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread"
     },
     function(accessToken, refreshToken, profile, done) {
       // CHECK TO SEE IF THERES ALREADY A USER WITH THAT AUTH ID IN OUR DATABASE
+      console.log(accessToken);
+      profile.accessToken = accessToken;
       app
         .get("db")
         .getUserById(profile.id)
@@ -88,7 +92,7 @@ app.get("/auth/reddit", function(req, res, next) {
 app.get("/auth/reddit/callback", function(req, res, next) {
   passport.authenticate("reddit", {
     successRedirect: "http://localhost:3000",
-    failureRedirect: "/"
+    failureRedirect: "http://localhost:3000"
   })(req, res, next);
 });
 
