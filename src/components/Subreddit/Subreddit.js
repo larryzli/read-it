@@ -10,7 +10,7 @@ import PostCard from "../PostCard/PostCard";
 // IMPORT REDUX FUNCTIONS
 import { pullHot } from "../../ducks/subredditReducer";
 import { getUserInfo } from "../../ducks/userReducer";
-
+import axios from "axios";
 // COMPONENT
 class Subreddit extends Component {
   constructor(props) {
@@ -78,6 +78,15 @@ class Subreddit extends Component {
             LOGGED IN
             <button onClick={this.onDock}>
               {this.state.docked ? "unpin" : "pin"}
+            </button>
+            <button
+              onClick={() =>
+                axios
+                  .get("/api/friends/get")
+                  .then(response => console.log(response.data))
+              }
+            >
+              Test
             </button>
           </h3>
           <button>LOGOUT</button>
