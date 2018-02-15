@@ -16,11 +16,11 @@ class Messaging extends Component {
     }
 
     refreshAction = () => {
-
+        //fire axios.get() on messages endpoint 
     };
 
     backAction = () => {
-
+        this.props.history.goBack();
     };
 
     componentDidMount() {
@@ -32,24 +32,29 @@ class Messaging extends Component {
 
     render() {
 
-        const message = [<MessageCard
-            date={"test"}
-            subject={"test"}
-            body={"Don't test me bro!"}
-            author={"SpaghetToucher123"}
-        />,
-        <MessageCard
-            date={"test"}
-            subject={"test"}
-            body={"Don't test me bro!"}
-            author={"SpaghetToucher123"}
-        />,
-        <MessageCard
-            date={"test"}
-            subject={"test"}
-            body={"Don't test me bro!"}
-            author={"SpaghetToucher123"}
-        />]
+        const message = [
+            <MessageCard
+                date={"test"}
+                subject={"Subject"}
+                body={"Don't test me bro!"}
+                author={"SpaghetToucher123"}
+                key={0}
+            />,
+            <MessageCard
+                date={"test"}
+                subject={"Subject"}
+                body={"Don't test me bro!"}
+                author={"SpaghetToucher123"}
+                key={1}
+            />,
+            <MessageCard
+                date={"test"}
+                subject={"Subject"}
+                body={"Don't test me bro!"}
+                author={"SpaghetToucher123"}
+                key={2}
+            />]
+        console.log(this.props.history)
         return (
             <div>
                 <MessageNavigation
@@ -57,7 +62,6 @@ class Messaging extends Component {
                     refreshAction={this.refreshAction}
                     backAction={this.backAction}
                 />
-                <div className=""> Messaging Component</div>
                 <div className="posts">
                     {message}
                 </div>

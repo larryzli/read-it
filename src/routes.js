@@ -11,6 +11,6 @@ export default (
         <Route exact path="/" component={Subreddit} />
         {/* <Route path="/r/:subreddit" component={Subreddit} /> */}
         <Route path="/r/:subreddit/:post" component={Post} />
-        <Route path="/messages" component={Messaging} />
+        <Route path="/messaging" component={Messaging} />
     </Switch>
 );
