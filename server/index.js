@@ -4,7 +4,7 @@ const cors = require("cors");
 const { json } = require("body-parser");
 const massive = require("massive");
 const {
-    CONNECTION_STRING,
+  CONNECTION_STRING,
   NODE_PORT,
   APP_ID,
   APP_SECRET,
@@ -19,13 +19,7 @@ const crypto = require("crypto");
 const RedditStrategy = require("passport-reddit").Strategy;
 const axios = require("axios");
 
-const {
-    getUserInfo,
-  pullHot,
-  pullBest,
-  getPost,
-  getMoreComments
-} = require("./controllers/userAccountController");
+const masterRouter = require("./masterRouter");
 
 const port = NODE_PORT || 3005;
 const app = express();
@@ -58,13 +52,12 @@ passport.use(
       clientSecret: APP_SECRET,
       callbackURL: `${REACT_APP_HOST}/auth/reddit/callback`
     },
-    function (accessToken, refreshToken, profile, done) {
+    function(accessToken, refreshToken, profile, done) {
       // CHECK TO SEE IF THERES ALREADY A USER WITH THAT AUTH ID IN OUR DATABASE
       app
         .get("db")
         .getUserById(profile.id)
         .then(response => {
-          console.log(response);
           if (response[0]) {
             done(null, profile);
           } else {
@@ -85,26 +78,21 @@ passport.use(
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
-app.get("/auth/reddit", function (req, res, next) {
-  console.log("hit api");
+app.get("/auth/reddit", function(req, res, next) {
   passport.authenticate("reddit", {
     state: crypto.randomBytes(32).toString("hex"),
     duration: "permanent"
   })(req, res, next);
 });
 
-app.get("/auth/reddit/callback", function (req, res, next) {
+app.get("/auth/reddit/callback", function(req, res, next) {
   passport.authenticate("reddit", {
     successRedirect: "http://localhost:3000",
     failureRedirect: "/"
   })(req, res, next);
 });
 
-app.get("/api/hot", pullHot);
-app.get("/api/best", pullBest);
-app.get("/api/user/info", getUserInfo);
-app.get("/api/post/:subreddit_title/:post_id", getPost);
-app.get("/api/post/comments/more/:post_id/:children", getMoreComments);
+masterRouter(app);
 
 app.listen(port, () => {
   console.log("Server listening on port: ", port);
