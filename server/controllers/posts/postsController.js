@@ -16,16 +16,7 @@ const getPost = (req, res, next) => {
           author: r.author,
           body: r.selftext
         },
-        comments: response.data[1].data.children.map(el => {
-          return {
-            comment_id: el.data.id,
-            author: el.data.author,
-            body: el.data.body,
-            votes: el.data.score,
-            depth: el.data.depth,
-            replies: el.data.replies
-          };
-        })
+        comments: response.data[1].data.children
       });
     })
     .catch(console.log);

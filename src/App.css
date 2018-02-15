@@ -34,7 +34,8 @@ html {
         flex-direction: column; }
         .nav-background .nav-left .nav-page-container .nav-title .nav-page-name {
           font-size: 14px;
-          font-weight: 500; }
+          font-weight: 500;
+          margin-bottom: 3px; }
         .nav-background .nav-left .nav-page-container .nav-title .nav-page-subtitle {
           font-size: 10px;
           font-weight: 100;
@@ -64,7 +65,9 @@ html {
         margin-right: 8px; }
     .posts .post-container .post-route {
       text-decoration: none;
-      width: 100%; }
+      width: 100%;
+      display: flex;
+      align-items: center; }
       .posts .post-container .post-route .post-info {
         display: flex;
         flex-direction: column;
@@ -80,7 +83,7 @@ html {
             font-size: 10px; }
         .posts .post-container .post-route .post-info .post-details {
           font-size: 10px;
-          color: grey;
+          color: #bbb;
           padding: 3px 0; }
           .posts .post-container .post-route .post-info .post-details .post-subreddit {
             color: #4a90e2;
@@ -106,5 +109,56 @@ html {
         margin-top: -2px; }
       .posts .post-container .post-score-container .post-downvote {
         margin-bottom: -2px; }
+
+.postdata-container {
+  background-color: #505050; }
+  .postdata-container .postdata-info-container {
+    padding: 10px; }
+    .postdata-container .postdata-info-container .postdata-title {
+      font-size: 14px;
+      font-weight: 300;
+      color: #fff;
+      margin-bottom: 3px; }
+    .postdata-container .postdata-info-container .postdata-data {
+      font-size: 10px;
+      color: #bbb; }
+
+.comments-wrapper {
+  margin-top: 10px; }
+
+.comment-wrapper {
+  background-color: #333; }
+  .comment-wrapper .comment-container {
+    display: flex;
+    padding: 10px;
+    background-color: #505050;
+    flex-grow: 1;
+    margin-bottom: 1px; }
+    .comment-wrapper .comment-container .comment-collapse {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      color: #bbb;
+      margin-right: 5px;
+      margin-left: -3px; }
+    .comment-wrapper .comment-container .comment-text {
+      font-size: 12px;
+      font-weight: 300; }
+      .comment-wrapper .comment-container .comment-text .comment-data {
+        color: #bbb;
+        margin-bottom: 3px; }
+        .comment-wrapper .comment-container .comment-text .comment-data .comment-author {
+          font-weight: 500; }
+      .comment-wrapper .comment-container .comment-text .comment-body {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+        flex-grow: 1; }
+
+.load-more {
+  font-size: 10px;
+  color: #4a90e2;
+  margin-left: 5px; }
 
 /*# sourceMappingURL=App.css.map */
