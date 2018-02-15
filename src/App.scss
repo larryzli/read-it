@@ -3,172 +3,248 @@ $grey0: #111;
 $grey1: #333;
 $grey2: #444;
 $grey3: #bbb;
+$grey4: rgb(80, 80, 80);
 $white: #fff;
 $blue1: #4a90e2;
 
 // SHADOW
 $shadow: 0px 0px 2px $grey0;
 
+// FONT-SIZES
+$fsize1: 10px;
+
 // BASE APP STYLING
 html {
-    background-color: $grey1;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  background-color: $grey1;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .app-background {
-    color: $white;
+  color: $white;
 }
 
 // NAVIGATION STYLING
 .nav-background {
-    background-color: $grey2;
-    box-shadow: $shadow;
-    height: 56px;
+  background-color: $grey2;
+  box-shadow: $shadow;
+  height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 10px;
+  position: sticky;
+  top: 0;
+
+  .nav-left {
     display: flex;
-    justify-content: space-between;
+    width: 60%;
+    justify-content: flex-start;
+
+    .nav-left-icon {
+      margin-right: 15px;
+    }
+
+    .nav-page-container {
+      display: flex;
+      justify-content: space-between;
+      flex-grow: 1;
+      align-items: center;
+
+      .nav-title {
+        display: flex;
+        flex-direction: column;
+
+        .nav-page-name {
+          font-size: 14px;
+          font-weight: 500;
+          margin-bottom: 3px;
+        }
+
+        .nav-page-subtitle {
+          font-size: $fsize1;
+          font-weight: 100;
+          color: $grey3;
+        }
+      }
+    }
+  }
+
+  .nav-right {
+    display: flex;
+    justify-content: flex-end;
     align-items: center;
-    padding-left: 15px;
-    padding-right: 10px;
-    position: sticky;
-    top: 0;
 
-    .nav-left {
-        display: flex;
-        width: 60%;
-        justify-content: flex-start;
-
-        .nav-left-icon {
-            margin-right: 15px;
-        }
-
-        .nav-page-container {
-            display: flex;
-            justify-content: space-between;
-            flex-grow: 1;
-            align-items: center;
-
-            .nav-title {
-                display: flex;
-                flex-direction: column;
-
-                .nav-page-name {
-                    font-size: 14px;
-                    font-weight: 500;
-                }
-
-                .nav-page-subtitle {
-                    font-size: 10px;
-                    font-weight: 100;
-                    color: $grey3;
-                }
-            }
-        }
+    .nav-left-icon {
+      margin-left: 15px;
     }
-
-    .nav-right {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-
-        .nav-left-icon {
-            margin-left: 15px;
-        }
-    }
+  }
 }
 
-// POSTS STYLING
+// POSTCARD STYLING
 .posts {
+  padding: 10px;
+
+  .post-container {
+    min-height: 62px;
+    background-color: $grey2;
+    box-shadow: $shadow;
+    border-radius: 3px;
+    padding: 8px;
+    margin-bottom: 10px;
+    display: flex;
+
+    .post-link {
+      font-size: 0;
+
+      .post-thumbnail {
+        height: 62px;
+        width: 62px;
+        margin-right: 8px;
+      }
+    }
+    .post-route {
+      text-decoration: none;
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      .post-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-grow: 1;
+
+        .post-title {
+          font-size: 12px;
+          font-weight: 300;
+          color: $white;
+
+          .post-domain {
+            color: $grey3;
+            font-weight: 200;
+            font-size: $fsize1;
+          }
+        }
+
+        .post-details {
+          font-size: $fsize1;
+          color: $grey3;
+          padding: 3px 0;
+
+          .post-subreddit {
+            color: $blue1;
+            white-space: nowrap;
+          }
+
+          .post-author {
+            white-space: nowrap;
+          }
+        }
+        .post-data {
+          font-size: $fsize1;
+          color: grey;
+
+          .post-age {
+            white-space: nowrap;
+          }
+          .post-comments {
+            white-space: nowrap;
+
+            .post-comment-count {
+              margin-right: 3px;
+            }
+          }
+        }
+      }
+    }
+    .post-score-container {
+      display: flex;
+      flex-direction: column;
+
+      .post-score {
+        font-size: 12px;
+        padding: 2px 0;
+      }
+
+      .post-upvote {
+        margin-top: -2px;
+      }
+
+      .post-downvote {
+        margin-bottom: -2px;
+      }
+    }
+  }
+}
+
+// POSTDATA STYLING
+.postdata-container {
+  background-color: $grey4;
+  .postdata-info-container {
     padding: 10px;
 
-    .post-container {
-        min-height: 62px;
-        background-color: $grey2;
-        box-shadow: $shadow;
-        border-radius: 3px;
-        padding: 8px;
-        margin-bottom: 10px;
-        display: flex;
-
-        .post-link {
-            font-size: 0;
-
-            .post-thumbnail {
-                height: 62px;
-                width: 62px;
-                margin-right: 8px;
-            }
-        }
-        .post-route {
-            text-decoration: none;
-            width: 100%;
-
-            .post-info {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                flex-grow: 1;
-
-                .post-title {
-                    font-size: 12px;
-                    font-weight: 300;
-                    color: $white;
-
-                    .post-domain {
-                        color: $grey3;
-                        font-weight: 200;
-                        font-size: 10px;
-                    }
-                }
-
-                .post-details {
-                    font-size: 10px;
-                    color: grey;
-                    padding: 3px 0;
-
-                    .post-subreddit {
-                        color: $blue1;
-                        white-space: nowrap;
-                    }
-
-                    .post-author {
-                        white-space: nowrap;
-                    }
-                }
-                .post-data {
-                    font-size: 10px;
-                    color: grey;
-
-                    .post-age {
-                        white-space: nowrap;
-                    }
-                    .post-comments {
-                        white-space: nowrap;
-
-                        .post-comment-count {
-                            margin-right: 3px;
-                        }
-                    }
-                }
-            }
-        }
-        .post-score-container {
-            display: flex;
-            flex-direction: column;
-
-            .post-score {
-                font-size: 12px;
-                padding: 2px 0;
-            }
-
-            .post-upvote {
-                margin-top: -2px;
-            }
-
-            .post-downvote {
-                margin-bottom: -2px;
-            }
-        }
+    .postdata-title {
+      font-size: 14px;
+      font-weight: 300;
+      color: $white;
+      margin-bottom: 3px;
     }
+
+    .postdata-data {
+      font-size: $fsize1;
+      color: $grey3;
+    }
+  }
+}
+
+// COMMENT STYLING
+.comments-wrapper {
+  margin-top: 10px;
+}
+
+.comment-wrapper {
+  background-color: $grey1;
+  .comment-container {
+    display: flex;
+    padding: 10px;
+    background-color: $grey4;
+    flex-grow: 1;
+    margin-bottom: 1px;
+
+    .comment-collapse {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      color: $grey3;
+      margin-right: 5px;
+      margin-left: -3px;
+    }
+    .comment-text {
+      font-size: 12px;
+      font-weight: 300;
+      .comment-data {
+        color: $grey3;
+        margin-bottom: 3px;
+        .comment-author {
+          font-weight: 500;
+        }
+      }
+      .comment-body {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        word-break: break-word;
+        flex-grow: 1;
+      }
+    }
+  }
+}
+
+.load-more {
+  font-size: $fsize1;
+  color: $blue1;
+  margin-left: 5px;
 }
