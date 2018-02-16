@@ -49,7 +49,7 @@ class Subreddit extends Component {
     }
   };
   loginHandler = () => {
-    window.location.href = `${process.env.REACT_APP_HOST}/auth/reddit`;
+    window.location.href = "/auth/reddit";
   };
   componentDidMount() {
     // GET USER INFO
@@ -78,6 +78,16 @@ class Subreddit extends Component {
             LOGGED IN
             <button onClick={this.onDock}>
               {this.state.docked ? "unpin" : "pin"}
+            </button>
+            <button
+              onClick={() =>
+                axios
+                  .post("/api/compose")
+                  .then(response => console.log(response))
+                  .catch(console.log)
+              }
+            >
+              Test
             </button>
           </h3>
           <button>LOGOUT</button>
