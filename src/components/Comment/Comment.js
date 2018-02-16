@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 // IMPORT ICONS
-import collapseIcon from "../../icons/ic_arrow_drop_down_grey_20px copy.svg";
+import collapseIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
 
 class Comment extends Component {
   constructor(props) {
@@ -112,6 +112,18 @@ class Comment extends Component {
               : null
           }
         >
+          <div className="comment-text">
+            <div className="comment-data">
+              <span className="comment-author">
+                {this.props.commentData.author}
+              </span>
+              {"   "}
+              <span className="comment-score">
+                {this.props.commentData.score} points
+              </span>
+            </div>
+            <div className="comment-body">{this.props.commentData.body}</div>
+          </div>
           {replies ? (
             <div
               className="comment-collapse"
@@ -121,25 +133,13 @@ class Comment extends Component {
                 <img src={collapseIcon} alt="collapse icon" />
               ) : (
                 <img
-                  style={{ transform: "rotate(-0.25turn)" }}
+                  style={{ transform: "rotate(0.25turn)" }}
                   src={collapseIcon}
                   alt="open icon"
                 />
               )}
             </div>
           ) : null}
-          <div className="comment-text">
-            <div className="comment-data">
-              <span className="comment-author">
-                {this.props.commentData.author}
-              </span>
-              {"   "}
-              <span className="comment-score">
-                {/* {this.props.commentData.score} points */}
-              </span>
-            </div>
-            <div className="comment-body">{this.props.commentData.body}</div>
-          </div>
         </div>
         {this.state.showReplies && replies ? replies : null}
         {moreComments}
