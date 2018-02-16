@@ -6,6 +6,7 @@ const getPost = (req, res, next) => {
     .get(`https://www.reddit.com/r/${subreddit_title}/${post_id}.json`)
     .then(response => {
       let r = response.data[0].data.children[0].data;
+      console.log(r);
       res.status(200).json({
         post: {
           domain: r.domain,
@@ -19,18 +20,16 @@ const getPost = (req, res, next) => {
           url: r.url,
           created: r.created,
           comments_num: r.num_comments,
-          image: r.preview.images[0].source.url,
+          image: r.preview
+            ? r.preview.images[0].source.url.split("amp;").join("")
+            : "",
           upvote_ratio: r.upvote_ratio,
           is_self: r.is_self,
           over_18: r.over_18,
           thumbnail: r.thumbnail,
-          video: () => {
-            if (r.preview.reddit_video_preview.fallback_url) {
-              return r.preview.reddit_video_preview.fallback_url;
-            } else {
-              return false;
-            }
-          }
+          video: r.preview.reddit_video_preview
+            ? r.preview.reddit_video_preview.fallback_url
+            : false
         },
         comments: response.data[1].data.children
       });
