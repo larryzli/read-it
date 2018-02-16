@@ -79,15 +79,6 @@ class Subreddit extends Component {
             <button onClick={this.onDock}>
               {this.state.docked ? "unpin" : "pin"}
             </button>
-            <button
-              onClick={() =>
-                axios
-                  .get("/api/friends/get")
-                  .then(response => console.log(response.data))
-              }
-            >
-              Test
-            </button>
           </h3>
           <button>LOGOUT</button>
         </div>
