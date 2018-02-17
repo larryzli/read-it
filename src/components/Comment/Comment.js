@@ -81,6 +81,11 @@ class Comment extends Component {
           postID={this.props.postID}
           key={index}
           commentData={comment.data}
+          // style={
+          //   comment.data.depth !== 1
+          //     ? { marginLeft: "5px", color: "red" }
+          //     : null
+          // }
         />
       );
     });

@@ -17,7 +17,8 @@ html {
   padding-left: 15px;
   padding-right: 10px;
   position: sticky;
-  top: 0; }
+  top: 0;
+  z-index: 1; }
   .nav-background .nav-left {
     display: flex;
     width: 60%;
@@ -46,6 +47,86 @@ html {
     align-items: center; }
     .nav-background .nav-right .nav-left-icon {
       margin-left: 15px; }
+
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #444;
+  height: 100%;
+  width: 250px;
+  font-size: 12px; }
+  .menu-container .menu-logo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 15px 15px;
+    background-color: #333; }
+    .menu-container .menu-logo-container .menu-logo {
+      font-size: 25px; }
+      .menu-container .menu-logo-container .menu-logo .logo-up {
+        color: #39ff7b;
+        transform: rotate(0.5turn);
+        display: inline-block;
+        margin-left: 2px; }
+      .menu-container .menu-logo-container .menu-logo .logo-down {
+        color: #ff445b; }
+    .menu-container .menu-logo-container .menu-pin {
+      font-size: 20px; }
+  .menu-container .menu-account-container {
+    background-color: #444;
+    border-bottom: 1px solid #333;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between; }
+    .menu-container .menu-account-container .menu-add-account {
+      outline: 0;
+      color: #39ff7b;
+      background-color: transparent;
+      border: none;
+      padding: 0; }
+    .menu-container .menu-account-container .menu-remove-account {
+      outline: 0;
+      color: #ff445b;
+      background-color: transparent;
+      border: none;
+      padding: 0; }
+  .menu-container .menu-submenu-list {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #333; }
+    .menu-container .menu-submenu-list .menu-submenu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px; }
+      .menu-container .menu-submenu-list .menu-submenu-item:hover {
+        background-color: #505050; }
+      .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-title {
+        display: flex;
+        align-items: center; }
+        .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-title .menu-submenu-icon {
+          margin-right: 10px; }
+  .menu-container .menu-subreddit-container {
+    display: flex;
+    flex-direction: column; }
+    .menu-container .menu-subreddit-container .menu-subreddit-search {
+      background-color: transparent;
+      color: white;
+      outline: 0;
+      border: none;
+      padding: 5px 0;
+      margin: 15px;
+      border-bottom: 1px solid #bbb; }
+      .menu-container .menu-subreddit-container .menu-subreddit-search::placeholder {
+        color: #bbb; }
+    .menu-container .menu-subreddit-container .menu-subreddit-list {
+      display: flex;
+      flex-direction: column; }
+      .menu-container .menu-subreddit-container .menu-subreddit-list .menu-subreddit-title {
+        padding: 10px 15px; }
+        .menu-container .menu-subreddit-container .menu-subreddit-list .menu-subreddit-title:hover {
+          background-color: #505050; }
 
 .posts {
   padding: 10px; }
@@ -150,7 +231,10 @@ html {
       .postdata-container .postdata-link .postdata-link-info-container .postdata-link-info {
         font-size: 12px;
         color: rgba(255, 255, 255, 0.6);
-        text-decoration: none; }
+        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; }
   .postdata-container .postdata-info-container {
     padding: 10px; }
     .postdata-container .postdata-info-container .postdata-title {
@@ -190,6 +274,9 @@ html {
         margin-bottom: 3px; }
         .comment-wrapper .comment-container .comment-text .comment-data .comment-author {
           font-weight: 500; }
+        .comment-wrapper .comment-container .comment-text .comment-data .comment-score {
+          font-weight: 100;
+          opacity: 0.5; }
       .comment-wrapper .comment-container .comment-text .comment-body {
         overflow-wrap: break-word;
         word-wrap: break-word;
