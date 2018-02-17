@@ -1,4 +1,5 @@
 const axios = require("axios");
+const querystring = require("querystring");
 
 const getUserInfo = (req, res, next) => {
   if (req.user) {
@@ -30,8 +31,7 @@ const reply = (req, res, next) => {
       },
       {
         headers: {
-          Authorization: `Bearer ${req.body.accessToken}`,
-          "Content-Type": "application/x-www-form-urlencoded"
+          Authorization: `Bearer ${req.body.accessToken}`
         }
       }
     )
@@ -41,19 +41,20 @@ const reply = (req, res, next) => {
 
 const compose = (req, res, next) => {
   const { name, text } = req.body;
+  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/compose",
-      {
+      querystring.stringify({
         to: "domoKing",
-        subject: "test",
-        text: "Hello",
+        subject: "test1",
+        text: "dfgdfgdfgdf",
         api_type: "json"
-      },
+      }),
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "Content-Type": "application/x-www-form-urlencoded"
+          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
         }
       }
     )

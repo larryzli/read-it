@@ -49,7 +49,7 @@ class Subreddit extends Component {
     }
   };
   loginHandler = () => {
-    window.location.href = "/auth/reddit";
+    window.location.href = "http://localhost:3005/auth/reddit";
   };
   componentDidMount() {
     // GET USER INFO
