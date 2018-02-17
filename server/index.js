@@ -5,7 +5,7 @@ const { json } = require("body-parser");
 const massive = require("massive");
 const {
   CONNECTION_STRING,
-  PORT,
+  NODE_PORT,
   APP_ID,
   APP_SECRET,
   REACT_APP_HOST,
@@ -25,7 +25,7 @@ const path = require("path");
 
 const masterRouter = require("./masterRouter");
 
-const port = PORT || 3005;
+const port = NODE_PORT || 3005;
 const app = express();
 
 app.use(
@@ -44,7 +44,7 @@ massive(CONNECTION_STRING)
 
 app.use(cors());
 app.use(json());
-app.use(express.static(`${__dirname}/../build`));
+// app.use(express.static(`${__dirname}/../build`));
 
 // AUTH REDDIT WRAPPER
 // reddit.setupOAuth2(
@@ -104,7 +104,6 @@ passport.use(
     function(accessToken, refreshToken, profile, done) {
       // CHECK TO SEE IF THERES ALREADY A USER WITH THAT AUTH ID IN OUR DATABASE
       profile.accessToken = accessToken;
-      console.log(accessToken);
       app
         .get("db")
         .getUserById(profile.id)
@@ -138,16 +137,16 @@ app.get("/auth/reddit", function(req, res, next) {
 
 app.get("/auth/reddit/callback", function(req, res, next) {
   passport.authenticate("reddit", {
-    successRedirect: "/",
-    failureRedirect: "/"
+    successRedirect: "http://localhost:3000",
+    failureRedirect: "http://localhost:3000"
   })(req, res, next);
 });
 
 masterRouter(app);
 
-app.get("*", (req, res, next) => {
-  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
-});
+// app.get("*", (req, res, next) => {
+//   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+// });
 
 app.listen(port, () => {
   console.log("Server listening on port: ", port);
