@@ -16,6 +16,7 @@ import profileIcon from "../../icons/ic_person_white_20px.svg";
 import messageIcon from "../../icons/ic_email_white_20px.svg";
 import settingsIcon from "../../icons/ic_settings_white_20px.svg";
 import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
+import axios from "axios";
 
 // COMPONENT
 class Subreddit extends Component {
@@ -82,7 +83,17 @@ class Subreddit extends Component {
             {this.props.user.user ? this.props.user.user.name : "Guest"}
           </span>
           {this.props.user.user ? (
-            <button className="menu-remove-account">LOGOUT</button>
+            <button
+              className="menu-remove-account"
+              onClick={() =>
+                axios
+                  .post("/api/vote")
+                  .then(res => console.log(res))
+                  .catch(console.log)
+              }
+            >
+              LOGOUT
+            </button>
           ) : (
             <button
               className="menu-add-account"
