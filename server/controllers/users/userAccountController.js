@@ -52,7 +52,7 @@ const unfriend = (req, res, next) => {
 
   axios
     .put(
-    `https://oauth.reddit.com/r/gifs/api/unfriend`,
+    `https://oauth.reddit.com/api/unfriend`,
     {
       api_type: "json",
       id: `${userid}`,
