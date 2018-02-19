@@ -1,13 +1,12 @@
 const axios = require("axios");
 
-
 //GET HOT POSTS FROM A SUBREDDIT
 const pullHot = (req, res, next) => {
   let baseURL = "https://www.reddit.com/hot.json?";
   const { subreddit, limit, after } = req.query;
   if (req.query) {
     if (subreddit) {
-      baseURL = `https://www.reddit.com/r/${subreddit}/hot.json?`
+      baseURL = `https://www.reddit.com/r/${subreddit}/hot.json?`;
     }
     if (limit) {
       baseURL += `limit=${limit}&`;
@@ -43,8 +42,6 @@ const pullHot = (req, res, next) => {
     )
     .catch(console.log);
 };
-
-
 
 //GET BEST
 const pullBest = (req, res, next) => {
@@ -89,7 +86,7 @@ const pullNew = (req, res, next) => {
   const { subreddit, limit, after } = req.query;
   if (req.query) {
     if (subreddit) {
-      baseURL = `https://www.reddit.com/r/${subreddit}/new.json?`
+      baseURL = `https://www.reddit.com/r/${subreddit}/new.json?`;
     }
     if (limit) {
       baseURL += `limit=${limit}&`;
@@ -128,17 +125,12 @@ const pullNew = (req, res, next) => {
 
 //GET TOP FROM A SUBREDDIT
 const pullTop = (req, res, next) => {
-  console.log(req.query)
   let baseURL = `https://www.reddit.com/top.json?`;
-  const { subreddit,
-    t,
-    limit,
-    after
-  } = req.query
+  const { subreddit, t, limit, after } = req.query;
 
   if (req.query) {
     if (subreddit) {
-      baseURL = `https://www.reddit.com/r/${subreddit}/top.json?`
+      baseURL = `https://www.reddit.com/r/${subreddit}/top.json?`;
     }
     if (t) {
       baseURL += `sort=top&t=${t}&`;
@@ -182,14 +174,11 @@ const pullTop = (req, res, next) => {
 //GET CONTROVERSIAL FROM A SUBREDDIT
 const pullControversial = (req, res, next) => {
   let baseURL = `https://www.reddit.com/controversial.json?`;
-  const { subreddit,
-    t,
-    limit,
-    after } = req.query
+  const { subreddit, t, limit, after } = req.query;
 
   if (req.query) {
     if (subreddit) {
-      baseURL = `https://www.reddit.com/r/${subreddit}/controversial.json?`
+      baseURL = `https://www.reddit.com/r/${subreddit}/controversial.json?`;
     }
     if (t) {
       baseURL += `sort=top&t=${t}&`;
@@ -232,10 +221,10 @@ const pullControversial = (req, res, next) => {
 //GET RISING POSTS FROM A SUBREDDIT
 const pullRising = (req, res, next) => {
   let baseURL = `https://www.reddit.com/rising.json?`;
-  const { subreddit, limit, after } = req.query
+  const { subreddit, limit, after } = req.query;
   if (req.query) {
     if (subreddit) {
-      baseURL = `https://www.reddit.com/r/${subreddit}/rising.json?`
+      baseURL = `https://www.reddit.com/r/${subreddit}/rising.json?`;
     }
     if (limit) {
       baseURL += `limit=${limit}&`;
@@ -274,17 +263,12 @@ const pullRising = (req, res, next) => {
 
 //GET RANDOM POST FROM SUBREDDIT
 const pullRandom = (req, res, next) => {
-  console.log(req.query)
   let baseURL = `https://www.reddit.com/random.json?`;
-  const { subreddit,
-    t,
-    limit,
-    after
-  } = req.query
+  const { subreddit, t, limit, after } = req.query;
 
   if (req.query) {
     if (subreddit) {
-      baseURL = `https://www.reddit.com/r/${subreddit}/random.json?`
+      baseURL = `https://www.reddit.com/r/${subreddit}/random.json?`;
     }
     if (t) {
       baseURL += `sort=top&t=${t}&`;
@@ -297,16 +281,11 @@ const pullRandom = (req, res, next) => {
       baseURL += `after=${after}&`;
     }
   }
-  console.log(baseURL)
   axios
     .get(baseURL)
-    .then(response =>
-      res.status(200).json(response.data))
+    .then(response => res.status(200).json(response.data))
     .catch(console.log);
 };
-
-
-
 
 //GET USER SUBSCRIBED SUBREDDITS
 const getUserSubscriptions = (req, res, next) => {
@@ -318,7 +297,20 @@ const getUserSubscriptions = (req, res, next) => {
     })
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
-}
+};
+
+// NOT WORKING
+const sidebar = (req, res, next) => {
+  const { subreddit_name } = req.params;
+  axios
+    .get(`https://oauth.reddit.com/r/${subreddit_name}/sidebar`, {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`
+      }
+    })
+    .then(response => console.log(response))
+    .catch(console.log);
+};
 
 module.exports = {
   pullNew,
@@ -328,5 +320,6 @@ module.exports = {
   pullControversial,
   pullRising,
   pullRandom,
-  getUserSubscriptions
+  getUserSubscriptions,
+  sidebar
 };

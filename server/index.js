@@ -109,6 +109,7 @@ passport.use(
         .getUserById(profile.id)
         .then(response => {
           if (response[0]) {
+            console.log("hit");
             done(null, profile);
           } else {
             app
