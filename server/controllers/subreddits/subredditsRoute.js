@@ -6,10 +6,11 @@ const {
   pullRising,
   pullControversial,
   pullRandom,
-  getUserSubscriptions
- } = require("./subredditsController");
+  getUserSubscriptions,
+  sidebar
+} = require("./subredditsController");
 
-module.exports = function (app) {
+module.exports = function(app) {
   app.get("/api/hot", pullHot);
   app.get("/api/best", pullBest);
   app.get("/api/new", pullNew);
@@ -18,4 +19,5 @@ module.exports = function (app) {
   app.get("/api/controversial", pullControversial);
   app.get("/api/random", pullRandom);
   app.get("/api/subscriptions", getUserSubscriptions);
+  app.get("/api/sidebar/:subreddit_name", sidebar);
 };

@@ -4,10 +4,9 @@ import axios from 'axios'
 
 class Jordan extends Component {
   testApi() {
-    // let subreddit = "gifs"
-    // let t = "week"
+
     axios
-      .get(`/api/random?subreddit=gifs`)
+      .post(`/api/user/unfriend`, { username: "domoKing", userid: "t2_duibdft" })
       .then(response => console.log(response))
   }
 
