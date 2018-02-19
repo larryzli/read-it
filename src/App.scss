@@ -91,7 +91,7 @@ html {
   display: flex;
   flex-direction: column;
   background-color: $grey2;
-  height: 100%;
+  height: fit-content;
   width: 250px;
   font-size: 12px;
 
@@ -319,11 +319,12 @@ html {
       height: 35px;
       background-color: $grey4;
       border-radius: 0 0 3px 3px;
+
       .card-left-controls {
         display: flex;
         align-items: center;
-        // justify-content: space-between;
-        width: 60%;
+        // width: 200px;
+
         .card-control-icon {
           padding-left: 10px;
           padding-right: 15px;
@@ -432,6 +433,35 @@ html {
         overflow-wrap: break-word;
         word-wrap: break-word;
         word-break: break-word;
+      }
+    }
+  }
+
+  .comment-controls {
+    display: flex;
+    justify-content: space-between;
+    height: 35px;
+    background-color: $grey2;
+
+    .comment-left-controls {
+      width: 200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .comment-control-icon {
+        padding-left: 10px;
+        padding-right: 15px;
+        font-size: 15px;
+      }
+    }
+    .comment-right-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .comment-control-icon {
+        padding: 0 8px;
       }
     }
   }

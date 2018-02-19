@@ -52,7 +52,7 @@ html {
   display: flex;
   flex-direction: column;
   background-color: #444;
-  height: 100%;
+  height: fit-content;
   width: 250px;
   font-size: 12px; }
   .menu-container .menu-logo-container {
@@ -211,8 +211,7 @@ html {
       border-radius: 0 0 3px 3px; }
       .posts .card-container .card-controls .card-left-controls {
         display: flex;
-        align-items: center;
-        width: 60%; }
+        align-items: center; }
         .posts .card-container .card-controls .card-left-controls .card-control-icon {
           padding-left: 10px;
           padding-right: 15px;
@@ -294,6 +293,26 @@ html {
         overflow-wrap: break-word;
         word-wrap: break-word;
         word-break: break-word; }
+  .comment-wrapper .comment-controls {
+    display: flex;
+    justify-content: space-between;
+    height: 35px;
+    background-color: #444; }
+    .comment-wrapper .comment-controls .comment-left-controls {
+      width: 200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
+      .comment-wrapper .comment-controls .comment-left-controls .comment-control-icon {
+        padding-left: 10px;
+        padding-right: 15px;
+        font-size: 15px; }
+    .comment-wrapper .comment-controls .comment-right-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
+      .comment-wrapper .comment-controls .comment-right-controls .comment-control-icon {
+        padding: 0 8px; }
 
 .load-more {
   font-size: 10px;
