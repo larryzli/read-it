@@ -85,12 +85,12 @@ class Subreddit extends Component {
           {this.props.user.user ? (
             <button
               className="menu-remove-account"
-              onClick={() =>
+              onClick={() => {
                 axios
-                  .post("/api/vote")
+                  .post("/api/post/submit")
                   .then(res => console.log(res))
-                  .catch(console.log)
-              }
+                  .catch(console.log);
+              }}
             >
               LOGOUT
             </button>

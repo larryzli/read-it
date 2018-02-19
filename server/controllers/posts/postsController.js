@@ -7,7 +7,6 @@ const getPost = (req, res, next) => {
     .get(`https://www.reddit.com/r/${subreddit_title}/${post_id}.json`)
     .then(response => {
       let r = response.data[0].data.children[0].data;
-      console.log(r);
       res.status(200).json({
         post: {
           domain: r.domain,
@@ -137,7 +136,6 @@ const editComment = (req, res, next) => {
     .catch(console.log);
 };
 
-// NOT TESTED YET
 const lockPost = (req, res, next) => {
   const { id } = req.body;
   const userAgent = req.user._json.subreddit.display_name_prefixed;
@@ -158,7 +156,6 @@ const lockPost = (req, res, next) => {
     .catch(console.log);
 };
 
-// NOT TESTED YET
 const unlockPost = (req, res, next) => {
   const { id } = req.body;
   const userAgent = req.user._json.subreddit.display_name_prefixed;
@@ -179,6 +176,93 @@ const unlockPost = (req, res, next) => {
     .catch(console.log);
 };
 
+const report = (req, res, next) => {
+  const { reason, id } = req.body;
+  const userAgent = req.user._json.subreddit.display_name_prefixed;
+  axios
+    .post(
+      "https://oauth.reddit.com/api/report",
+      querystring.stringify({
+        api_type: "json",
+        reason: reason,
+        thing_id: id
+      }),
+      {
+        headers: {
+          Authorization: `bearer ${req.user.accessToken}`,
+          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+        }
+      }
+    )
+    .then(response => res.status(200).json(response.data))
+    .catch(console.log);
+};
+
+const hide = (req, res, next) => {
+  const { id } = req.body;
+  const userAgent = req.user._json.subreddit.display_name_prefixed;
+  axios
+    .post(
+      "https://oauth.reddit.com/api/hide",
+      querystring.stringify({
+        id: id
+      }),
+      {
+        headers: {
+          Authorization: `bearer ${req.user.accessToken}`,
+          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+        }
+      }
+    )
+    .then(response => res.status(200).json(response.data))
+    .catch(console.log);
+};
+
+const unhide = (req, res, next) => {
+  const { id } = req.body;
+  const userAgent = req.user._json.subreddit.display_name_prefixed;
+  axios
+    .post(
+      "https://oauth.reddit.com/api/unhide",
+      querystring.stringify({
+        id: id
+      }),
+      {
+        headers: {
+          Authorization: `bearer ${req.user.accessToken}`,
+          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+        }
+      }
+    )
+    .then(response => res.status(200).json(response.data))
+    .catch(console.log);
+};
+
+const submit = (req, res, next) => {
+  const { kind, title, text, sr, url } = req.body;
+  const userAgent = req.user._json.subreddit.display_name_prefixed;
+  axios
+    .post(
+      "https://oauth.reddit.com/api/submit",
+      querystring.stringify({
+        api_type: "json",
+        kind: kind,
+        title: title,
+        text: text,
+        sr: sr,
+        url: url
+      }),
+      {
+        headers: {
+          Authorization: `bearer ${req.user.accessToken}`,
+          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+        }
+      }
+    )
+    .then(response => res.status(200).json(response.data))
+    .catch(console.log);
+};
+
 module.exports = {
   getPost,
   getMoreComments,
@@ -187,5 +271,9 @@ module.exports = {
   deleteComment,
   editComment,
   lockPost,
-  unlockPost
+  unlockPost,
+  report,
+  hide,
+  unhide,
+  submit
 };
