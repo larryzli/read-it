@@ -111,7 +111,9 @@ html {
         .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-top .menu-submenu-title {
           display: flex;
           align-items: center;
-          flex-grow: 1; }
+          flex-grow: 1;
+          text-decoration: none;
+          color: #fff; }
           .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-top .menu-submenu-title .menu-submenu-icon {
             margin-right: 10px; }
       .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom {
