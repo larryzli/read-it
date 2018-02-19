@@ -150,19 +150,40 @@ html {
 
     .menu-submenu-item {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 15px;
-      &:hover {
-        background-color: $grey4;
+      flex-direction: column;
+
+      .menu-submenu-top {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px;
+        &:hover {
+          background-color: $grey4;
+        }
+
+        .menu-submenu-title {
+          display: flex;
+          align-items: center;
+
+          .menu-submenu-icon {
+            margin-right: 10px;
+          }
+        }
       }
 
-      .menu-submenu-title {
-        display: flex;
-        align-items: center;
+      .menu-submenu-bottom {
+        background-color: $grey1;
 
-        .menu-submenu-icon {
-          margin-right: 10px;
+        .menu-submenu-bottom-item {
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 45px;
+          padding-right: 15px;
+
+          &:hover {
+            background-color: $grey4;
+          }
         }
       }
     }

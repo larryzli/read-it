@@ -97,16 +97,29 @@ html {
     border-bottom: 1px solid #333; }
     .menu-container .menu-submenu-list .menu-submenu-item {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 15px; }
-      .menu-container .menu-submenu-list .menu-submenu-item:hover {
-        background-color: #505050; }
-      .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-title {
+      flex-direction: column; }
+      .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-top {
         display: flex;
-        align-items: center; }
-        .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-title .menu-submenu-icon {
-          margin-right: 10px; }
+        flex-grow: 1;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px; }
+        .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-top:hover {
+          background-color: #505050; }
+        .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-top .menu-submenu-title {
+          display: flex;
+          align-items: center; }
+          .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-top .menu-submenu-title .menu-submenu-icon {
+            margin-right: 10px; }
+      .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom {
+        background-color: #333; }
+        .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom .menu-submenu-bottom-item {
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 45px;
+          padding-right: 15px; }
+          .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom .menu-submenu-bottom-item:hover {
+            background-color: #505050; }
   .menu-container .menu-subreddit-container {
     display: flex;
     flex-direction: column; }
