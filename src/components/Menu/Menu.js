@@ -32,6 +32,9 @@ class Menu extends Component {
   loginHandler = () => {
     window.location.href = `${process.env.REACT_APP_HOST}/auth/reddit`;
   };
+  componentDidMount() {
+    this.props.getUserInfo();
+  }
   render() {
     return (
       <div className="menu-container">
