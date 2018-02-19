@@ -41,7 +41,8 @@ html {
         .nav-background .nav-left .nav-page-container .nav-title .nav-page-subtitle {
           font-size: 10px;
           font-weight: 100;
-          color: #bbb; }
+          color: #bbb;
+          text-transform: uppercase; }
   .nav-background .nav-right {
     display: flex;
     justify-content: flex-end;
