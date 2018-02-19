@@ -299,7 +299,6 @@ html {
     height: 35px;
     background-color: #444; }
     .comment-wrapper .comment-controls .comment-left-controls {
-      width: 200px;
       display: flex;
       justify-content: space-between;
       align-items: center; }

@@ -135,13 +135,15 @@ class Comment extends Component {
               onClick={e => this.revealReplies()}
             >
               {this.state.showReplies ? (
-                <img src={collapseIcon} alt="collapse icon" />
+                // <img src={collapseIcon} alt="collapse icon" />
+                <span>–</span>
               ) : (
-                <img
-                  style={{ transform: "rotate(0.25turn)" }}
-                  src={collapseIcon}
-                  alt="open icon"
-                />
+                // <img
+                //   style={{ transform: "rotate(0.25turn)" }}
+                //   src={collapseIcon}
+                //   alt="open icon"
+                // />
+                <span>+</span>
               )}
             </div>
           ) : null}
@@ -156,7 +158,6 @@ class Comment extends Component {
                 src={starIconEmpty}
                 alt=""
               />
-              <span className="comment-control-icon">{" /r/"}</span>
             </div>
             <div className="comment-right-controls">
               <img className="comment-control-icon" src={moreIcon} alt="" />
