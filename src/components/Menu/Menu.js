@@ -1,6 +1,7 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 // import axios from "axios";
 // IMPORT ICONS
 import profileIcon from "../../icons/ic_person_white_20px.svg";
@@ -131,6 +132,20 @@ class Menu extends Component {
               <span className="menu-submenu-title">
                 <img className="menu-submenu-icon" src={settingsIcon} alt="" />Settings
               </span>
+            </div>
+          </div>
+          <div className="menu-submenu-item">
+            <div className="menu-submenu-top">
+              <NavLink to="/Jordan" className="menu-submenu-title">
+                Jordan
+              </NavLink>
+            </div>
+          </div>
+          <div className="menu-submenu-item">
+            <div className="menu-submenu-top">
+              <NavLink to="/Bruno" className="menu-submenu-title">
+                Bruno
+              </NavLink>
             </div>
           </div>
         </div>
