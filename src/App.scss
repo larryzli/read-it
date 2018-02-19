@@ -168,6 +168,8 @@ html {
           display: flex;
           align-items: center;
           flex-grow: 1;
+          text-decoration: none;
+          color: $white;
 
           .menu-submenu-icon {
             margin-right: 10px;
