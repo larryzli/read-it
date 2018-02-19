@@ -27,8 +27,10 @@ const getPost = (req, res, next) => {
           is_self: r.is_self,
           over_18: r.over_18,
           thumbnail: r.thumbnail,
-          video: r.preview.reddit_video_preview
-            ? r.preview.reddit_video_preview.fallback_url
+          video: r.preview
+            ? r.preview.reddit_video_preview
+              ? r.preview.reddit_video_preview.fallback_url
+              : false
             : false
         },
         comments: response.data[1].data.children
