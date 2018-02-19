@@ -9,6 +9,8 @@ import "rc-drawer/assets/index.css";
 import HomeNavigation from "../Navigation/HomeNavigation";
 import PostCard from "../PostCard/PostCard";
 import Menu from "../Menu/Menu";
+// IMPORT ICONS
+import newPost from "../../icons/ic_create_white_24px.svg";
 // IMPORT REDUX FUNCTIONS
 import { pullHot } from "../../ducks/subredditReducer";
 import { getUserInfo } from "../../ducks/userReducer";
@@ -61,8 +63,6 @@ class Subreddit extends Component {
     this.props.pullHot();
   }
   render() {
-    console.log(this.props);
-
     // LOAD SUBREDDIT POST
     const posts = this.props.subreddit.posts.map((post, index) => {
       return (
@@ -109,6 +109,11 @@ class Subreddit extends Component {
               filterName={this.state.filter}
             />
             <div className="posts">{posts}</div>
+          </div>
+          <div className="new-post-container">
+            <div className="new-post-icon">
+              <img src={newPost} alt="add new post" />
+            </div>
           </div>
         </Drawer>
       </div>

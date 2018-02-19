@@ -82,12 +82,12 @@ class Menu extends Component {
             </div>
             {this.state.showProfileSubnav ? (
               <div className="menu-submenu-bottom">
-                <div className="menu-submenu-bottom-item">
-                  Example Subnav Link
-                </div>
-                <div className="menu-submenu-bottom-item">
-                  Example Subnav Link
-                </div>
+                <div className="menu-submenu-bottom-item">Comments</div>
+                <div className="menu-submenu-bottom-item">Submitted</div>
+                <div className="menu-submenu-bottom-item">Upvoted</div>
+                <div className="menu-submenu-bottom-item">Saved</div>
+                <div className="menu-submenu-bottom-item">Friends</div>
+                <div className="menu-submenu-bottom-item">Watching</div>
               </div>
             ) : null}
           </div>
@@ -113,12 +113,13 @@ class Menu extends Component {
             </div>
             {this.state.showMessagesSubnav ? (
               <div className="menu-submenu-bottom">
-                <div className="menu-submenu-bottom-item">
-                  Example Subnav Link
-                </div>
-                <div className="menu-submenu-bottom-item">
-                  Example Subnav Link
-                </div>
+                <div className="menu-submenu-bottom-item">Inbox</div>
+                <div className="menu-submenu-bottom-item">Unread</div>
+                <div className="menu-submenu-bottom-item">Messages</div>
+                <div className="menu-submenu-bottom-item">Sent</div>
+                <div className="menu-submenu-bottom-item">Comment replies</div>
+                <div className="menu-submenu-bottom-item">Post replies</div>
+                <div className="menu-submenu-bottom-item">Mentions</div>
               </div>
             ) : null}
           </div>
