@@ -8,15 +8,12 @@ import "rc-drawer/assets/index.css";
 // IMPORT COMPONENTS
 import HomeNavigation from "../Navigation/HomeNavigation";
 import PostCard from "../PostCard/PostCard";
+import Menu from "../Menu/Menu";
+// IMPORT ICONS
+import newPost from "../../icons/ic_create_white_24px.svg";
 // IMPORT REDUX FUNCTIONS
 import { pullHot } from "../../ducks/subredditReducer";
 import { getUserInfo } from "../../ducks/userReducer";
-// IMPORT ICONS
-import profileIcon from "../../icons/ic_person_white_20px.svg";
-import messageIcon from "../../icons/ic_email_white_20px.svg";
-import settingsIcon from "../../icons/ic_settings_white_20px.svg";
-import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
-import axios from "axios";
 
 // COMPONENT
 class Subreddit extends Component {
@@ -37,6 +34,7 @@ class Subreddit extends Component {
     };
 
     this.openMenu = this.openMenu.bind(this);
+    this.onDock = this.onDock.bind(this);
   }
   onOpenChange = open => {
     this.setState({ open });
@@ -65,77 +63,6 @@ class Subreddit extends Component {
     this.props.pullHot();
   }
   render() {
-    // MENU SETTINGS
-    console.log(this.props);
-    let menu = (
-      <div className="menu-container">
-        <div className="menu-logo-container">
-          <span className="menu-logo">
-            N<span className="logo-up">V</span>
-            <span className="logo-down">V</span>IT
-          </span>
-          <div className="menu-pin" onClick={this.onDock}>
-            {this.state.docked ? "-" : "+"}
-          </div>
-        </div>
-        <div className="menu-account-container">
-          <span>
-            {this.props.user.user ? this.props.user.user.name : "Guest"}
-          </span>
-          {this.props.user.user ? (
-            <button
-              className="menu-remove-account"
-              onClick={() => {
-                axios
-                  .post("/api/post/submit")
-                  .then(res => console.log(res))
-                  .catch(console.log);
-              }}
-            >
-              LOGOUT
-            </button>
-          ) : (
-            <button
-              className="menu-add-account"
-              onClick={() => this.loginHandler()}
-            >
-              LOGIN
-            </button>
-          )}
-        </div>
-        <div className="menu-submenu-list">
-          <div className="menu-submenu-item">
-            <span className="menu-submenu-title">
-              <img className="menu-submenu-icon" src={profileIcon} alt="" />Profile
-            </span>
-            <img src={dropdownIcon} alt="dropdown" />
-          </div>
-          <div className="menu-submenu-item">
-            <span className="menu-submenu-title">
-              <img className="menu-submenu-icon" src={messageIcon} alt="" />Messaging
-            </span>
-            <img src={dropdownIcon} alt="dropdown" />
-          </div>
-          <div className="menu-submenu-item">
-            <span className="menu-submenu-title">
-              <img className="menu-submenu-icon" src={settingsIcon} alt="" />Settings
-            </span>
-          </div>
-        </div>
-        <div className="menu-subreddit-container">
-          <input
-            className="menu-subreddit-search"
-            type="text"
-            placeholder="View subreddit"
-          />
-          <div className="menu-subreddit-list">
-            <div className="menu-subreddit-title">Subreddit 1</div>
-            <div className="menu-subreddit-title">Subreddit 2</div>
-          </div>
-        </div>
-      </div>
-    );
-
     // LOAD SUBREDDIT POST
     const posts = this.props.subreddit.posts.map((post, index) => {
       return (
@@ -159,7 +86,7 @@ class Subreddit extends Component {
     return (
       <div className="drawer-container">
         <Drawer
-          sidebar={menu}
+          sidebar={<Menu docked={this.state.docked} onDock={this.onDock} />}
           docked={this.state.docked}
           open={this.state.open}
           touch={this.state.touch}
@@ -182,6 +109,11 @@ class Subreddit extends Component {
               filterName={this.state.filter}
             />
             <div className="posts">{posts}</div>
+          </div>
+          <div className="new-post-container">
+            <div className="new-post-icon">
+              <img src={newPost} alt="add new post" />
+            </div>
           </div>
         </Drawer>
       </div>

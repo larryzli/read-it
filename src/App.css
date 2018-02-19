@@ -29,7 +29,8 @@ html {
       display: flex;
       justify-content: space-between;
       flex-grow: 1;
-      align-items: center; }
+      align-items: center;
+      max-width: 250px; }
       .nav-background .nav-left .nav-page-container .nav-title {
         display: flex;
         flex-direction: column; }
@@ -52,7 +53,7 @@ html {
   display: flex;
   flex-direction: column;
   background-color: #444;
-  height: 100%;
+  height: fit-content;
   width: 250px;
   font-size: 12px; }
   .menu-container .menu-logo-container {
@@ -97,16 +98,30 @@ html {
     border-bottom: 1px solid #333; }
     .menu-container .menu-submenu-list .menu-submenu-item {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 15px; }
-      .menu-container .menu-submenu-list .menu-submenu-item:hover {
-        background-color: #505050; }
-      .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-title {
+      flex-direction: column; }
+      .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-top {
         display: flex;
-        align-items: center; }
-        .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-title .menu-submenu-icon {
-          margin-right: 10px; }
+        flex-grow: 1;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px; }
+        .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-top:hover {
+          background-color: #505050; }
+        .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-top .menu-submenu-title {
+          display: flex;
+          align-items: center;
+          flex-grow: 1; }
+          .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-top .menu-submenu-title .menu-submenu-icon {
+            margin-right: 10px; }
+      .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom {
+        background-color: #333; }
+        .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom .menu-submenu-bottom-item {
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 45px;
+          padding-right: 15px; }
+          .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom .menu-submenu-bottom-item:hover {
+            background-color: #505050; }
   .menu-container .menu-subreddit-container {
     display: flex;
     flex-direction: column; }
@@ -198,22 +213,23 @@ html {
       border-radius: 0 0 3px 3px; }
       .posts .card-container .card-controls .card-left-controls {
         display: flex;
-        align-items: center;
-        width: 60%; }
+        align-items: center; }
         .posts .card-container .card-controls .card-left-controls .card-control-icon {
           padding-left: 10px;
           padding-right: 15px;
           font-size: 15px; }
+          .posts .card-container .card-controls .card-left-controls .card-control-icon:first-child {
+            padding-right: 10px; }
       .posts .card-container .card-controls .card-right-controls {
         display: flex;
         align-items: center;
-        height: 100%;
-        border-radius: 0 0 3px 0; }
+        height: 100%; }
         .posts .card-container .card-controls .card-right-controls .card-control-icon {
           padding: 0 8px; }
 
 .postdata-container {
-  background-color: #505050; }
+  background-color: #444;
+  box-shadow: 0px 0px 2px #111; }
   .postdata-container .postdata-link {
     text-decoration: none; }
     .postdata-container .postdata-link .postdata-image {
@@ -226,35 +242,66 @@ html {
       height: 30px;
       bottom: 54px;
       padding: 10px;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.4);
       margin-bottom: -54px; }
       .postdata-container .postdata-link .postdata-link-info-container .postdata-link-info {
         font-size: 12px;
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.8);
         text-decoration: none;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis; }
   .postdata-container .postdata-info-container {
-    padding: 10px; }
+    padding: 10px;
+    color: grey; }
     .postdata-container .postdata-info-container .postdata-title {
       font-size: 14px;
       font-weight: 300;
       color: #fff;
       margin-bottom: 3px; }
-    .postdata-container .postdata-info-container .postdata-data {
+    .postdata-container .postdata-info-container .postdata-info {
       font-size: 10px;
-      color: #bbb; }
+      padding: 3px 0; }
+      .postdata-container .postdata-info-container .postdata-info .postdata-subreddit {
+        color: #4a90e2;
+        white-space: nowrap; }
+    .postdata-container .postdata-info-container .postdata-data {
+      font-size: 10px; }
+      .postdata-container .postdata-info-container .postdata-data .postdata-score {
+        font-weight: 600;
+        color: #bbb; }
+  .postdata-container .postdata-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 35px;
+    border-top: 1px solid #333; }
+    .postdata-container .postdata-controls .postdata-left-controls {
+      display: flex;
+      align-items: center; }
+      .postdata-container .postdata-controls .postdata-left-controls .postdata-control-icon {
+        padding-left: 10px;
+        padding-right: 15px;
+        font-size: 15px; }
+        .postdata-container .postdata-controls .postdata-left-controls .postdata-control-icon:first-child {
+          padding-right: 10px; }
+    .postdata-container .postdata-controls .postdata-right-controls {
+      display: flex;
+      align-items: center;
+      height: 100%; }
+      .postdata-container .postdata-controls .postdata-right-controls .postdata-control-icon {
+        padding: 0 8px; }
 
 .comments-wrapper {
-  margin-top: 10px; }
+  margin-top: 10px;
+  box-shadow: 0px 0px 2px #111; }
 
 .comment-wrapper {
   background-color: #333; }
   .comment-wrapper .comment-container {
     display: flex;
     padding: 10px;
-    background-color: #505050;
+    background-color: #444;
     flex-grow: 1;
     margin-bottom: 1px; }
     .comment-wrapper .comment-container .comment-collapse {
@@ -262,9 +309,10 @@ html {
       justify-content: center;
       align-items: center;
       font-size: 12px;
+      font-weight: 600;
       color: #bbb;
-      margin-right: -3px;
-      margin-left: 5px; }
+      padding-left: 10px;
+      padding-right: 5px; }
     .comment-wrapper .comment-container .comment-text {
       font-size: 12px;
       font-weight: 300;
@@ -281,6 +329,41 @@ html {
         overflow-wrap: break-word;
         word-wrap: break-word;
         word-break: break-word; }
+  .comment-wrapper .comment-controls {
+    display: flex;
+    justify-content: space-between;
+    height: 35px;
+    background-color: #505050;
+    margin-bottom: 1px; }
+    .comment-wrapper .comment-controls .comment-left-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
+      .comment-wrapper .comment-controls .comment-left-controls .comment-control-icon {
+        padding-left: 10px;
+        padding-right: 15px;
+        font-size: 15px; }
+        .comment-wrapper .comment-controls .comment-left-controls .comment-control-icon:first-child {
+          padding-right: 10px; }
+    .comment-wrapper .comment-controls .comment-right-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center; }
+      .comment-wrapper .comment-controls .comment-right-controls .comment-control-icon {
+        padding: 0 8px; }
+
+.new-post-container {
+  position: fixed;
+  bottom: 10px;
+  right: 10px; }
+  .new-post-container .new-post-icon {
+    background-color: #505050;
+    padding-top: 13px;
+    padding-bottom: 9px;
+    padding-left: 14px;
+    padding-right: 12px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px #111; }
 
 .load-more {
   font-size: 10px;
