@@ -55,6 +55,7 @@ html {
       justify-content: space-between;
       flex-grow: 1;
       align-items: center;
+      max-width: 250px;
 
       .nav-title {
         display: flex;
@@ -91,7 +92,7 @@ html {
   display: flex;
   flex-direction: column;
   background-color: $grey2;
-  height: 100%;
+  height: fit-content;
   width: 250px;
   font-size: 12px;
 
@@ -150,19 +151,41 @@ html {
 
     .menu-submenu-item {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 15px;
-      &:hover {
-        background-color: $grey4;
+      flex-direction: column;
+
+      .menu-submenu-top {
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px;
+        &:hover {
+          background-color: $grey4;
+        }
+
+        .menu-submenu-title {
+          display: flex;
+          align-items: center;
+          flex-grow: 1;
+
+          .menu-submenu-icon {
+            margin-right: 10px;
+          }
+        }
       }
 
-      .menu-submenu-title {
-        display: flex;
-        align-items: center;
+      .menu-submenu-bottom {
+        background-color: $grey1;
 
-        .menu-submenu-icon {
-          margin-right: 10px;
+        .menu-submenu-bottom-item {
+          padding-top: 10px;
+          padding-bottom: 10px;
+          padding-left: 45px;
+          padding-right: 15px;
+
+          &:hover {
+            background-color: $grey4;
+          }
         }
       }
     }
@@ -298,22 +321,25 @@ html {
       height: 35px;
       background-color: $grey4;
       border-radius: 0 0 3px 3px;
+
       .card-left-controls {
         display: flex;
         align-items: center;
-        // justify-content: space-between;
-        width: 60%;
+
         .card-control-icon {
           padding-left: 10px;
           padding-right: 15px;
           font-size: 15px;
+
+          &:first-child {
+            padding-right: 10px;
+          }
         }
       }
       .card-right-controls {
         display: flex;
         align-items: center;
         height: 100%;
-        border-radius: 0 0 3px 0;
 
         .card-control-icon {
           padding: 0 8px;
@@ -325,34 +351,40 @@ html {
 
 // POSTDATA STYLING
 .postdata-container {
-  background-color: $grey4;
+  background-color: $grey2;
+  box-shadow: $shadow;
+
   .postdata-link {
     text-decoration: none;
+
     .postdata-image {
       width: 100%;
       max-height: 150px;
       object-fit: cover;
     }
+
     .postdata-link-info-container {
       color: $white;
       position: relative;
       height: 30px;
       bottom: 54px;
       padding: 10px;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.4);
+      margin-bottom: -54px;
+
       .postdata-link-info {
         font-size: 12px;
-        color: rgba(255, 255, 255, 0.6);
+        color: rgba(255, 255, 255, 0.8);
         text-decoration: none;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
-      margin-bottom: -54px;
     }
   }
   .postdata-info-container {
     padding: 10px;
+    color: grey;
 
     .postdata-title {
       font-size: 14px;
@@ -361,9 +393,54 @@ html {
       margin-bottom: 3px;
     }
 
+    .postdata-info {
+      font-size: $fsize1;
+      padding: 3px 0;
+
+      .postdata-subreddit {
+        color: $blue1;
+        white-space: nowrap;
+      }
+    }
     .postdata-data {
       font-size: $fsize1;
-      color: $grey3;
+
+      .postdata-score {
+        font-weight: 600;
+        color: $grey3;
+      }
+    }
+  }
+  .postdata-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 35px;
+    border-top: 1px solid $grey1;
+
+    .postdata-left-controls {
+      display: flex;
+      align-items: center;
+
+      .postdata-control-icon {
+        padding-left: 10px;
+        padding-right: 15px;
+        font-size: 15px;
+
+        &:first-child {
+          padding-right: 10px;
+        }
+      }
+    }
+
+    .postdata-right-controls {
+      display: flex;
+      align-items: center;
+      height: 100%;
+
+      .postdata-control-icon {
+        padding: 0 8px;
+      }
     }
   }
 }
@@ -371,6 +448,7 @@ html {
 // COMMENT STYLING
 .comments-wrapper {
   margin-top: 10px;
+  box-shadow: $shadow;
 }
 
 .comment-wrapper {
@@ -378,7 +456,7 @@ html {
   .comment-container {
     display: flex;
     padding: 10px;
-    background-color: $grey4;
+    background-color: $grey2;
     flex-grow: 1;
     margin-bottom: 1px;
 
@@ -387,9 +465,12 @@ html {
       justify-content: center;
       align-items: center;
       font-size: 12px;
+      font-weight: 600;
       color: $grey3;
-      margin-right: -3px;
-      margin-left: 5px;
+      // margin-right: -3px;
+      // margin-left: 5px;
+      padding-left: 10px;
+      padding-right: 5px;
     }
     .comment-text {
       font-size: 12px;
@@ -413,6 +494,55 @@ html {
         word-break: break-word;
       }
     }
+  }
+
+  .comment-controls {
+    display: flex;
+    justify-content: space-between;
+    height: 35px;
+    background-color: $grey4;
+    margin-bottom: 1px;
+
+    .comment-left-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .comment-control-icon {
+        padding-left: 10px;
+        padding-right: 15px;
+        font-size: 15px;
+
+        &:first-child {
+          padding-right: 10px;
+        }
+      }
+    }
+    .comment-right-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .comment-control-icon {
+        padding: 0 8px;
+      }
+    }
+  }
+}
+
+// NEW POST BUTTON
+.new-post-container {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  .new-post-icon {
+    background-color: $grey4;
+    padding-top: 13px;
+    padding-bottom: 9px;
+    padding-left: 14px;
+    padding-right: 12px;
+    border-radius: 50%;
+    box-shadow: $shadow;
   }
 }
 

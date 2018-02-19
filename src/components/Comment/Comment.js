@@ -2,7 +2,17 @@
 import React, { Component } from "react";
 import axios from "axios";
 // IMPORT ICONS
-import collapseIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
+// import collapseIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
+// import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
+// import commentIcon from "../../icons/comment_tiny.svg";
+import upvoteIcon from "../../icons/ic_keyboard_arrow_up_white_24px.svg";
+// import upvoteIconClicked from "../../icons/ic_keyboard_arrow_up_green_24px 2.svg";
+import downvoteIcon from "../../icons/ic_keyboard_arrow_down_white_24px.svg";
+// import downvoteIconClicked from "../../icons/ic_keyboard_arrow_down_red_24px.svg";
+import starIconEmpty from "../../icons/ic_star_border_white_20px.svg";
+// import starIconFilled from "../../icons/ic_star_white_20px.svg";
+import profileIcon from "../../icons/ic_person_white_20px.svg";
+import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
 
 class Comment extends Component {
   constructor(props) {
@@ -10,12 +20,16 @@ class Comment extends Component {
     this.state = {
       showReplies: true,
       moreComments: [],
-      showMore: true
+      showMore: true,
+      showControls: false
     };
   }
 
   revealReplies = () => {
     this.setState({ showReplies: !this.state.showReplies });
+  };
+  toggleControls = () => {
+    this.setState({ showControls: !this.state.showControls });
   };
   viewMore = (postID, children) => {
     children = children.join(",");
@@ -57,7 +71,8 @@ class Comment extends Component {
                   style={{
                     borderLeft: `5px solid ${
                       borderColors[(this.props.commentData.depth + 1) % 5]
-                    }`
+                    }`,
+                    marginLeft: `${5 * this.props.commentData.depth}px`
                   }}
                   key={index}
                   onClick={e =>
@@ -81,27 +96,15 @@ class Comment extends Component {
           postID={this.props.postID}
           key={index}
           commentData={comment.data}
-          // style={
-          //   comment.data.depth !== 1
-          //     ? { marginLeft: "5px", color: "red" }
-          //     : null
-          // }
+          style={{
+            marginLeft: `${5 * comment.data.depth - 5}px`
+          }}
         />
       );
     });
 
     return (
-      <div
-        className="comment-wrapper"
-        style={
-          this.props.commentData.depth !== 0 &&
-          this.props.commentData.depth !== 1
-            ? {
-                borderLeft: `5px solid #333`
-              }
-            : null
-        }
-      >
+      <div className="comment-wrapper">
         <div
           className="comment-container"
           style={
@@ -109,12 +112,13 @@ class Comment extends Component {
               ? {
                   borderLeft: `5px solid ${
                     borderColors[this.props.commentData.depth % 5]
-                  }`
+                  }`,
+                  marginLeft: `${5 * this.props.commentData.depth - 5}px`
                 }
               : null
           }
         >
-          <div className="comment-text">
+          <div className="comment-text" onClick={e => this.toggleControls()}>
             <div className="comment-data">
               <span className="comment-author">
                 {this.props.commentData.author}
@@ -132,17 +136,36 @@ class Comment extends Component {
               onClick={e => this.revealReplies()}
             >
               {this.state.showReplies ? (
-                <img src={collapseIcon} alt="collapse icon" />
+                // <img src={collapseIcon} alt="collapse icon" />
+                <span>–</span>
               ) : (
-                <img
-                  style={{ transform: "rotate(0.25turn)" }}
-                  src={collapseIcon}
-                  alt="open icon"
-                />
+                // <img
+                //   style={{ transform: "rotate(0.25turn)" }}
+                //   src={collapseIcon}
+                //   alt="open icon"
+                // />
+                <span>+</span>
               )}
             </div>
           ) : null}
         </div>
+        {this.state.showControls ? (
+          <div className="comment-controls">
+            <div className="comment-left-controls">
+              <img className="comment-control-icon" src={upvoteIcon} alt="" />
+              <img className="comment-control-icon" src={downvoteIcon} alt="" />
+              <img
+                className="comment-control-icon"
+                src={starIconEmpty}
+                alt=""
+              />
+              <img className="comment-control-icon" src={profileIcon} alt="" />
+            </div>
+            <div className="comment-right-controls">
+              <img className="comment-control-icon" src={moreIcon} alt="" />
+            </div>
+          </div>
+        ) : null}
         {this.state.showReplies && replies ? replies : null}
         {moreComments}
       </div>

@@ -32,6 +32,7 @@ class Post extends Component {
     });
   }
   render() {
+    console.log(this.state);
     const comments = this.state.comments.map((comment, index) => {
       return (
         <Comment
