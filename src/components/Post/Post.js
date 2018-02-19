@@ -32,8 +32,6 @@ class Post extends Component {
     });
   }
   render() {
-    console.log(this.state);
-    console.log(this.props);
     const comments = this.state.comments.map((comment, index) => {
       return (
         <Comment

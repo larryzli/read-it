@@ -6,6 +6,8 @@ $grey3: #bbb;
 $grey4: rgb(80, 80, 80);
 $white: #fff;
 $blue1: #4a90e2;
+$up: #39ff7b;
+$down: #ff445b;
 
 // SHADOW
 $shadow: 0px 0px 2px $grey0;
@@ -37,6 +39,7 @@ html {
   padding-right: 10px;
   position: sticky;
   top: 0;
+  z-index: 1;
 
   .nav-left {
     display: flex;
@@ -79,6 +82,120 @@ html {
 
     .nav-left-icon {
       margin-left: 15px;
+    }
+  }
+}
+
+// MENU STYLING
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  background-color: $grey2;
+  height: 100%;
+  width: 250px;
+  font-size: 12px;
+
+  .menu-logo-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 15px 15px;
+    background-color: $grey1;
+
+    .menu-logo {
+      font-size: 25px;
+
+      .logo-up {
+        color: $up;
+        transform: rotate(0.5turn);
+        display: inline-block;
+        margin-left: 2px;
+      }
+      .logo-down {
+        color: $down;
+      }
+    }
+
+    .menu-pin {
+      font-size: 20px;
+    }
+  }
+  .menu-account-container {
+    background-color: $grey2;
+    border-bottom: 1px solid $grey1;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+
+    .menu-add-account {
+      outline: 0;
+      color: $up;
+      background-color: transparent;
+      border: none;
+      padding: 0;
+    }
+    .menu-remove-account {
+      outline: 0;
+      color: $down;
+      background-color: transparent;
+      border: none;
+      padding: 0;
+    }
+  }
+  .menu-submenu-list {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid $grey1;
+
+    .menu-submenu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      &:hover {
+        background-color: $grey4;
+      }
+
+      .menu-submenu-title {
+        display: flex;
+        align-items: center;
+
+        .menu-submenu-icon {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  .menu-subreddit-container {
+    display: flex;
+    flex-direction: column;
+
+    .menu-subreddit-search {
+      background-color: transparent;
+      color: white;
+      outline: 0;
+      border: none;
+      padding: 5px 0;
+      margin: 15px;
+      border-bottom: 1px solid $grey3;
+
+      &::placeholder {
+        color: $grey3;
+      }
+    }
+
+    .menu-subreddit-list {
+      display: flex;
+      flex-direction: column;
+
+      .menu-subreddit-title {
+        padding: 10px 15px;
+
+        &:hover {
+          background-color: $grey4;
+        }
+      }
     }
   }
 }
@@ -172,23 +289,6 @@ html {
         justify-content: center;
         align-items: center;
       }
-      // .post-score-container {
-      //   display: flex;
-      //   flex-direction: column;
-
-      //   .post-score {
-      //     font-size: 12px;
-      //     padding: 2px 0;
-      //   }
-
-      //   .post-upvote {
-      //     margin-top: -2px;
-      //   }
-
-      //   .post-downvote {
-      //     margin-bottom: -2px;
-      //   }
-      // }
     }
 
     .card-controls {
@@ -244,6 +344,9 @@ html {
         font-size: 12px;
         color: rgba(255, 255, 255, 0.6);
         text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       margin-bottom: -54px;
     }
@@ -297,6 +400,11 @@ html {
         margin-bottom: 3px;
         .comment-author {
           font-weight: 500;
+        }
+        .comment-score {
+          font-weight: 100;
+          // color: grey;
+          opacity: 0.5;
         }
       }
       .comment-body {

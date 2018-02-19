@@ -19,11 +19,9 @@ class Comment extends Component {
   };
   viewMore = (postID, children) => {
     children = children.join(",");
-    console.log(children);
     axios
       .get(`/api/post/comments/more/${postID}/${children}`)
       .then(response => {
-        console.log(response);
         this.setState({
           moreComments: response.data.json.data.things,
           showMore: false
@@ -32,7 +30,6 @@ class Comment extends Component {
   };
 
   render() {
-    console.log(this.props);
     const borderColors = [
       "#8F6DCE",
       "#06D6A0",
@@ -84,6 +81,11 @@ class Comment extends Component {
           postID={this.props.postID}
           key={index}
           commentData={comment.data}
+          // style={
+          //   comment.data.depth !== 1
+          //     ? { marginLeft: "5px", color: "red" }
+          //     : null
+          // }
         />
       );
     });

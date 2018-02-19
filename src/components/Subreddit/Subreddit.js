@@ -4,13 +4,20 @@ import { connect } from "react-redux";
 import moment from "moment";
 import Drawer from "rc-drawer";
 import "rc-drawer/assets/index.css";
+// import axios from "axios";
 // IMPORT COMPONENTS
 import HomeNavigation from "../Navigation/HomeNavigation";
 import PostCard from "../PostCard/PostCard";
 // IMPORT REDUX FUNCTIONS
 import { pullHot } from "../../ducks/subredditReducer";
 import { getUserInfo } from "../../ducks/userReducer";
+// IMPORT ICONS
+import profileIcon from "../../icons/ic_person_white_20px.svg";
+import messageIcon from "../../icons/ic_email_white_20px.svg";
+import settingsIcon from "../../icons/ic_settings_white_20px.svg";
+import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
 import axios from "axios";
+
 // COMPONENT
 class Subreddit extends Component {
   constructor(props) {
@@ -59,31 +66,76 @@ class Subreddit extends Component {
   }
   render() {
     // MENU SETTINGS
-    // console.log(this.props);
+    console.log(this.props);
     let menu = (
-      <div>
-        <h3>
-          Menu
-          <button onClick={this.onDock}>
-            {this.state.docked ? "unpin" : "pin"}
-          </button>
-        </h3>
-        <button onClick={() => this.loginHandler()}>LOGIN</button>
+      <div className="menu-container">
+        <div className="menu-logo-container">
+          <span className="menu-logo">
+            N<span className="logo-up">V</span>
+            <span className="logo-down">V</span>IT
+          </span>
+          <div className="menu-pin" onClick={this.onDock}>
+            {this.state.docked ? "-" : "+"}
+          </div>
+        </div>
+        <div className="menu-account-container">
+          <span>
+            {this.props.user.user ? this.props.user.user.name : "Guest"}
+          </span>
+          {this.props.user.user ? (
+            <button
+              className="menu-remove-account"
+              onClick={() =>
+                axios
+                  .post("/api/vote")
+                  .then(res => console.log(res))
+                  .catch(console.log)
+              }
+            >
+              LOGOUT
+            </button>
+          ) : (
+            <button
+              className="menu-add-account"
+              onClick={() => this.loginHandler()}
+            >
+              LOGIN
+            </button>
+          )}
+        </div>
+        <div className="menu-submenu-list">
+          <div className="menu-submenu-item">
+            <span className="menu-submenu-title">
+              <img className="menu-submenu-icon" src={profileIcon} alt="" />Profile
+            </span>
+            <img src={dropdownIcon} alt="dropdown" />
+          </div>
+          <div className="menu-submenu-item">
+            <span className="menu-submenu-title">
+              <img className="menu-submenu-icon" src={messageIcon} alt="" />Messaging
+            </span>
+            <img src={dropdownIcon} alt="dropdown" />
+          </div>
+          <div className="menu-submenu-item">
+            <span className="menu-submenu-title">
+              <img className="menu-submenu-icon" src={settingsIcon} alt="" />Settings
+            </span>
+          </div>
+        </div>
+        <div className="menu-subreddit-container">
+          <input
+            className="menu-subreddit-search"
+            type="text"
+            placeholder="View subreddit"
+          />
+          <div className="menu-subreddit-list">
+            <div className="menu-subreddit-title">Subreddit 1</div>
+            <div className="menu-subreddit-title">Subreddit 2</div>
+          </div>
+        </div>
       </div>
     );
-    if (this.props.user.user) {
-      menu = (
-        <div>
-          <h3>
-            LOGGED IN
-            <button onClick={this.onDock}>
-              {this.state.docked ? "unpin" : "pin"}
-            </button>
-          </h3>
-          <button>LOGOUT</button>
-        </div>
-      );
-    }
+
     // LOAD SUBREDDIT POST
     const posts = this.props.subreddit.posts.map((post, index) => {
       return (
@@ -117,7 +169,12 @@ class Subreddit extends Component {
           transitions={this.state.transitions}
           onOpenChange={this.onOpenChange}
           style={{ overflow: "auto" }}
-          sidebarStyle={{ backgroundColor: "red" }}
+          sidebarStyle={{
+            backgroundColor: "#444",
+            boxShadow: "0px 0px 2px #111"
+          }}
+          dragHandleStyle={{ backgroundColor: "transparent" }}
+          overlayStyle={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
         >
           <div className="main">
             <HomeNavigation

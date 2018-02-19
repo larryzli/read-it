@@ -12,12 +12,16 @@ const {
   SESSION_SECRET
 } = process.env;
 const session = require("express-session");
-
 const passport = require("passport");
 
 const crypto = require("crypto");
 const RedditStrategy = require("passport-reddit").Strategy;
 const axios = require("axios");
+const path = require("path");
+
+// API WRAPPER IMPORT
+// const rawjs = require("raw.js");
+// const reddit = new rawjs("raw.js example script");
 
 const masterRouter = require("./masterRouter");
 
@@ -40,7 +44,50 @@ massive(CONNECTION_STRING)
 
 app.use(cors());
 app.use(json());
-app.use("/", express.static(__dirname));
+// app.use(express.static(`${__dirname}/../build`));
+
+// AUTH REDDIT WRAPPER
+// reddit.setupOAuth2(
+//   APP_ID,
+//   APP_SECRET,
+//   `${REACT_APP_HOST}/auth/reddit/callback`
+// );
+
+// const url = reddit.authUrl("some_random_state", [
+//   "identity",
+//   "edit",
+//   "flair",
+//   "history",
+//   "modconfig",
+//   "modflair",
+//   "modlog",
+//   "modposts",
+//   "modwiki",
+//   "mysubreddits",
+//   "privatemessages",
+//   "read",
+//   "report",
+//   "save",
+//   "submit",
+//   "subscribe",
+//   "vote",
+//   "wikiedit",
+//   "wikiread"
+// ]);
+// // Redirect the client to this URL. When they return, their authorization code will be passed in the URL as `code`.
+
+// reddit.auth({ code: code }, function(err, response) {
+//   if (err) {
+//     console.log("Unable to authenticate user: " + err);
+//   } else {
+//     // The user is now authenticated.
+//     // If you want the temporary bearer token, it's available as response.access_token and will be valid
+//     // for response.expires_in seconds.
+//     // If we requested permanent access to the user's account, raw.js will automatically refresh the bearer token as it expires.
+//     // You'll want to save the refresh token (it's available as response.refresh_token) and use it to resume the session on
+//     // subsequent application startups. See "Resuming Sessions" below.
+//   }
+// });
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -50,13 +97,12 @@ passport.use(
     {
       clientID: APP_ID,
       clientSecret: APP_SECRET,
-      callbackURL: `${REACT_APP_HOST}/auth/reddit/callback`,
+      callbackURL: `/auth/reddit/callback`,
       scope:
         "identity edit flair history modconfig modflair modlog modposts modwiki mysubreddits privatemessages read report save submit subscribe vote wikiedit wikiread"
     },
     function(accessToken, refreshToken, profile, done) {
       // CHECK TO SEE IF THERES ALREADY A USER WITH THAT AUTH ID IN OUR DATABASE
-      console.log(accessToken);
       profile.accessToken = accessToken;
       app
         .get("db")
@@ -97,6 +143,10 @@ app.get("/auth/reddit/callback", function(req, res, next) {
 });
 
 masterRouter(app);
+
+// app.get("*", (req, res, next) => {
+//   res.sendFile(path.join(__dirname, "..", "build", "index.html"));
+// });
 
 app.listen(port, () => {
   console.log("Server listening on port: ", port);
