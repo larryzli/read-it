@@ -65,6 +65,16 @@ const unfriend = (req, res, next) => {
 
 };
 
+const getUserAbout = (req, res, next) => {
+  axios
+    .get("https://oauth.reddit.com/api/v1/me/friends", {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`
+      }
+    })
+    .then(response => res.status(200).json(response.data.data.children))
+    .catch(console.log);
+}
 
 module.exports = {
   getUserInfo,
