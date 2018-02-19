@@ -4,5 +4,5 @@ module.exports = function (app) {
   app.get("/api/user/info", getUserInfo);
   app.get("/api/friends/get", getAllFriends);
   app.post("/api/user/friend", friend);
-  app.post("/api/user/unfriend", unfriend);
+  app.delete("/api/user/unfriend/:username", unfriend);
 };

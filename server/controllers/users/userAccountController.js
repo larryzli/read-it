@@ -47,19 +47,12 @@ const friend = (req, res, next) => {
 
 // NOT WORKING
 const unfriend = (req, res, next) => {
-  const { username, userid } = req.body;
+  const { username } = req.params;
   const userAgent = req.user._json.subreddit.display_name_prefixed;
 
   axios
-    .put(
-    `https://oauth.reddit.com/r/gifs/api/unfriend`,
-    {
-      api_type: "json",
-      id: `${userid}`,
-      name: `${username}`,
-      type: "friend",
-      container: `${userid}`
-    },
+    .delete(
+    `https://oauth.reddit.com/api/v1/me/friends/${username}`,
     {
       headers: {
         Authorization: `Bearer ${req.user.accessToken}`,
