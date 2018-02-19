@@ -6,7 +6,7 @@ class Jordan extends Component {
   testApi() {
 
     axios
-      .post(`/api/user/unfriend`, { username: "domoKing", userid: "t2_duibdft" })
+      .delete(`/api/user/unfriend/domoKing`)
       .then(response => console.log(response))
   }
 
