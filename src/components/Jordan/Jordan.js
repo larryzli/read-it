@@ -6,7 +6,7 @@ class Jordan extends Component {
   testApi() {
 
     axios
-      .delete(`/api/user/unfriend/domoKing`)
+      .get(`/api/user/about?username=spaghettoucher123`)
       .then(response => console.log(response))
   }
 

@@ -1,5 +1,30 @@
 const axios = require("axios");
 
+
+//GET DEFAULT SUBSCRIBED SUBREDDITS
+const getDefault = (req, res, next) => {
+  let baseURL = "https://www.reddit.com/subreddits/default.json?";
+  const { limit, after } = req.query;
+  if (req.query) {
+    if (limit) {
+      baseURL += `limit=${limit}&`;
+    }
+    if (after) {
+      baseURL += `after=${after}&`;
+    }
+  }
+  axios
+    .get(baseURL)
+    .then(response =>
+      res.status(200).json(response.data)
+    )
+    .catch(console.log);
+};
+
+
+
+
+
 //GET HOT POSTS FROM A SUBREDDIT
 const pullHot = (req, res, next) => {
   let baseURL = "https://www.reddit.com/hot.json?";
@@ -290,7 +315,7 @@ const pullRandom = (req, res, next) => {
 //GET USER SUBSCRIBED SUBREDDITS
 const getUserSubscriptions = (req, res, next) => {
   axios
-    .get("https://oauth.reddit.com/subreddits/mine/subscriber", {
+    .get("https://oauth.reddit.com/subreddits/mine/subscriber?limit=100", {
       headers: {
         Authorization: `bearer ${req.user.accessToken}`
       }
@@ -321,5 +346,6 @@ module.exports = {
   pullRising,
   pullRandom,
   getUserSubscriptions,
+  getDefault,
   sidebar
 };

@@ -66,19 +66,27 @@ const unfriend = (req, res, next) => {
 };
 
 const getUserAbout = (req, res, next) => {
+  const { username, sort, t } = req.query
+  let baseURL = `https://oauth.reddit.com/user/${username}/overview?sort=top`
+  if (sort) {
+    baseURL = `https://oauth.reddit.com/user/${username}/overview?sort=${sort}&t=${t}`
+  }
+
+
   axios
-    .get("https://oauth.reddit.com/api/v1/me/friends", {
+    .get(baseURL, {
       headers: {
         Authorization: `bearer ${req.user.accessToken}`
       }
     })
-    .then(response => res.status(200).json(response.data.data.children))
+    .then(response => res.status(200).json(response.data.data))
     .catch(console.log);
 }
 
 module.exports = {
   getUserInfo,
   getAllFriends,
+  getUserAbout,
   friend,
   unfriend
 };
