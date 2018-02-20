@@ -215,11 +215,16 @@ html {
       display: flex;
       flex-direction: column;
 
-      .menu-subreddit-title {
-        padding: 10px 15px;
+      .menu-subreddit-link {
+        color: white;
+        text-decoration: none;
 
-        &:hover {
-          background-color: $grey4;
+        .menu-subreddit-title {
+          padding: 10px 15px;
+
+          &:hover {
+            background-color: $grey4;
+          }
         }
       }
     }
