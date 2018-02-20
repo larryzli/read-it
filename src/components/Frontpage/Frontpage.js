@@ -42,8 +42,6 @@ class Frontpage extends Component {
   refreshHandler = (resolve, reject) => {
     let success = false;
     let url = `/api/${this.state.filter}?`;
-
-    // console.log("url: ", url);
     axios
       .get(url)
       .then(response => {
@@ -98,6 +96,13 @@ class Frontpage extends Component {
     this.loadContent();
   }
   render() {
+    let sortDrawer = (
+      <div>
+        <div>
+          <div>HOT</div>
+        </div>
+      </div>
+    );
     return (
       <div className="drawer-container">
         <Drawer

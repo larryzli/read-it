@@ -8,6 +8,7 @@ import profileIcon from "../../icons/ic_person_white_20px.svg";
 import messageIcon from "../../icons/ic_email_white_20px.svg";
 import settingsIcon from "../../icons/ic_settings_white_20px.svg";
 import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
+import filterIcon from "../../icons/ic_filter_list_white_20px.svg";
 // IMPORT REDUX FUNCTIONS
 import { getUserInfo } from "../../ducks/userReducer";
 
@@ -157,6 +158,14 @@ class Menu extends Component {
                 <div className="menu-submenu-bottom-item">Mentions</div>
               </div>
             ) : null}
+          </div>
+          <div className="menu-submenu-item">
+            <div className="menu-submenu-top">
+              <span className="menu-submenu-title">
+                <img className="menu-submenu-icon" src={filterIcon} alt="" />Domain
+                Filters
+              </span>
+            </div>
           </div>
           <div className="menu-submenu-item">
             <div className="menu-submenu-top">
