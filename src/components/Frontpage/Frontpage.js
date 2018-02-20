@@ -50,6 +50,9 @@ class Frontpage extends Component {
   refreshHandler = (resolve, reject) => {
     let success = false;
     let url = `/api/${this.state.filter}?`;
+    if (this.state.filterPeriod) {
+      url += `t=${this.state.filterPeriod}&`;
+    }
     axios
       .get(url)
       .then(response => {

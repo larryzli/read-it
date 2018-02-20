@@ -52,7 +52,9 @@ class Menu extends Component {
           })
           .catch(console.log);
       } else {
-        console.log("PULL DEFAULT SUBREDDITS");
+        axios
+          .get("/api/default?limit=100")
+          .then(response => console.log(response));
       }
     });
   }
