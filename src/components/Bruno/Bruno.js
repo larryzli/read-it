@@ -7,7 +7,7 @@ class Bruno extends Component {
         <button
           onClick={() =>
             axios
-              .post("/api/reply")
+              .post("/api/message/read/all")
               .then(response => console.log(response))
               .catch(console.log)
           }

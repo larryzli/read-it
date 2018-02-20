@@ -3,6 +3,7 @@ const subredditsRoute = require("./controllers/subreddits/subredditsRoute");
 const postsRoute = require("./controllers/posts/postsRoute");
 const favoritesRoute = require("./controllers/favorites/favoritesRoute");
 const votesRoute = require("./controllers/votes/votesRoute");
+const messageRoute = require("./controllers/message/messageRoute");
 
 module.exports = function(app) {
   usersRoute(app);
@@ -10,4 +11,5 @@ module.exports = function(app) {
   postsRoute(app);
   favoritesRoute(app);
   votesRoute(app);
+  messageRoute(app);
 };
