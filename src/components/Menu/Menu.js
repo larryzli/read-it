@@ -47,7 +47,6 @@ class Menu extends Component {
         axios
           .get("/api/subscriptions")
           .then(response => {
-            console.log(response.data);
             this.setState({ subredditList: response.data });
           })
           .catch(console.log);
@@ -64,10 +63,8 @@ class Menu extends Component {
     });
     const subredditList = filteredSubreddits.map((subreddit, index) => {
       return (
-        <NavLink to="/" className="menu-subreddit-link">
-          <div key={subreddit.id} className="menu-subreddit-title">
-            {subreddit.display_name}
-          </div>
+        <NavLink key={subreddit.id} to="/" className="menu-subreddit-link">
+          <div className="menu-subreddit-title">{subreddit.display_name}</div>
         </NavLink>
       );
     });
