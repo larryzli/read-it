@@ -37,7 +37,27 @@ class Frontpage extends Component {
 
     this.openMenu = this.openMenu.bind(this);
     this.onDock = this.onDock.bind(this);
+    this.refreshHandler = this.refreshHandler.bind(this);
   }
+  refreshHandler = (resolve, reject) => {
+    let success = false;
+    let url = `/api/${this.state.filter}?`;
+
+    // console.log("url: ", url);
+    axios
+      .get(url)
+      .then(response => {
+        success = true;
+        if (success) {
+          resolve();
+        }
+        this.setState({
+          posts: response.data.posts,
+          after: response.data.after
+        });
+      })
+      .catch(err => reject());
+  };
   onOpenChange = open => {
     this.setState({ open });
   };
@@ -55,8 +75,7 @@ class Frontpage extends Component {
       this.onOpenChange(false);
     }
   };
-  componentDidMount() {
-    // DEFAULT: PULL HOT POSTS
+  loadContent = () => {
     let url = `/api/${this.state.filter}?`;
     if (this.state.after) {
       url += `after=${this.state.after}&`;
@@ -73,6 +92,10 @@ class Frontpage extends Component {
         });
       })
       .catch(console.log);
+  };
+  componentDidMount() {
+    // DEFAULT: PULL HOT POSTS
+    this.loadContent();
   }
   render() {
     return (
@@ -98,6 +121,7 @@ class Frontpage extends Component {
         >
           <div className="main">
             <Subreddit
+              refreshHandler={this.refreshHandler}
               subredditPosts={this.state.posts}
               navigation={
                 <HomeNavigation
