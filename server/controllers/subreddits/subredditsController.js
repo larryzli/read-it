@@ -315,7 +315,8 @@ const getUserSubscriptions = (req, res, next) => {
     axios
       .get(url, {
         headers: {
-          Authorization: `bearer ${req.user.accessToken}`
+          Authorization: `bearer ${req.user.accessToken}`,
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       })
       .then(response => {
@@ -355,13 +356,13 @@ const sidebar = (req, res, next) => {
   axios
     .get(`https://oauth.reddit.com/r/${subreddit_name}/sidebar`, {
       headers: {
-        Authorization: `bearer ${req.user.accessToken}`
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
     .then(response => console.log(response))
     .catch(console.log);
 };
-
 
 //GET SUBREDDIT INFORMATION- SUB COUNT, DESCRIPTION, HEADER IMAGE
 //JUST NEEDS SUBREDDIT NAME
@@ -370,12 +371,12 @@ const subredditAbout = (req, res, next) => {
   axios
     .get(`https://oauth.reddit.com/r/${subreddit_name}/about`, {
       headers: {
-        Authorization: `bearer ${req.user.accessToken}`
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
-    .then(response => res.status(200).json(response.data))
-}
-
+    .then(response => res.status(200).json(response.data));
+};
 
 //GET SUBREDDIT RULES
 //JUST NEEDS SUBREDDIT NAME
@@ -384,11 +385,12 @@ const subredditRules = (req, res, next) => {
   axios
     .get(`https://oauth.reddit.com/r/${subreddit_name}/about/rules`, {
       headers: {
-        Authorization: `bearer ${req.user.accessToken}`
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
-    .then(response => res.status(200).json(response.data))
-}
+    .then(response => res.status(200).json(response.data));
+};
 
 //GET SUBREDDIT MODERATORS
 //JUST NEEDS SUBREDDIT NAME
@@ -397,35 +399,39 @@ const subredditModerators = (req, res, next) => {
   axios
     .get(`https://oauth.reddit.com/r/${subreddit_name}/about/moderators`, {
       headers: {
-        Authorization: `bearer ${req.user.accessToken}`
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
-    .then(response => res.status(200).json(response.data))
-}
+    .then(response => res.status(200).json(response.data));
+};
 
 //SEARCH A SUBREDDIT
 // NEEDS A SUBREDDIT NAME
 // q IS THE INPUT BEING SEARCHED,
 // t IS THE TIME PERIOD TO SORT(hour,day,week,month,year,all)
 const searchSubreddit = (req, res, next) => {
-  const { subreddit_name } = req.params
+  const { subreddit_name } = req.params;
   const { q, t, sort, restrict_sr } = req.body;
   axios
-    .post(`https://oauth.reddit.com/r/${subreddit_name}/search`,
-    querystring.stringify({
-      api_type: "json",
-      q: q,
-      t: t,
-      sort: sort,
-      restrict_sr: true
-    }),
-    {
-      headers: {
-        Authorization: `bearer ${req.user.accessToken}`
+    .post(
+      `https://oauth.reddit.com/r/${subreddit_name}/search`,
+      querystring.stringify({
+        api_type: "json",
+        q: q,
+        t: t,
+        sort: sort,
+        restrict_sr: true
+      }),
+      {
+        headers: {
+          Authorization: `bearer ${req.user.accessToken}`,
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+        }
       }
-    })
-    .then(response => res.status(200).json(response.data))
-}
+    )
+    .then(response => res.status(200).json(response.data));
+};
 
 module.exports = {
   pullNew,
