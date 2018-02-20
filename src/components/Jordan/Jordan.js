@@ -6,7 +6,7 @@ class Jordan extends Component {
   testApi() {
 
     axios
-      .delete(`/api/user/unfriend/domoKing`)
+      .post(`/api/subscribe`, { sr_name: "blackpeopletwitter", action: "sub" })
       .then(response => console.log(response))
   }
 

@@ -65,10 +65,54 @@ const unfriend = (req, res, next) => {
 
 };
 
+const getUserAbout = (req, res, next) => {
+  const { username, sort, t } = req.query
+  let baseURL = `https://oauth.reddit.com/user/${username}/overview?sort=top`
+  if (sort) {
+    baseURL = `https://oauth.reddit.com/user/${username}/overview?sort=${sort}&t=${t}`
+  }
+
+
+  axios
+    .get(baseURL, {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`
+      }
+    })
+    .then(response => res.status(200).json(response.data.data))
+    .catch(console.log);
+};
+
+// SUBSCRIBE TO SUBREDDIT
+// NEEDS SR_NAME AND ACTION
+// SR_NAME IS A STRING OF THE NAME OF THE SUBREDDIT
+// ACTION IS A STRING THAT NEEDS TO BE "SUB" OR "UNSUB"
+const subscribe = (req, res, next) => {
+  const { sr_name, action } = req.body
+
+  axios
+    .post(`https://oauth.reddit.com/api/subscribe`,
+    querystring.stringify({
+      api_type: "json",
+      action: action,
+      sr_name: sr_name
+    }),
+    {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`
+      }
+    })
+    .then(response => res.status(200).json(response.data))
+    .catch(console.log);
+};
+
+
 
 module.exports = {
   getUserInfo,
   getAllFriends,
+  getUserAbout,
   friend,
-  unfriend
+  unfriend,
+  subscribe,
 };
