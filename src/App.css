@@ -141,10 +141,13 @@ html {
     .menu-container .menu-subreddit-container .menu-subreddit-list {
       display: flex;
       flex-direction: column; }
-      .menu-container .menu-subreddit-container .menu-subreddit-list .menu-subreddit-title {
-        padding: 10px 15px; }
-        .menu-container .menu-subreddit-container .menu-subreddit-list .menu-subreddit-title:hover {
-          background-color: #505050; }
+      .menu-container .menu-subreddit-container .menu-subreddit-list .menu-subreddit-link {
+        color: white;
+        text-decoration: none; }
+        .menu-container .menu-subreddit-container .menu-subreddit-list .menu-subreddit-link .menu-subreddit-title {
+          padding: 10px 15px; }
+          .menu-container .menu-subreddit-container .menu-subreddit-list .menu-subreddit-link .menu-subreddit-title:hover {
+            background-color: #505050; }
 
 .posts {
   padding: 10px; }

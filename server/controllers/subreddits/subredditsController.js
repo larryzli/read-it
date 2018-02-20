@@ -1,6 +1,5 @@
 const axios = require("axios");
-const querystring = require("querystring")
-
+const querystring = require("querystring");
 
 //GET DEFAULT SUBSCRIBED SUBREDDITS
 const getDefault = (req, res, next) => {
@@ -16,15 +15,9 @@ const getDefault = (req, res, next) => {
   }
   axios
     .get(baseURL)
-    .then(response =>
-      res.status(200).json(response.data)
-    )
+    .then(response => res.status(200).json(response.data))
     .catch(console.log);
 };
-
-
-
-
 
 //GET HOT POSTS FROM A SUBREDDIT
 const pullHot = (req, res, next) => {
@@ -315,14 +308,44 @@ const pullRandom = (req, res, next) => {
 
 //GET USER SUBSCRIBED SUBREDDITS
 const getUserSubscriptions = (req, res, next) => {
-  axios
-    .get("https://oauth.reddit.com/subreddits/mine/subscriber?limit=100", {
-      headers: {
-        Authorization: `bearer ${req.user.accessToken}`
-      }
-    })
-    .then(response => res.status(200).json(response.data))
-    .catch(console.log);
+  let url = "https://oauth.reddit.com/subreddits/mine/subscriber?limit=100&";
+  let allSubs = [];
+  recursiveSubs = url => {
+    axios
+      .get(url, {
+        headers: {
+          Authorization: `bearer ${req.user.accessToken}`
+        }
+      })
+      .then(response => {
+        if (response.data.data.after) {
+          allSubs.push(response.data.data.children);
+          url = url.split("after=");
+          url = url[0];
+          recursiveSubs(url + "after=" + response.data.data.after);
+        } else {
+          allSubs.push(response.data.data.children);
+          const mergedSubs = [].concat.apply([], allSubs);
+          mergedSubs.sort(compareNames);
+          res.status(200).json(
+            mergedSubs.map(sub => {
+              return {
+                display_name: sub.data.display_name,
+                url: sub.data.url,
+                id: sub.data.name
+              };
+            })
+          );
+        }
+      })
+      .catch(console.log);
+  };
+  compareNames = (a, b) => {
+    if (a.data.display_name < b.data.display_name) return -1;
+    if (a.data.display_name > b.data.display_name) return 1;
+    return 0;
+  };
+  recursiveSubs(url);
 };
 
 // NOT WORKING
@@ -337,9 +360,6 @@ const sidebar = (req, res, next) => {
     .then(response => console.log(response))
     .catch(console.log);
 };
-
-
-
 
 module.exports = {
   pullNew,

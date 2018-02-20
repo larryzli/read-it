@@ -47,8 +47,7 @@ class Menu extends Component {
         axios
           .get("/api/subscriptions")
           .then(response => {
-            console.log(response.data.data.children);
-            this.setState({ subredditList: response.data.data.children });
+            this.setState({ subredditList: response.data });
           })
           .catch(console.log);
       } else {
@@ -58,15 +57,15 @@ class Menu extends Component {
   }
   render() {
     const filteredSubreddits = this.state.subredditList.filter(subreddit => {
-      return subreddit.data.display_name
+      return subreddit.display_name
         .toLowerCase()
         .includes(this.state.subredditFilter);
     });
     const subredditList = filteredSubreddits.map((subreddit, index) => {
       return (
-        <div key={subreddit.data.name} className="menu-subreddit-title">
-          {subreddit.data.display_name}
-        </div>
+        <NavLink key={subreddit.id} to="/" className="menu-subreddit-link">
+          <div className="menu-subreddit-title">{subreddit.display_name}</div>
+        </NavLink>
       );
     });
     return (
@@ -189,7 +188,12 @@ class Menu extends Component {
             onChange={e => this.filterChange(e.target.value)}
             placeholder="View subreddit"
           />
-          <div className="menu-subreddit-list">{subredditList}</div>
+          <div className="menu-subreddit-list">
+            <NavLink to="/" className="menu-subreddit-link">
+              <div className="menu-subreddit-title">Frontpage</div>
+            </NavLink>
+            {subredditList}
+          </div>
         </div>
       </div>
     );
