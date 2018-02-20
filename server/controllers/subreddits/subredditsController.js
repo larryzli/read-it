@@ -14,18 +14,24 @@ const getDefault = (req, res, next) => {
       baseURL += `after=${after}&`;
     }
   }
+  compareNames = (a, b) => {
+    if (a.data.display_name.toLowerCase() < b.data.display_name.toLowerCase()) return -1;
+    if (a.data.display_name.toLowerCase() > b.data.display_name.toLowerCase()) return 1;
+    return 0;
+  };
   axios
     .get(baseURL)
-    .then(response => res.status(200).json(
-      response.data.data.children.map(sub => {
+    .then(response => {
+      const subs = response.data.data.children;
+      subs.sort(compareNames);
+      res.status(200).json(subs.map(sub => {
         return {
           display_name: sub.data.display_name,
           url: sub.data.url,
           id: sub.data.name
         }
-      })
-    )
-    )
+      }))
+    })
     .catch(console.log);
 };
 
@@ -352,8 +358,8 @@ const getUserSubscriptions = (req, res, next) => {
       .catch(console.log);
   };
   compareNames = (a, b) => {
-    if (a.data.display_name < b.data.display_name) return -1;
-    if (a.data.display_name > b.data.display_name) return 1;
+    if (a.data.display_name.toLowerCase() < b.data.display_name.toLowerCase()) return -1;
+    if (a.data.display_name.toLowerCase() > b.data.display_name.toLowerCase()) return 1;
     return 0;
   };
   recursiveSubs(url);
