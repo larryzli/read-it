@@ -16,15 +16,15 @@ const getDefault = (req, res, next) => {
   }
   axios
     .get(baseURL)
-    .then(response => res.status(200).json({
-      posts: response.data.data.children.map(sub => {
+    .then(response => res.status(200).json(
+      response.data.data.children.map(sub => {
         return {
           display_name: sub.data.display_name,
           url: sub.data.url,
           id: sub.data.name
         }
       })
-    })
+    )
     )
     .catch(console.log);
 };
@@ -445,6 +445,6 @@ module.exports = {
   sidebar,
   subredditAbout,
   subredditRules,
-  subredditModerators
+  subredditModerators,
   // searchSubreddit
 };
