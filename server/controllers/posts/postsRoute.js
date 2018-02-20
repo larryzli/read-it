@@ -2,7 +2,6 @@ const {
   getPost,
   getMoreComments,
   reply,
-  compose,
   deleteComment,
   editComment,
   lockPost,
@@ -18,8 +17,6 @@ module.exports = function(app) {
   app.get("/api/post/comments/more/:post_id/:children", getMoreComments);
   // REPLY EXPECTS (parentId, text) EXAMPLE ('t1_nfj43n', 'Hello world')
   app.post("/api/reply", reply);
-  // COMPOSE EXPECTS (name, subject, text) EXAMPLE ('domoKing, 'Important', 'Hello')
-  app.post("/api/compose", compose);
   // COMMENT DELETE EXPECTS (id) EXAMPLE ('t1_duckn4b') NOTE: on reddits data, this id can be found on the property 'name'
   app.post("/api/comment/delete", deleteComment);
   // COMMENT EDIT EXPECTS (id, text) EXAMPLE ('t1_duckn4b', 'Test Edit') NOTE: on reddits data, this id can be found on the property 'name'
