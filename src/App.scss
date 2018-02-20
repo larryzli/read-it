@@ -72,6 +72,9 @@ html {
           font-weight: 100;
           color: $grey3;
           text-transform: uppercase;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }
@@ -566,6 +569,41 @@ html {
   margin-left: 5px;
 }
 
+// TOP DRAWER
+.drawer-wrapper {
+  z-index: 3;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 3px;
+  right: 3px;
+  display: flex;
+  justify-content: flex-end;
+
+  .drawer-container {
+    background-color: $grey2;
+    box-shadow: $shadow;
+    width: 180px;
+    height: fit-content;
+
+    .drawer-title {
+      padding: 10px 15px;
+      width: 150px;
+      font-size: 14px;
+      font-weight: 500;
+      border-bottom: 1px solid $grey1;
+    }
+    .drawer-item {
+      padding: 10px 15px;
+      display: flex;
+      width: 150px;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 300;
+    }
+  }
+}
+
 // PULL TO REFRESH
 .ptr-element {
   position: absolute;
@@ -576,7 +614,6 @@ html {
   z-index: -1;
   text-align: center;
   height: 50px;
-  // background-color: red;
   padding-top: 5px;
 }
 
