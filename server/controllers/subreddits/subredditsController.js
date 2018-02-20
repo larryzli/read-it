@@ -1,5 +1,6 @@
 const axios = require("axios");
 const querystring = require("querystring");
+const { USER_AGENT } = process.env;
 
 //GET DEFAULT SUBSCRIBED SUBREDDITS
 const getDefault = (req, res, next) => {
@@ -323,7 +324,8 @@ const getUserSubscriptions = (req, res, next) => {
     axios
       .get(url, {
         headers: {
-          Authorization: `bearer ${req.user.accessToken}`
+          Authorization: `bearer ${req.user.accessToken}`,
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       })
       .then(response => {
@@ -363,13 +365,13 @@ const sidebar = (req, res, next) => {
   axios
     .get(`https://oauth.reddit.com/r/${subreddit_name}/sidebar`, {
       headers: {
-        Authorization: `bearer ${req.user.accessToken}`
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
     .then(response => console.log(response))
     .catch(console.log);
 };
-
 
 //GET SUBREDDIT INFORMATION- SUB COUNT, DESCRIPTION, HEADER IMAGE
 //JUST NEEDS SUBREDDIT NAME
@@ -378,12 +380,12 @@ const subredditAbout = (req, res, next) => {
   axios
     .get(`https://oauth.reddit.com/r/${subreddit_name}/about`, {
       headers: {
-        Authorization: `bearer ${req.user.accessToken}`
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
-    .then(response => res.status(200).json(response.data))
-}
-
+    .then(response => res.status(200).json(response.data));
+};
 
 //GET SUBREDDIT RULES
 //JUST NEEDS SUBREDDIT NAME
@@ -392,11 +394,12 @@ const subredditRules = (req, res, next) => {
   axios
     .get(`https://oauth.reddit.com/r/${subreddit_name}/about/rules`, {
       headers: {
-        Authorization: `bearer ${req.user.accessToken}`
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
-    .then(response => res.status(200).json(response.data))
-}
+    .then(response => res.status(200).json(response.data));
+};
 
 //GET SUBREDDIT MODERATORS
 //JUST NEEDS SUBREDDIT NAME
@@ -405,28 +408,29 @@ const subredditModerators = (req, res, next) => {
   axios
     .get(`https://oauth.reddit.com/r/${subreddit_name}/about/moderators`, {
       headers: {
-        Authorization: `bearer ${req.user.accessToken}`
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
-    .then(response => res.status(200).json(response.data))
-}
+    .then(response => res.status(200).json(response.data));
+};
 
 //SEARCH A SUBREDDIT
 // NEEDS A SUBREDDIT NAME
 // SEARCHTERMS IS THE INPUT BEING SEARCHED,
 // t IS THE TIME PERIOD TO SORT(hour,day,week,month,year,all)
-const searchSubreddit = (req, res, next) => {
-  const { subreddit_name, searchTerms, t, sort, restrict_sr } = req.query;
-  console.log(req.query)
-  axios
-    .get(`https://oauth.reddit.com/r/${subreddit_name}/q=${searchTerms}`,
-    {
-      headers: {
-        Authorization: `bearer ${req.user.accessToken}`
-      }
-    })
-    .then(response => res.status(200).json(response.data))
-}
+// const searchSubreddit = (req, res, next) => {
+//   const { subreddit_name, searchTerms, t, sort, restrict_sr } = req.query;
+//   console.log(req.query)
+//   axios
+//     .get(`https://oauth.reddit.com/r/${subreddit_name}/q=${searchTerms}`,
+//     {
+//       headers: {
+//         Authorization: `bearer ${req.user.accessToken}`
+//       }
+//     }
+//       .then(response => res.status(200).json(response.data));
+// };
 
 module.exports = {
   pullNew,
@@ -441,6 +445,6 @@ module.exports = {
   sidebar,
   subredditAbout,
   subredditRules,
-  subredditModerators,
-  searchSubreddit
+  subredditModerators
+  // searchSubreddit
 };
