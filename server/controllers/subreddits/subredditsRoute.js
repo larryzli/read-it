@@ -12,8 +12,8 @@ const {
   subscribe,
   subredditAbout,
   subredditRules,
-  subredditModerators,
-  searchSubreddit
+  subredditModerators
+  // searchSubreddit
 } = require("./subredditsController");
 
 module.exports = function (app) {
@@ -30,5 +30,5 @@ module.exports = function (app) {
   app.get("/api/about/:subreddit_name", subredditAbout)
   app.get("/api/rules/:subreddit_name", subredditRules)
   app.get("/api/moderators/:subreddit_name", subredditModerators)
-  app.post("/api/search/:subreddit_name", searchSubreddit)
+  // app.get("/api/search/:subreddit_name", searchSubreddit)
 };
