@@ -71,7 +71,7 @@ class Frontpage extends Component {
     this.setState({ open });
   };
   openMenu = () => {
-    this.setState({ open: !this.state.open });
+    this.setState({ open: !this.state.open, docked: false });
   };
   toggleSort = () => {
     this.setState({ showSortDrawer: !this.state.showSortDrawer });
