@@ -1,10 +1,10 @@
 const axios = require("axios");
 const querystring = require("querystring");
+const { USER_AGENT } = process.env;
 
 const vote = (req, res, next) => {
   const { vote, id } = req.body;
   // Can also include rank (integer greater than 1)
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/vote",
@@ -16,7 +16,7 @@ const vote = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
