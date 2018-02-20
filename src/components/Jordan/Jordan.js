@@ -6,7 +6,7 @@ class Jordan extends Component {
   testApi() {
 
     axios
-      .get(`/api/user/about?username=spaghettoucher123`)
+      .post(`/api/subscribe`, { sr_name: "blackpeopletwitter", action: "sub" })
       .then(response => console.log(response))
   }
 

@@ -8,10 +8,11 @@ const {
   pullRandom,
   getUserSubscriptions,
   getDefault,
-  sidebar
+  sidebar,
+  subscribe
 } = require("./subredditsController");
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.get("/api/hot", pullHot);
   app.get("/api/best", pullBest);
   app.get("/api/new", pullNew);

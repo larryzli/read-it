@@ -1,4 +1,10 @@
-const { getUserInfo, getAllFriends, friend, unfriend, getUserAbout } = require("./userAccountController");
+const {
+  getUserInfo,
+  getAllFriends,
+  friend,
+  unfriend,
+  getUserAbout,
+  subscribe } = require("./userAccountController");
 
 module.exports = function (app) {
   app.get("/api/user/info", getUserInfo);
@@ -6,4 +12,5 @@ module.exports = function (app) {
   app.get("/api/user/about", getUserAbout);
   app.post("/api/user/friend", friend);
   app.delete("/api/user/unfriend/:username", unfriend);
+  app.post("/api/subscribe", subscribe)
 };
