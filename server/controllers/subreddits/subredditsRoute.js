@@ -12,7 +12,7 @@ const {
   subscribe,
   subredditAbout,
   subredditRules,
-  subredditModerators
+  subredditModerators,
   // searchSubreddit
 } = require("./subredditsController");
 
