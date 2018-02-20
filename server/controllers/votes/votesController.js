@@ -24,6 +24,19 @@ const vote = (req, res, next) => {
     .catch(console.log);
 };
 
+const test = (req, res, next) => {
+  axios
+    .get("https://oauth.reddit.com/hot", {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    })
+    .then(response => console.log(response.data))
+    .catch(console.log);
+};
+
 module.exports = {
-  vote
+  vote,
+  test
 };

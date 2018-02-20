@@ -15,8 +15,10 @@ const getDefault = (req, res, next) => {
     }
   }
   compareNames = (a, b) => {
-    if (a.data.display_name.toLowerCase() < b.data.display_name.toLowerCase()) return -1;
-    if (a.data.display_name.toLowerCase() > b.data.display_name.toLowerCase()) return 1;
+    if (a.data.display_name.toLowerCase() < b.data.display_name.toLowerCase())
+      return -1;
+    if (a.data.display_name.toLowerCase() > b.data.display_name.toLowerCase())
+      return 1;
     return 0;
   };
   axios
@@ -24,13 +26,15 @@ const getDefault = (req, res, next) => {
     .then(response => {
       const subs = response.data.data.children;
       subs.sort(compareNames);
-      res.status(200).json(subs.map(sub => {
-        return {
-          display_name: sub.data.display_name,
-          url: sub.data.url,
-          id: sub.data.name
-        }
-      }))
+      res.status(200).json(
+        subs.map(sub => {
+          return {
+            display_name: sub.data.display_name,
+            url: sub.data.url,
+            id: sub.data.name
+          };
+        })
+      );
     })
     .catch(console.log);
 };
@@ -38,6 +42,16 @@ const getDefault = (req, res, next) => {
 //GET HOT POSTS FROM A SUBREDDIT
 const pullHot = (req, res, next) => {
   let baseURL = "https://www.reddit.com/hot.json?";
+  let headers = {};
+  if (req.user) {
+    baseURL = "https://oauth.reddit.com/hot?";
+    headers = {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    };
+  }
   const { subreddit, limit, after } = req.query;
   if (req.query) {
     if (subreddit) {
@@ -51,7 +65,7 @@ const pullHot = (req, res, next) => {
     }
   }
   axios
-    .get(baseURL)
+    .get(baseURL, headers)
     .then(response =>
       res.status(200).json({
         posts: response.data.data.children.map(el => {
@@ -162,7 +176,7 @@ const pullNew = (req, res, next) => {
 const pullTop = (req, res, next) => {
   let baseURL = `https://www.reddit.com/top.json?`;
   const { subreddit, t, limit, after } = req.query;
-  console.log(req.query)
+  console.log(req.query);
   if (req.query) {
     if (subreddit) {
       baseURL = `https://www.reddit.com/r/${subreddit}/top.json?`;
@@ -358,8 +372,10 @@ const getUserSubscriptions = (req, res, next) => {
       .catch(console.log);
   };
   compareNames = (a, b) => {
-    if (a.data.display_name.toLowerCase() < b.data.display_name.toLowerCase()) return -1;
-    if (a.data.display_name.toLowerCase() > b.data.display_name.toLowerCase()) return 1;
+    if (a.data.display_name.toLowerCase() < b.data.display_name.toLowerCase())
+      return -1;
+    if (a.data.display_name.toLowerCase() > b.data.display_name.toLowerCase())
+      return 1;
     return 0;
   };
   recursiveSubs(url);
@@ -451,6 +467,6 @@ module.exports = {
   sidebar,
   subredditAbout,
   subredditRules,
-  subredditModerators,
+  subredditModerators
   // searchSubreddit
 };
