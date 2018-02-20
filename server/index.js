@@ -109,8 +109,14 @@ passport.use(
         .getUserById(profile.id)
         .then(response => {
           if (response[0]) {
-            console.log("hit");
-            done(null, profile);
+            app
+              .get("db")
+              .getFilterInfo(profile.id)
+              .then(filter => {
+                profile.filter = filter;
+                done(null, profile);
+              })
+              .catch(console.log);
           } else {
             app
               .get("db")

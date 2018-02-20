@@ -1,0 +1,1 @@
+SELECT * FROM filter WHERE auth_id = $1;
