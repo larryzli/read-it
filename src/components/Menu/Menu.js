@@ -54,7 +54,10 @@ class Menu extends Component {
       } else {
         axios
           .get("/api/default?limit=100")
-          .then(response => console.log(response));
+          .then(response => {
+            this.setState({ subredditList: response.data });
+          })
+          .catch(console.log);
       }
     });
   }
