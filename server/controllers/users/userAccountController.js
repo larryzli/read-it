@@ -3,6 +3,7 @@ const querystring = require("querystring");
 
 const getUserInfo = (req, res, next) => {
   if (req.user) {
+    req.user._json.filter = req.user.filter;
     res.status(200).json(req.user._json);
   } else {
     res.status(200).json();
@@ -26,19 +27,19 @@ const friend = (req, res, next) => {
 
   axios
     .put(
-    `https://oauth.reddit.com/api/v1/me/friends/${username}`,
-    {
-      api_type: "json",
-      name: `${username}`,
-      type: "friend",
-      container: ""
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${req.user.accessToken}`,
-        "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+      `https://oauth.reddit.com/api/v1/me/friends/${username}`,
+      {
+        api_type: "json",
+        name: `${username}`,
+        type: "friend",
+        container: ""
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${req.user.accessToken}`,
+          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+        }
       }
-    }
     )
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
@@ -58,7 +59,6 @@ const unfriend = (req, res, next) => {
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
 };
-
 
 //GET USER INFO FROM THEIR USERNAME
 //NEEDS USERNAME TO WORK BUT CAN USE SORT AND T TO CHANGE THE LIST OF THE USER'S COMMENTS
@@ -89,19 +89,57 @@ const subscribe = (req, res, next) => {
 
   axios
     .post(
-    `https://oauth.reddit.com/api/subscribe`,
-    querystring.stringify({
-      api_type: "json",
-      action: action,
-      sr_name: sr_name
-    }),
-    {
-      headers: {
-        Authorization: `bearer ${req.user.accessToken}`
+      `https://oauth.reddit.com/api/subscribe`,
+      querystring.stringify({
+        api_type: "json",
+        action: action,
+        sr_name: sr_name
+      }),
+      {
+        headers: {
+          Authorization: `bearer ${req.user.accessToken}`
+        }
       }
-    }
     )
     .then(response => res.status(200).json(response.data))
+    .catch(console.log);
+};
+
+const blockUser = (req, res, next) => {
+  const { id } = req.body;
+  axios
+    .post(
+      `https://oauth.reddit.com/api/block_user`,
+      querystring.stringify({
+        account_id: id
+      }),
+      {
+        headers: {
+          Authorization: `bearer ${req.user.accessToken}`,
+          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+        }
+      }
+    )
+    .then(response => res.status(200).json(response.data))
+    .catch(console.log);
+};
+
+const addFilter = (req, res, next) => {
+  const { filter_name } = req.body;
+  const { id } = req.user;
+  const db = req.app.get("db");
+  db
+    .addFilter([filter_name, id])
+    .then(response => res.status(200).json(response))
+    .catch(console.log);
+};
+
+const removeFilter = (req, res, next) => {
+  const { id } = req.body;
+  const db = req.app.get("db");
+  db
+    .removeFilter([id, req.user.id])
+    .then(response => res.status(200).json(response))
     .catch(console.log);
 };
 
@@ -111,5 +149,8 @@ module.exports = {
   getUserAbout,
   friend,
   unfriend,
-  subscribe
+  subscribe,
+  blockUser,
+  addFilter,
+  removeFilter
 };
