@@ -15,7 +15,7 @@ html {
   justify-content: space-between;
   align-items: center;
   padding-left: 15px;
-  padding-right: 10px;
+  padding-right: 15px;
   position: sticky;
   top: 0;
   z-index: 1; }
@@ -42,7 +42,10 @@ html {
           font-size: 10px;
           font-weight: 100;
           color: #bbb;
-          text-transform: uppercase; }
+          text-transform: uppercase;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis; }
   .nav-background .nav-right {
     display: flex;
     justify-content: flex-end;
@@ -379,6 +382,34 @@ html {
   font-size: 10px;
   color: #4a90e2;
   margin-left: 5px; }
+
+.drawer-wrapper {
+  z-index: 3;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 3px;
+  right: 3px;
+  display: flex;
+  justify-content: flex-end; }
+  .drawer-wrapper .drawer-container {
+    background-color: #444;
+    box-shadow: 0px 0px 2px #111;
+    width: 180px;
+    height: fit-content; }
+    .drawer-wrapper .drawer-container .drawer-title {
+      padding: 10px 15px;
+      width: 150px;
+      font-size: 14px;
+      font-weight: 500;
+      border-bottom: 1px solid #333; }
+    .drawer-wrapper .drawer-container .drawer-item {
+      padding: 10px 15px;
+      display: flex;
+      width: 150px;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 300; }
 
 .ptr-element {
   position: absolute;
