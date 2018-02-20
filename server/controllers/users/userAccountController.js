@@ -1,5 +1,6 @@
 const axios = require("axios");
 const querystring = require("querystring");
+const { USER_AGENT } = process.env;
 
 const getUserInfo = (req, res, next) => {
   if (req.user) {
@@ -23,8 +24,6 @@ const getAllFriends = (req, res, next) => {
 
 const friend = (req, res, next) => {
   const { username } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
-
   axios
     .put(
       `https://oauth.reddit.com/api/v1/me/friends/${username}`,
@@ -37,7 +36,7 @@ const friend = (req, res, next) => {
       {
         headers: {
           Authorization: `Bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -47,13 +46,11 @@ const friend = (req, res, next) => {
 
 const unfriend = (req, res, next) => {
   const { username } = req.params;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
-
   axios
     .delete(`https://oauth.reddit.com/api/v1/me/friends/${username}`, {
       headers: {
         Authorization: `Bearer ${req.user.accessToken}`,
-        "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
     .then(response => res.status(200).json(response.data))
@@ -116,7 +113,7 @@ const blockUser = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )

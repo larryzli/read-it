@@ -1,5 +1,6 @@
 const axios = require("axios");
 const querystring = require("querystring");
+const { USER_AGENT } = process.env;
 
 const getPost = (req, res, next) => {
   const { subreddit_title, post_id } = req.params;
@@ -7,7 +8,6 @@ const getPost = (req, res, next) => {
     .get(`https://www.reddit.com/r/${subreddit_title}/${post_id}.json`)
     .then(response => {
       let r = response.data[0].data.children[0].data;
-      console.log(r);
       res.status(200).json({
         post: {
           domain: r.domain,
@@ -54,7 +54,6 @@ const getMoreComments = (req, res, next) => {
 
 const reply = (req, res, next) => {
   const { parentId, text } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       `https://oauth.reddit.com/api/comment`,
@@ -66,7 +65,7 @@ const reply = (req, res, next) => {
       {
         headers: {
           Authorization: `Bearer ${req.body.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -76,7 +75,6 @@ const reply = (req, res, next) => {
 
 const deleteComment = (req, res, next) => {
   const { id } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/del",
@@ -86,7 +84,7 @@ const deleteComment = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -96,7 +94,6 @@ const deleteComment = (req, res, next) => {
 
 const editComment = (req, res, next) => {
   const { id, text } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/editusertext",
@@ -108,7 +105,7 @@ const editComment = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -118,7 +115,6 @@ const editComment = (req, res, next) => {
 
 const lockPost = (req, res, next) => {
   const { id } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/lock",
@@ -128,7 +124,7 @@ const lockPost = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -138,7 +134,6 @@ const lockPost = (req, res, next) => {
 
 const unlockPost = (req, res, next) => {
   const { id } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/unlock",
@@ -148,7 +143,7 @@ const unlockPost = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -158,7 +153,6 @@ const unlockPost = (req, res, next) => {
 
 const report = (req, res, next) => {
   const { reason, id } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/report",
@@ -170,7 +164,7 @@ const report = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -180,7 +174,6 @@ const report = (req, res, next) => {
 
 const hide = (req, res, next) => {
   const { id } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/hide",
@@ -190,7 +183,7 @@ const hide = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -200,7 +193,6 @@ const hide = (req, res, next) => {
 
 const unhide = (req, res, next) => {
   const { id } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/unhide",
@@ -210,7 +202,7 @@ const unhide = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -220,7 +212,6 @@ const unhide = (req, res, next) => {
 
 const submit = (req, res, next) => {
   const { kind, title, text, sr, url } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/submit",
@@ -235,7 +226,7 @@ const submit = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )

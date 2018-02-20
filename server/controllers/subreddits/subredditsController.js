@@ -1,5 +1,6 @@
 const axios = require("axios");
 const querystring = require("querystring");
+const { USER_AGENT } = process.env;
 
 //GET DEFAULT SUBSCRIBED SUBREDDITS
 const getDefault = (req, res, next) => {
