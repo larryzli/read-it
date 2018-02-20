@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 // IMPORT ICONS
 import profileIcon from "../../icons/ic_person_white_20px.svg";
 import messageIcon from "../../icons/ic_email_white_20px.svg";
@@ -17,7 +17,10 @@ class Menu extends Component {
     super(props);
     this.state = {
       showProfileSubnav: false,
-      showMessagesSubnav: false
+      showMessagesSubnav: false,
+
+      subredditFilter: "",
+      subredditList: []
     };
   }
   toggleProfileSubnav = () => {
@@ -30,13 +33,42 @@ class Menu extends Component {
       showMessagesSubnav: !this.state.showMessagesSubnav
     });
   };
+  filterChange = value => {
+    this.setState({
+      subredditFilter: value
+    });
+  };
   loginHandler = () => {
     window.location.href = `${process.env.REACT_APP_HOST}/auth/reddit`;
   };
   componentDidMount() {
-    this.props.getUserInfo();
+    this.props.getUserInfo().then(response => {
+      if (this.props.user.user.id) {
+        axios
+          .get("/api/subscriptions")
+          .then(response => {
+            console.log(response.data.data.children);
+            this.setState({ subredditList: response.data.data.children });
+          })
+          .catch(console.log);
+      } else {
+        console.log("PULL DEFAULT SUBREDDITS");
+      }
+    });
   }
   render() {
+    const filteredSubreddits = this.state.subredditList.filter(subreddit => {
+      return subreddit.data.display_name
+        .toLowerCase()
+        .includes(this.state.subredditFilter);
+    });
+    const subredditList = filteredSubreddits.map((subreddit, index) => {
+      return (
+        <div key={subreddit.data.name} className="menu-subreddit-title">
+          {subreddit.data.display_name}
+        </div>
+      );
+    });
     return (
       <div className="menu-container">
         <div className="menu-logo-container">
@@ -153,12 +185,11 @@ class Menu extends Component {
           <input
             className="menu-subreddit-search"
             type="text"
+            value={this.state.subredditFilter}
+            onChange={e => this.filterChange(e.target.value)}
             placeholder="View subreddit"
           />
-          <div className="menu-subreddit-list">
-            <div className="menu-subreddit-title">Subreddit 1</div>
-            <div className="menu-subreddit-title">Subreddit 2</div>
-          </div>
+          <div className="menu-subreddit-list">{subredditList}</div>
         </div>
       </div>
     );
