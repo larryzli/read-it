@@ -26,19 +26,19 @@ const friend = (req, res, next) => {
 
   axios
     .put(
-      `https://oauth.reddit.com/api/v1/me/friends/${username}`,
-      {
-        api_type: "json",
-        name: `${username}`,
-        type: "friend",
-        container: ""
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
-        }
+    `https://oauth.reddit.com/api/v1/me/friends/${username}`,
+    {
+      api_type: "json",
+      name: `${username}`,
+      type: "friend",
+      container: ""
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
       }
+    }
     )
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
@@ -59,6 +59,10 @@ const unfriend = (req, res, next) => {
     .catch(console.log);
 };
 
+
+//GET USER INFO FROM THEIR USERNAME
+//NEEDS USERNAME TO WORK BUT CAN USE SORT AND T TO CHANGE THE LIST OF THE USER'S COMMENTS
+//SORT = "TOP" or "CONTROVERSIAL" AND CAN BE SORTED BY TIME WITH T="HOUR, DAY,WEEK,MONTH,YEAR,ALL"
 const getUserAbout = (req, res, next) => {
   const { username, sort, t } = req.query;
   let baseURL = `https://oauth.reddit.com/user/${username}/overview?sort=top`;
@@ -85,17 +89,17 @@ const subscribe = (req, res, next) => {
 
   axios
     .post(
-      `https://oauth.reddit.com/api/subscribe`,
-      querystring.stringify({
-        api_type: "json",
-        action: action,
-        sr_name: sr_name
-      }),
-      {
-        headers: {
-          Authorization: `bearer ${req.user.accessToken}`
-        }
+    `https://oauth.reddit.com/api/subscribe`,
+    querystring.stringify({
+      api_type: "json",
+      action: action,
+      sr_name: sr_name
+    }),
+    {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`
       }
+    }
     )
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
