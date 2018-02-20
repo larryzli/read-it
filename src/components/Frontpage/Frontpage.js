@@ -90,10 +90,11 @@ class Frontpage extends Component {
           style={{ overflow: "auto" }}
           sidebarStyle={{
             backgroundColor: "#444",
-            boxShadow: "0px 0px 2px #111"
+            boxShadow: "0px 0px 2px #111",
+            zIndex: "3"
           }}
           dragHandleStyle={{ backgroundColor: "transparent" }}
-          overlayStyle={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+          overlayStyle={{ backgroundColor: "rgba(0, 0, 0, 0.6)", zIndex: "2" }}
         >
           <div className="main">
             <Subreddit

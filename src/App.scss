@@ -390,10 +390,16 @@ html {
     color: grey;
 
     .postdata-title {
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 300;
       color: $white;
       margin-bottom: 3px;
+    }
+
+    .postdata-body {
+      color: white;
+      padding: 10px 0;
+      font-size: 12px;
     }
 
     .postdata-info {
