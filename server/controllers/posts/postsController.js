@@ -7,6 +7,7 @@ const getPost = (req, res, next) => {
     .get(`https://www.reddit.com/r/${subreddit_title}/${post_id}.json`)
     .then(response => {
       let r = response.data[0].data.children[0].data;
+      console.log(r);
       res.status(200).json({
         post: {
           domain: r.domain,
@@ -65,29 +66,6 @@ const reply = (req, res, next) => {
       {
         headers: {
           Authorization: `Bearer ${req.body.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
-        }
-      }
-    )
-    .then(response => res.status(200).json(response.data))
-    .catch(console.log);
-};
-
-const compose = (req, res, next) => {
-  const { name, subject, text } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
-  axios
-    .post(
-      "https://oauth.reddit.com/api/compose",
-      querystring.stringify({
-        to: name,
-        subject: subject,
-        text: text,
-        api_type: "json"
-      }),
-      {
-        headers: {
-          Authorization: `bearer ${req.user.accessToken}`,
           "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
         }
       }
@@ -269,7 +247,6 @@ module.exports = {
   getPost,
   getMoreComments,
   reply,
-  compose,
   deleteComment,
   editComment,
   lockPost,

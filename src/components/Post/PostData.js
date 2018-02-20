@@ -39,6 +39,9 @@ const PostData = ({ postData }) => {
           {" • "}
           <span className="postdata-author">{postData.author}</span>
         </div>
+        {postData.is_self && postData.body ? (
+          <div className="postdata-body">{postData.body}</div>
+        ) : null}
         <div className="postdata-data">
           <span className="postdata-score">
             {postData.score > 10000
@@ -58,7 +61,6 @@ const PostData = ({ postData }) => {
           <img className="postdata-control-icon" src={downvoteIcon} alt="" />
           <img className="postdata-control-icon" src={starIconEmpty} alt="" />
           <img className="postdata-control-icon" src={profileIcon} alt="" />
-          <span className="postdata-control-icon">{" /r/"}</span>
         </div>
         <div className="postdata-right-controls">
           <img className="postdata-control-icon" src={moreIcon} alt="" />

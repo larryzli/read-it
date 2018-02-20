@@ -1,8 +1,11 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
 import moment from "moment";
+import ReactPullToRefresh from "react-pull-to-refresh";
 // IMPORT COMPONENTS
 import PostCard from "../PostCard/PostCard";
+// IMPORT ICONS
+import upIcon from "../../icons/ic_keyboard_arrow_up_white_24px.svg";
 
 // COMPONENT
 class SubredditPosts extends Component {
@@ -30,7 +33,22 @@ class SubredditPosts extends Component {
     return (
       <div>
         {this.props.navigation}
-        <div className="posts">{posts}</div>
+        <ReactPullToRefresh
+          onRefresh={this.props.refreshHandler}
+          icon={
+            <span className="genericon genericon-next">
+              <img className="loading-icon" src={upIcon} alt="" />
+              <br />
+              <span className="preload-text">Pull down to refresh</span>
+              <span className="load-text">Release to refresh</span>
+            </span>
+          }
+          distanceToRefresh={60}
+        >
+          <div className="posts" id="content">
+            {posts}
+          </div>
+        </ReactPullToRefresh>
       </div>
     );
   }
