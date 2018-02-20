@@ -65,6 +65,10 @@ const unfriend = (req, res, next) => {
 
 };
 
+
+//GET USER INFO FROM THEIR USERNAME
+//NEEDS USERNAME TO WORK BUT CAN USE SORT AND T TO LIST USER'S COMMENTS
+//SORT = "TOP" or "CONTROVERSIAL" AND CAN BE SORT BY TIME WITH T="DAY,WEEK,MONTH,YEAR,ALL"
 const getUserAbout = (req, res, next) => {
   const { username, sort, t } = req.query
   let baseURL = `https://oauth.reddit.com/user/${username}/overview?sort=top`
