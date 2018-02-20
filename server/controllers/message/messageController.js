@@ -1,9 +1,9 @@
 const axios = require("axios");
 const querystring = require("querystring");
+const { USER_AGENT } = process.env;
 
 const sendMessage = (req, res, next) => {
   const { name, subject, text } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/compose",
@@ -16,7 +16,7 @@ const sendMessage = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -26,7 +26,6 @@ const sendMessage = (req, res, next) => {
 
 const deleteMessage = (req, res, next) => {
   const { id } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/del_msg",
@@ -36,7 +35,7 @@ const deleteMessage = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -45,12 +44,11 @@ const deleteMessage = (req, res, next) => {
 };
 
 const getInbox = (req, res, next) => {
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .get("https://oauth.reddit.com/message/inbox", {
       headers: {
         Authorization: `bearer ${req.user.accessToken}`,
-        "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
     .then(response => res.status(200).json(response.data.data.children))
@@ -58,12 +56,11 @@ const getInbox = (req, res, next) => {
 };
 
 const getUnread = (req, res, next) => {
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .get("https://oauth.reddit.com/message/unread", {
       headers: {
         Authorization: `bearer ${req.user.accessToken}`,
-        "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
     .then(response => res.status(200).json(response.data.data.children))
@@ -71,12 +68,11 @@ const getUnread = (req, res, next) => {
 };
 
 const getSent = (req, res, next) => {
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .get("https://oauth.reddit.com/message/sent", {
       headers: {
         Authorization: `bearer ${req.user.accessToken}`,
-        "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
     .then(response => res.status(200).json(response.data.data.children))
@@ -86,7 +82,6 @@ const getSent = (req, res, next) => {
 // NOT TESTED YET
 const markUnread = (req, res, next) => {
   const { id } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/unread_message",
@@ -96,7 +91,7 @@ const markUnread = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -107,7 +102,6 @@ const markUnread = (req, res, next) => {
 // NOT TESTED YET
 const markRead = (req, res, next) => {
   const { id } = req.body;
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/read_message",
@@ -117,7 +111,7 @@ const markRead = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
@@ -126,7 +120,6 @@ const markRead = (req, res, next) => {
 };
 
 const readAllMessages = (req, res, next) => {
-  const userAgent = req.user._json.subreddit.display_name_prefixed;
   axios
     .post(
       "https://oauth.reddit.com/api/read_all_messages",
@@ -136,7 +129,7 @@ const readAllMessages = (req, res, next) => {
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${userAgent})`
+          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }
     )
