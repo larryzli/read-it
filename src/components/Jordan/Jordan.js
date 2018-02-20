@@ -6,7 +6,7 @@ class Jordan extends Component {
   testApi() {
 
     axios
-      .get(`/api/search/wow`, { q: "what does this do" })
+      .get(`/api/default`)
       .then(response => console.log(response))
   }
 

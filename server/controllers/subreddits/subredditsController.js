@@ -15,7 +15,16 @@ const getDefault = (req, res, next) => {
   }
   axios
     .get(baseURL)
-    .then(response => res.status(200).json(response.data))
+    .then(response => res.status(200).json({
+      posts: response.data.data.children.map(sub => {
+        return {
+          display_name: sub.data.display_name,
+          url: sub.data.url,
+          id: sub.data.name
+        }
+      })
+    })
+    )
     .catch(console.log);
 };
 
@@ -146,7 +155,7 @@ const pullNew = (req, res, next) => {
 const pullTop = (req, res, next) => {
   let baseURL = `https://www.reddit.com/top.json?`;
   const { subreddit, t, limit, after } = req.query;
-
+  console.log(req.query)
   if (req.query) {
     if (subreddit) {
       baseURL = `https://www.reddit.com/r/${subreddit}/top.json?`;
@@ -404,20 +413,13 @@ const subredditModerators = (req, res, next) => {
 
 //SEARCH A SUBREDDIT
 // NEEDS A SUBREDDIT NAME
-// q IS THE INPUT BEING SEARCHED,
+// SEARCHTERMS IS THE INPUT BEING SEARCHED,
 // t IS THE TIME PERIOD TO SORT(hour,day,week,month,year,all)
 const searchSubreddit = (req, res, next) => {
-  const { subreddit_name } = req.params
-  const { q, t, sort, restrict_sr } = req.body;
+  const { subreddit_name, searchTerms, t, sort, restrict_sr } = req.query;
+  console.log(req.query)
   axios
-    .post(`https://oauth.reddit.com/r/${subreddit_name}/search`,
-    querystring.stringify({
-      api_type: "json",
-      q: q,
-      t: t,
-      sort: sort,
-      restrict_sr: true
-    }),
+    .get(`https://oauth.reddit.com/r/${subreddit_name}/q=${searchTerms}`,
     {
       headers: {
         Authorization: `bearer ${req.user.accessToken}`
