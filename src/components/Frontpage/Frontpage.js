@@ -324,6 +324,7 @@ class Frontpage extends Component {
               hasMore={this.state.after ? true : false}
               loadContent={this.loadContent}
               isLoading={this.state.loading}
+              enableControls={this.props.user.user.id ? true : false}
               navigation={
                 <HomeNavigation
                   openMenu={this.openMenu}

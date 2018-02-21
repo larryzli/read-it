@@ -56,6 +56,9 @@ const pullHot = (req, res, next) => {
   if (req.query) {
     if (subreddit) {
       baseURL = `https://www.reddit.com/r/${subreddit}/hot.json?`;
+      if (req.user) {
+        baseURL = `https://oauth.reddit.com/r/${subreddit}/hot?`;
+      }
     }
     if (limit) {
       baseURL += `limit=${limit}&`;
@@ -83,7 +86,20 @@ const pullHot = (req, res, next) => {
             post_thumbnail: o.thumbnail,
             over_18: o.over_18,
             url: o.url,
-            permalink: o.permalink
+            permalink: o.permalink,
+            saved: o.saved,
+            likes: o.likes,
+            hidden: o.hidden,
+            clicked: o.clicked,
+            visited: o.visited,
+            pinned: o.pinned,
+            archived: o.archived,
+            spoiler: o.spoiler,
+            locked: o.locked,
+            stickied: o.stickied,
+            edited: o.edited,
+            gilded: o.gilded,
+            reddit_media: o.is_reddit_media_domain
           };
         }),
         after: response.data.data.after
@@ -95,6 +111,16 @@ const pullHot = (req, res, next) => {
 //GET BEST
 const pullBest = (req, res, next) => {
   let baseURL = "https://www.reddit.com/best.json?";
+  let headers = {};
+  if (req.user) {
+    baseURL = "https://oauth.reddit.com/best?";
+    headers = {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    };
+  }
   const { limit, after } = req.query;
   if (req.query) {
     if (limit) {
@@ -104,7 +130,7 @@ const pullBest = (req, res, next) => {
     }
   }
   axios
-    .get(baseURL)
+    .get(baseURL, headers)
     .then(response =>
       res.status(200).json({
         posts: response.data.data.children.map(el => {
@@ -120,7 +146,20 @@ const pullBest = (req, res, next) => {
             created_utc: o.created_utc,
             post_id: o.id,
             post_thumbnail: o.thumbnail,
-            over_18: o.over_18
+            over_18: o.over_18,
+            saved: o.saved,
+            likes: o.likes,
+            hidden: o.hidden,
+            clicked: o.clicked,
+            visited: o.visited,
+            pinned: o.pinned,
+            archived: o.archived,
+            spoiler: o.spoiler,
+            locked: o.locked,
+            stickied: o.stickied,
+            edited: o.edited,
+            gilded: o.gilded,
+            reddit_media: o.is_reddit_media_domain
           };
         }),
         after: response.data.data.after
@@ -132,10 +171,23 @@ const pullBest = (req, res, next) => {
 //GET NEW POSTS FROM A SUBREDDIT
 const pullNew = (req, res, next) => {
   let baseURL = `https://www.reddit.com/new.json?`;
+  let headers = {};
+  if (req.user) {
+    baseURL = "https://oauth.reddit.com/new?";
+    headers = {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    };
+  }
   const { subreddit, limit, after } = req.query;
   if (req.query) {
     if (subreddit) {
       baseURL = `https://www.reddit.com/r/${subreddit}/new.json?`;
+      if (req.user) {
+        baseURL = `https://oauth.reddit.com/r/${subreddit}/new?`;
+      }
     }
     if (limit) {
       baseURL += `limit=${limit}&`;
@@ -145,7 +197,7 @@ const pullNew = (req, res, next) => {
     }
   }
   axios
-    .get(baseURL)
+    .get(baseURL, headers)
     .then(response =>
       res.status(200).json({
         posts: response.data.data.children.map(el => {
@@ -163,7 +215,20 @@ const pullNew = (req, res, next) => {
             post_thumbnail: o.thumbnail,
             over_18: o.over_18,
             url: o.url,
-            permalink: o.permalink
+            permalink: o.permalink,
+            saved: o.saved,
+            likes: o.likes,
+            hidden: o.hidden,
+            clicked: o.clicked,
+            visited: o.visited,
+            pinned: o.pinned,
+            archived: o.archived,
+            spoiler: o.spoiler,
+            locked: o.locked,
+            stickied: o.stickied,
+            edited: o.edited,
+            gilded: o.gilded,
+            reddit_media: o.is_reddit_media_domain
           };
         }),
         after: response.data.data.after
@@ -175,11 +240,23 @@ const pullNew = (req, res, next) => {
 //GET TOP FROM A SUBREDDIT
 const pullTop = (req, res, next) => {
   let baseURL = `https://www.reddit.com/top.json?`;
+  let headers = {};
+  if (req.user) {
+    baseURL = "https://oauth.reddit.com/top?";
+    headers = {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    };
+  }
   const { subreddit, t, limit, after } = req.query;
-  console.log(req.query);
   if (req.query) {
     if (subreddit) {
       baseURL = `https://www.reddit.com/r/${subreddit}/top.json?`;
+      if (req.user) {
+        baseURL = `https://oauth.reddit.com/r/${subreddit}/top?`;
+      }
     }
     if (t) {
       baseURL += `sort=top&t=${t}&`;
@@ -193,7 +270,7 @@ const pullTop = (req, res, next) => {
     }
   }
   axios
-    .get(baseURL)
+    .get(baseURL, headers)
     .then(response =>
       res.status(200).json({
         posts: response.data.data.children.map(el => {
@@ -211,7 +288,20 @@ const pullTop = (req, res, next) => {
             post_thumbnail: o.thumbnail,
             over_18: o.over_18,
             url: o.url,
-            permalink: o.permalink
+            permalink: o.permalink,
+            saved: o.saved,
+            likes: o.likes,
+            hidden: o.hidden,
+            clicked: o.clicked,
+            visited: o.visited,
+            pinned: o.pinned,
+            archived: o.archived,
+            spoiler: o.spoiler,
+            locked: o.locked,
+            stickied: o.stickied,
+            edited: o.edited,
+            gilded: o.gilded,
+            reddit_media: o.is_reddit_media_domain
           };
         }),
         after: response.data.data.after
@@ -223,11 +313,24 @@ const pullTop = (req, res, next) => {
 //GET CONTROVERSIAL FROM A SUBREDDIT
 const pullControversial = (req, res, next) => {
   let baseURL = `https://www.reddit.com/controversial.json?`;
+  let headers = {};
+  if (req.user) {
+    baseURL = "https://oauth.reddit.com/controversial?";
+    headers = {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    };
+  }
   const { subreddit, t, limit, after } = req.query;
 
   if (req.query) {
     if (subreddit) {
       baseURL = `https://www.reddit.com/r/${subreddit}/controversial.json?`;
+      if (req.user) {
+        baseURL = `https://oauth.reddit.com/r/${subreddit}/controversial?`;
+      }
     }
     if (t) {
       baseURL += `sort=top&t=${t}&`;
@@ -240,7 +343,7 @@ const pullControversial = (req, res, next) => {
     }
   }
   axios
-    .get(baseURL)
+    .get(baseURL, headers)
     .then(response =>
       res.status(200).json({
         posts: response.data.data.children.map(el => {
@@ -258,7 +361,20 @@ const pullControversial = (req, res, next) => {
             post_thumbnail: o.thumbnail,
             over_18: o.over_18,
             url: o.url,
-            permalink: o.permalink
+            permalink: o.permalink,
+            saved: o.saved,
+            likes: o.likes,
+            hidden: o.hidden,
+            clicked: o.clicked,
+            visited: o.visited,
+            pinned: o.pinned,
+            archived: o.archived,
+            spoiler: o.spoiler,
+            locked: o.locked,
+            stickied: o.stickied,
+            edited: o.edited,
+            gilded: o.gilded,
+            reddit_media: o.is_reddit_media_domain
           };
         }),
         after: response.data.data.after
@@ -270,10 +386,23 @@ const pullControversial = (req, res, next) => {
 //GET RISING POSTS FROM A SUBREDDIT
 const pullRising = (req, res, next) => {
   let baseURL = `https://www.reddit.com/rising.json?`;
+  let headers = {};
+  if (req.user) {
+    baseURL = "https://oauth.reddit.com/rising?";
+    headers = {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    };
+  }
   const { subreddit, limit, after } = req.query;
   if (req.query) {
     if (subreddit) {
       baseURL = `https://www.reddit.com/r/${subreddit}/rising.json?`;
+      if (req.user) {
+        baseURL = `https://oauth.reddit.com/r/${subreddit}/rising?`;
+      }
     }
     if (limit) {
       baseURL += `limit=${limit}&`;
@@ -283,7 +412,7 @@ const pullRising = (req, res, next) => {
     }
   }
   axios
-    .get(baseURL)
+    .get(baseURL, headers)
     .then(response =>
       res.status(200).json({
         posts: response.data.data.children.map(el => {
@@ -301,7 +430,20 @@ const pullRising = (req, res, next) => {
             post_thumbnail: o.thumbnail,
             over_18: o.over_18,
             url: o.url,
-            permalink: o.permalink
+            permalink: o.permalink,
+            saved: o.saved,
+            likes: o.likes,
+            hidden: o.hidden,
+            clicked: o.clicked,
+            visited: o.visited,
+            pinned: o.pinned,
+            archived: o.archived,
+            spoiler: o.spoiler,
+            locked: o.locked,
+            stickied: o.stickied,
+            edited: o.edited,
+            gilded: o.gilded,
+            is_reddit_media: o.is_reddit_media_domain
           };
         }),
         after: response.data.data.after
@@ -313,22 +455,35 @@ const pullRising = (req, res, next) => {
 //GET RANDOM POST FROM SUBREDDIT
 const pullRandom = (req, res, next) => {
   let baseURL = `https://www.reddit.com/random.json?`;
+  // let headers = {};
+  // if (req.user) {
+  //   baseURL = "https://oauth.reddit.com/random?";
+  //   headers = {
+  //     headers: {
+  //       Authorization: `bearer ${req.user.accessToken}`,
+  //       "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+  //     }
+  //   };
+  // }
   const { subreddit, t, limit, after } = req.query;
 
   if (req.query) {
     if (subreddit) {
       baseURL = `https://www.reddit.com/r/${subreddit}/random.json?`;
+      // if (req.user) {
+      //   baseURL = `https://oauth.reddit.com/r/${subreddit}/random?`;
+      // }
     }
-    if (t) {
-      baseURL += `sort=top&t=${t}&`;
-    }
+    // if (t) {
+    //   baseURL += `sort=top&t=${t}&`;
+    // }
 
-    if (limit) {
-      baseURL += `limit=${limit}&`;
-    }
-    if (after) {
-      baseURL += `after=${after}&`;
-    }
+    // if (limit) {
+    //   baseURL += `limit=${limit}&`;
+    // }
+    // if (after) {
+    //   baseURL += `after=${after}&`;
+    // }
   }
   axios
     .get(baseURL)
@@ -445,25 +600,23 @@ const subredditModerators = (req, res, next) => {
 //RESTRICT_SR RESTRICTS THE SEARCH TO JUST THE SUBREDDIT : "on"
 const searchSubreddit = (req, res, next) => {
   const { search_terms, restrict, sort, time } = req.query;
-  const { subreddit_name } = req.params
-  let baseURL = `https://www.reddit.com/search.json?q=${search_terms}`
+  const { subreddit_name } = req.params;
+  let baseURL = `https://www.reddit.com/search.json?q=${search_terms}`;
 
   if (subreddit_name) {
-    baseURL = `https://www.reddit.com/r/${subreddit_name}/search.json?q=${search_terms}`
+    baseURL = `https://www.reddit.com/r/${subreddit_name}/search.json?q=${search_terms}`;
   }
   if (restrict) {
-    baseURL += '&restrict_sr=on'
+    baseURL += "&restrict_sr=on";
   }
   if (sort) {
-    baseURL += `&sort=${sort}`
+    baseURL += `&sort=${sort}`;
   }
   if (time) {
-    baseURL += `&t=${time}`
+    baseURL += `&t=${time}`;
   }
-  console.log(baseURL)
-  axios
-    .get(baseURL)
-    .then(response => res.status(200).json(response.data));
+  console.log(baseURL);
+  axios.get(baseURL).then(response => res.status(200).json(response.data));
 };
 
 // SEARCH THE NAMES OF SUBREDDITS
@@ -471,14 +624,12 @@ const searchSubreddit = (req, res, next) => {
 //INCLUDE_OVER_18 IS IF NSFW SUBREDDITS ARE TO BE INCLUDED : (true or false)
 const searchSubNames = (req, res, next) => {
   const { query, include_over_18 } = req.query;
-  console.log(req.query)
-  let baseURL = `https://www.reddit.com/api/search_reddit_names.json?query=${query}`
+  console.log(req.query);
+  let baseURL = `https://www.reddit.com/api/search_reddit_names.json?query=${query}`;
   if (include_over_18) {
-    baseURL += `&include_over_18=${include_over_18}`
+    baseURL += `&include_over_18=${include_over_18}`;
   }
-  axios
-    .get(baseURL)
-    .then(response => res.status(200).json(response.data));
+  axios.get(baseURL).then(response => res.status(200).json(response.data));
 };
 
 module.exports = {
