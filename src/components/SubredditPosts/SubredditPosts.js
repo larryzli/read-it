@@ -28,6 +28,20 @@ class SubredditPosts extends Component {
           url={post.url}
           over18={post.over_18}
           postID={post.post_id}
+          likes={post.likes}
+          saved={post.saved}
+          enableControls={this.props.enableControls}
+          hidden={post.hidden}
+          clicked={post.clicked}
+          visited={post.visited}
+          pinned={post.pinned}
+          archived={post.archived}
+          spoiler={post.spoiler}
+          locked={post.locked}
+          stickied={post.stickied}
+          edited={post.edited}
+          gilded={post.gilded}
+          isRedditMedia={post.is_reddit_media}
         />
       );
     });
