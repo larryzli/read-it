@@ -9,13 +9,27 @@ import downvoteIcon from "../../icons/ic_keyboard_arrow_down_white_24px.svg";
 import downvoteIconClicked from "../../icons/ic_keyboard_arrow_down_red_24px.svg";
 import starIconEmpty from "../../icons/ic_star_border_white_20px.svg";
 import starIconFilled from "../../icons/ic_star_white_20px.svg";
-import hideIcon from "../../icons/ic_clear_white_20px.svg";
-import unhideIcon from "../../icons/ic_check_white_20px.svg";
-import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
+import hideIcon from "../../icons/ic_visibility_off_white_20px.svg";
+import unhideIcon from "../../icons/ic_visibility_white_20px.svg";
 import profileIcon from "../../icons/ic_person_white_20px.svg";
+// import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
 
 // COMPONENT
-const PostData = ({ postData }) => {
+const PostData = ({
+  postData,
+  upvoted,
+  downvoted,
+  favorited,
+  hidden,
+  enableControls,
+  upvote,
+  downvote,
+  cancelvote,
+  favorite,
+  unfavorite,
+  hide,
+  unhide
+}) => {
   return (
     <div className="postdata-container">
       <div>
@@ -56,19 +70,83 @@ const PostData = ({ postData }) => {
           {" • "}
           <span>{moment(postData.created_at * 1000).fromNow()}</span>
           {" • "}
-          <span>{postData.comments_num} comments</span>
+          <span>
+            {postData.comments_num} <img src={commentIcon} alt="comment icon" />
+          </span>
         </div>
       </div>
       <div className="postdata-controls">
         <div className="postdata-left-controls">
-          <img className="postdata-control-icon" src={upvoteIcon} alt="" />
-          <img className="postdata-control-icon" src={downvoteIcon} alt="" />
-          <img className="postdata-control-icon" src={starIconEmpty} alt="" />
-          <img className="postdata-control-icon" src={profileIcon} alt="" />
+          {upvoted ? (
+            <img
+              className="postdata-control-icon"
+              src={upvoteIconClicked}
+              alt="upvoted"
+              onClick={cancelvote}
+            />
+          ) : (
+            <img
+              className="postdata-control-icon"
+              src={upvoteIcon}
+              alt="upvote"
+              onClick={upvote}
+            />
+          )}
+          {downvoted ? (
+            <img
+              className="postdata-control-icon"
+              src={downvoteIconClicked}
+              alt="downvoted"
+              onClick={cancelvote}
+            />
+          ) : (
+            <img
+              className="postdata-control-icon"
+              src={downvoteIcon}
+              alt="downvote"
+              onClick={downvote}
+            />
+          )}
+          {favorited ? (
+            <img
+              className="postdata-control-icon"
+              src={starIconFilled}
+              alt="favorited"
+              onClick={unfavorite}
+            />
+          ) : (
+            <img
+              className="postdata-control-icon"
+              src={starIconEmpty}
+              alt="favorite"
+              onClick={favorite}
+            />
+          )}
+          {hidden ? (
+            <img
+              className="postdata-control-icon"
+              src={unhideIcon}
+              alt="unhide"
+              onClick={unhide}
+            />
+          ) : (
+            <img
+              className="postdata-control-icon"
+              src={hideIcon}
+              alt="hide"
+              onClick={hide}
+            />
+          )}
+          <img
+            className="postdata-control-icon"
+            src={profileIcon}
+            alt="author profile"
+          />
+          {/* <span className="postdata-control-icon">{"/r/"}</span> */}
         </div>
-        <div className="postdata-right-controls">
+        {/* <div className="postdata-right-controls">
           <img className="postdata-control-icon" src={moreIcon} alt="" />
-        </div>
+        </div> */}
       </div>
     </div>
   );

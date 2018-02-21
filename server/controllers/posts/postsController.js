@@ -15,6 +15,12 @@ const getPost = (req, res, next) => {
       }
     };
   }
+  const { sort } = req.query;
+
+  if (sort) {
+    baseURL += `sort=${sort}&`;
+  }
+
   axios
     .get(baseURL, headers)
     .then(response => {
@@ -69,7 +75,7 @@ const getMoreComments = (req, res, next) => {
   const { post_id, children } = req.params;
   axios
     .get(
-      `https://www.reddit.com/api/morechildren.json?link_id=t3_${post_id}&children=${children}&api_type=json`
+    `https://www.reddit.com/api/morechildren.json?link_id=t3_${post_id}&children=${children}&api_type=json`
     )
     .then(response => {
       res.status(200).json(response.data);
@@ -81,18 +87,18 @@ const reply = (req, res, next) => {
   const { parentId, text } = req.body;
   axios
     .post(
-      `https://oauth.reddit.com/api/comment`,
-      querystring.stringify({
-        api_type: "json",
-        thing_id: `${parentId}`,
-        text: `${text}`
-      }),
-      {
-        headers: {
-          Authorization: `Bearer ${req.body.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
-        }
+    `https://oauth.reddit.com/api/comment`,
+    querystring.stringify({
+      api_type: "json",
+      thing_id: `${parentId}`,
+      text: `${text}`
+    }),
+    {
+      headers: {
+        Authorization: `Bearer ${req.body.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
+    }
     )
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
@@ -102,16 +108,16 @@ const deleteComment = (req, res, next) => {
   const { id } = req.body;
   axios
     .post(
-      "https://oauth.reddit.com/api/del",
-      querystring.stringify({
-        id: id
-      }),
-      {
-        headers: {
-          Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
-        }
+    "https://oauth.reddit.com/api/del",
+    querystring.stringify({
+      id: id
+    }),
+    {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
+    }
     )
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
@@ -121,18 +127,18 @@ const editComment = (req, res, next) => {
   const { id, text } = req.body;
   axios
     .post(
-      "https://oauth.reddit.com/api/editusertext",
-      querystring.stringify({
-        thing_id: id,
-        text: text,
-        api_type: "json"
-      }),
-      {
-        headers: {
-          Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
-        }
+    "https://oauth.reddit.com/api/editusertext",
+    querystring.stringify({
+      thing_id: id,
+      text: text,
+      api_type: "json"
+    }),
+    {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
+    }
     )
     .then(response => console.log(response))
     .catch(console.log);
@@ -142,16 +148,16 @@ const lockPost = (req, res, next) => {
   const { id } = req.body;
   axios
     .post(
-      "https://oauth.reddit.com/api/lock",
-      querystring.stringify({
-        id: id
-      }),
-      {
-        headers: {
-          Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
-        }
+    "https://oauth.reddit.com/api/lock",
+    querystring.stringify({
+      id: id
+    }),
+    {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
+    }
     )
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
@@ -161,16 +167,16 @@ const unlockPost = (req, res, next) => {
   const { id } = req.body;
   axios
     .post(
-      "https://oauth.reddit.com/api/unlock",
-      querystring.stringify({
-        id: id
-      }),
-      {
-        headers: {
-          Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
-        }
+    "https://oauth.reddit.com/api/unlock",
+    querystring.stringify({
+      id: id
+    }),
+    {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
+    }
     )
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
@@ -180,18 +186,18 @@ const report = (req, res, next) => {
   const { reason, id } = req.body;
   axios
     .post(
-      "https://oauth.reddit.com/api/report",
-      querystring.stringify({
-        api_type: "json",
-        reason: reason,
-        thing_id: id
-      }),
-      {
-        headers: {
-          Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
-        }
+    "https://oauth.reddit.com/api/report",
+    querystring.stringify({
+      api_type: "json",
+      reason: reason,
+      thing_id: id
+    }),
+    {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
+    }
     )
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
@@ -201,16 +207,16 @@ const hide = (req, res, next) => {
   const { id } = req.body;
   axios
     .post(
-      "https://oauth.reddit.com/api/hide",
-      querystring.stringify({
-        id: id
-      }),
-      {
-        headers: {
-          Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
-        }
+    "https://oauth.reddit.com/api/hide",
+    querystring.stringify({
+      id: id
+    }),
+    {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
+    }
     )
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
@@ -220,16 +226,16 @@ const unhide = (req, res, next) => {
   const { id } = req.body;
   axios
     .post(
-      "https://oauth.reddit.com/api/unhide",
-      querystring.stringify({
-        id: id
-      }),
-      {
-        headers: {
-          Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
-        }
+    "https://oauth.reddit.com/api/unhide",
+    querystring.stringify({
+      id: id
+    }),
+    {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
+    }
     )
     .then(response => res.status(200).json(response.data))
     .catch(console.log);
@@ -237,23 +243,24 @@ const unhide = (req, res, next) => {
 
 const submit = (req, res, next) => {
   const { kind, title, text, sr, url } = req.body;
+  console.log(req.body);
   axios
     .post(
-      "https://oauth.reddit.com/api/submit",
-      querystring.stringify({
-        api_type: "json",
-        kind: kind,
-        title: title,
-        text: text,
-        sr: sr,
-        url: url
-      }),
-      {
-        headers: {
-          Authorization: `bearer ${req.user.accessToken}`,
-          "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
-        }
+    "https://oauth.reddit.com/api/submit",
+    querystring.stringify({
+      api_type: "json",
+      kind: kind,
+      title: title,
+      text: text,
+      sr: sr,
+      url: url
+    }),
+    {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
+    }
     )
     .then(response => res.status(200).json(response.data))
     .catch(console.log);

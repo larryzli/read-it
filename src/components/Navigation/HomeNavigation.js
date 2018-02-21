@@ -6,7 +6,7 @@ import Navigation from "./Navigation";
 import menuIcon from "../../icons/ic_menu_white_24px.svg";
 import sortIcon from "../../icons/ic_sort_white_24px.svg";
 // import moreIcon from "../../icons/ic_more_vert_white_24px.svg";
-import sidebarIcon from "../../icons/ic_chrome_reader_mode_white_24px.svg";
+import sidebarIcon from "../../icons/ic_web_asset_white_24px.svg";
 // import searchIcon from "../../icons/ic_search_white_24px.svg";
 
 // COMPONENT

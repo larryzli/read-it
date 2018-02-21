@@ -123,12 +123,24 @@ class Menu extends Component {
             </div>
             {this.state.showProfileSubnav ? (
               <div className="menu-submenu-bottom">
-                <div className="menu-submenu-bottom-item">Comments</div>
-                <div className="menu-submenu-bottom-item">Submitted</div>
-                <div className="menu-submenu-bottom-item">Upvoted</div>
-                <div className="menu-submenu-bottom-item">Saved</div>
-                <div className="menu-submenu-bottom-item">Friends</div>
-                <div className="menu-submenu-bottom-item">Watching</div>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">Comments</div>
+                </NavLink>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">Submitted</div>
+                </NavLink>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">Upvoted</div>
+                </NavLink>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">Saved</div>
+                </NavLink>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">Friends</div>
+                </NavLink>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">Watching</div>
+                </NavLink>
               </div>
             ) : null}
           </div>
@@ -154,15 +166,29 @@ class Menu extends Component {
             </div>
             {this.state.showMessagesSubnav ? (
               <div className="menu-submenu-bottom">
-                <NavLink to="/inbox" className="menu-submenu-title">
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
                   <div className="menu-submenu-bottom-item">Inbox</div>
                 </NavLink>
-                <div className="menu-submenu-bottom-item">Unread</div>
-                <div className="menu-submenu-bottom-item">Messages</div>
-                <div className="menu-submenu-bottom-item">Sent</div>
-                <div className="menu-submenu-bottom-item">Comment replies</div>
-                <div className="menu-submenu-bottom-item">Post replies</div>
-                <div className="menu-submenu-bottom-item">Mentions</div>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">Unread</div>
+                </NavLink>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">Messages</div>
+                </NavLink>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">Sent</div>
+                </NavLink>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">
+                    Comment replies
+                  </div>
+                </NavLink>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">Post replies</div>
+                </NavLink>
+                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                  <div className="menu-submenu-bottom-item">Mentions</div>
+                </NavLink>
               </div>
             ) : null}
           </div>
