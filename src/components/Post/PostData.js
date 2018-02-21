@@ -70,7 +70,9 @@ const PostData = ({
           {" • "}
           <span>{moment(postData.created_at * 1000).fromNow()}</span>
           {" • "}
-          <span>{postData.comments_num} comments</span>
+          <span>
+            {postData.comments_num} <img src={commentIcon} alt="comment icon" />
+          </span>
         </div>
       </div>
       <div className="postdata-controls">
