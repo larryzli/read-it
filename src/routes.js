@@ -10,6 +10,7 @@ import FilterNavigation from "./components/Navigation/FilterNavigation";
 import SubmitSelfPost from "./components/SubmitPost/SubmitSelfPost";
 import InboxNavigation from "./components/Navigation/InboxNavigation";
 import SubmitLinkPost from "./components/SubmitPost/SubmitLinkPost";
+import Profile from "./components/Profile/Profile";
 
 export default (
   <Switch>
@@ -20,6 +21,7 @@ export default (
     <Route path="/submit/link" component={SubmitLinkPost} />
     <Route path="/r/:subreddit_name/submit/link" component={SubmitLinkPost} />
     <Route path="/r/:subreddit/:post" component={Post} />
+    {/* <Route path="/profile/:username" component={Profile} /> */}
     <Route path="/messages" component={Messaging} />
     <Route path="/filter" component={FilterNavigation} />
     <Route path="/inbox" component={InboxNavigation} />
