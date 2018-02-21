@@ -166,10 +166,10 @@ class Menu extends Component {
           </div>
           <div className="menu-submenu-item">
             <div className="menu-submenu-top">
-              <span className="menu-submenu-title">
-                <img className="menu-submenu-icon" src={filterIcon} alt="" />Domain
-                Filters
-              </span>
+              <NavLink to="/filter" className="menu-submenu-title">
+                <img className="menu-submenu-icon" src={filterIcon} alt="" />
+                Domain Filters
+              </NavLink>
             </div>
           </div>
           <div className="menu-submenu-item">
@@ -181,17 +181,16 @@ class Menu extends Component {
           </div>
           <div className="menu-submenu-item">
             <div className="menu-submenu-top">
-              <NavLink to="/Jordan" className="menu-submenu-title">
-                Jordan
+              <NavLink
+                to="/r/:subreddit_name/submit"
+                className="menu-submenu-title"
+              >
+                Submit Post
               </NavLink>
             </div>
           </div>
           <div className="menu-submenu-item">
-            <div className="menu-submenu-top">
-              <NavLink to="/Bruno" className="menu-submenu-title">
-                Bruno
-              </NavLink>
-            </div>
+            <div className="menu-submenu-top" />
           </div>
         </div>
         <div className="menu-subreddit-container">
