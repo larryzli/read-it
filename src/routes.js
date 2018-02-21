@@ -7,13 +7,13 @@ import Frontpage from "./components/Frontpage/Frontpage";
 import Post from "./components/Post/Post";
 import Messaging from "./components/Messaging/Messaging";
 import Filter from "./components/Filter/Filter";
-import SubmitPost from "./components/SubmitPost/SubmitPost";
+import SubmitSelfPost from "./components/SubmitPost/SubmitSelfPost";
 
 export default (
   <Switch>
     <Route exact path="/" component={Frontpage} />
     {/* <Route path="/r/:subreddit" component={Subreddit} /> */}
-    <Route path="/r/:subreddit_name/submit" component={SubmitPost} />
+    <Route path="/r/:subreddit_name/submit/self" component={SubmitSelfPost} />
     <Route path="/r/:subreddit/:post" component={Post} />
     <Route path="/messages" component={Messaging} />
     <Route path="/filter" component={Filter} />
