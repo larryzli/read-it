@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 // IMPORT COMPONENTS
-import Subreddit from "../SubredditPosts/SubredditPosts";
+import SubredditPosts from "../SubredditPosts/SubredditPosts";
 import HomeNavigation from "../Navigation/HomeNavigation";
 import Menu from "../Menu/Menu";
 import Drawer from "rc-drawer";
@@ -19,6 +19,10 @@ class Frontpage extends Component {
     super(props);
 
     this.state = {
+      // LOADER
+      loading: true,
+
+      // FOR FILTERS
       filter: "hot",
       filterPeriodTitle: "",
       filterPeriod: "",
@@ -37,6 +41,13 @@ class Frontpage extends Component {
       position: "left",
       dragToggleDistance: 30,
 
+      // FOR SIDEBAR
+      sidebarOpen: false,
+      sidebarTransitions: true,
+      sidebarTouch: true,
+      sidebarEnableDragHandle: false,
+      sidebarPosition: "right",
+
       // FOR SORT
       showSortDrawer: false,
       showSortPeriodDrawer: false
@@ -46,9 +57,10 @@ class Frontpage extends Component {
     this.onDock = this.onDock.bind(this);
     this.refreshHandler = this.refreshHandler.bind(this);
     this.toggleSort = this.toggleSort.bind(this);
+    this.loadContent = this.loadContent.bind(this);
   }
-  refreshHandler = (resolve, reject) => {
-    let success = false;
+  refreshHandler = () => {
+    this.setState({ loading: true });
     let url = `/api/${this.state.filter}?`;
     if (this.state.filterPeriod) {
       url += `t=${this.state.filterPeriod}&`;
@@ -56,22 +68,30 @@ class Frontpage extends Component {
     axios
       .get(url)
       .then(response => {
-        success = true;
-        if (success) {
-          resolve();
-        }
-        this.setState({
-          posts: response.data.posts,
-          after: response.data.after
-        });
+        setTimeout(() => {
+          this.setState({
+            posts: response.data.posts,
+            after: response.data.after,
+            loading: false
+          });
+        }, 1000);
       })
-      .catch(err => reject());
+      .catch(console.log);
   };
   onOpenChange = open => {
     this.setState({ open });
   };
   openMenu = () => {
     this.setState({ open: !this.state.open, docked: false });
+  };
+  sidebarOnOpenChange = open => {
+    this.setState({ sidebarOpen: open });
+  };
+  openSidebar = () => {
+    this.setState({
+      sidebarOpen: !this.state.sidebarOpen,
+      sidebarDocked: false
+    });
   };
   toggleSort = () => {
     this.setState({ showSortDrawer: !this.state.showSortDrawer });
@@ -91,25 +111,38 @@ class Frontpage extends Component {
       this.onOpenChange(false);
     }
   };
-  loadContent = (filter, timeFrame) => {
+  loadContent = (filter, timeFrame, loadMore) => {
+    if (!loadMore) {
+      this.setState({ loading: true, posts: [], after: "" });
+    }
     let url = `/api/${filter}?`;
-    // if (this.state.after) {
-    //   url += `after=${this.state.after}&`;
-    // }
+    if (this.state.after && loadMore) {
+      url += `after=${this.state.after}&`;
+    }
     if (timeFrame) {
       url += `t=${timeFrame}&`;
     }
     axios
       .get(url)
       .then(response => {
-        this.setState({
-          posts: response.data.posts,
-          after: response.data.after
-        });
+        if (!loadMore) {
+          this.setState({
+            posts: response.data.posts,
+            after: response.data.after,
+            loading: false
+          });
+        } else {
+          this.setState({
+            posts: this.state.posts.concat(response.data.posts),
+            after: response.data.after,
+            loading: false
+          });
+        }
       })
       .catch(console.log);
   };
   changeFilter = (filterVal, filterPeriod) => {
+    this.setState({ loading: true });
     if (
       filterVal === "hot" ||
       filterVal === "new" ||
@@ -118,13 +151,15 @@ class Frontpage extends Component {
     ) {
       this.setState({
         filter: filterVal,
-        filterPeriod: ""
+        filterPeriod: "",
+        loading: false
       });
       this.loadContent(filterVal);
     } else {
       this.setState({
         filter: filterVal,
-        filterPeriod: filterPeriod
+        filterPeriod: filterPeriod,
+        loading: false
       });
       this.loadContent(filterVal, filterPeriod);
     }
@@ -132,6 +167,8 @@ class Frontpage extends Component {
   componentDidMount() {
     // DEFAULT: PULL HOT POSTS
     this.loadContent(this.state.filter);
+
+    // GET SIDEBAR INFO
   }
   render() {
     const sortDrawer = (
@@ -233,22 +270,45 @@ class Frontpage extends Component {
       <div>
         {this.state.showSortDrawer ? sortDrawer : null}
         {this.state.showSortPeriodDrawer ? sortPeriodDrawer : null}
-        <div className="drawer-container">
+
+        <Drawer
+          sidebar={<Menu docked={this.state.docked} onDock={this.onDock} />}
+          docked={this.state.docked}
+          open={this.state.open}
+          touch={this.state.touch}
+          enableDragHandle={this.state.enableDragHandle}
+          position={this.state.position}
+          dragToggleDistance={this.state.dragToggleDistance}
+          transitions={this.state.transitions}
+          onOpenChange={this.onOpenChange}
+          style={{ overflow: "hidden" }}
+          sidebarStyle={{
+            backgroundColor: "#444",
+            boxShadow: "0px 0px 2px #111",
+            zIndex: "3"
+          }}
+          dragHandleStyle={{ backgroundColor: "transparent" }}
+          overlayStyle={{
+            backgroundColor: "rgba(0, 0, 0, 0.6)",
+            zIndex: "2"
+          }}
+        >
           <Drawer
-            sidebar={<Menu docked={this.state.docked} onDock={this.onDock} />}
-            docked={this.state.docked}
-            open={this.state.open}
-            touch={this.state.touch}
-            enableDragHandle={this.state.enableDragHandle}
-            position={this.state.position}
-            dragToggleDistance={this.state.dragToggleDistance}
-            transitions={this.state.transitions}
-            onOpenChange={this.onOpenChange}
-            style={{ overflow: "auto" }}
+            sidebar={<div>SIDEBAR HERE</div>}
+            open={this.state.sidebarOpen}
+            touch={this.state.sidebarTouch}
+            enableDragHandle={false}
+            position={this.state.sidebarPosition}
+            transitions={this.state.sidebarTransitions}
+            onOpenChange={this.sidebarOnOpenChange}
+            style={{ overflow: "hidden" }}
             sidebarStyle={{
               backgroundColor: "#444",
               boxShadow: "0px 0px 2px #111",
-              zIndex: "3"
+              zIndex: "3",
+              marginLeft: !this.state.docked
+                ? "calc(100vw - 250px)"
+                : "calc(100vw - 500px)"
             }}
             dragHandleStyle={{ backgroundColor: "transparent" }}
             overlayStyle={{
@@ -256,30 +316,35 @@ class Frontpage extends Component {
               zIndex: "2"
             }}
           >
-            <div className="main">
-              <Subreddit
-                refreshHandler={this.refreshHandler}
-                subredditPosts={this.state.posts}
-                navigation={
-                  <HomeNavigation
-                    openMenu={this.openMenu}
-                    filterName={
-                      this.state.filterPeriod
-                        ? `${this.state.filter}: ${this.state.filterPeriod}`
-                        : this.state.filter
-                    }
-                    sortAction={this.toggleSort}
-                  />
-                }
-              />
-              <div className="new-post-container">
-                <div className="new-post-icon">
-                  <img src={newPost} alt="add new post" />
-                </div>
+            <SubredditPosts
+              refreshHandler={this.refreshHandler}
+              subredditPosts={this.state.posts}
+              filter={this.state.filter}
+              filterPeriod={this.state.filterPeriod}
+              hasMore={this.state.after ? true : false}
+              loadContent={this.loadContent}
+              isLoading={this.state.loading}
+              navigation={
+                <HomeNavigation
+                  openMenu={this.openMenu}
+                  openSidebar={this.openSidebar}
+                  filterName={
+                    this.state.filterPeriod
+                      ? `${this.state.filter}: ${this.state.filterPeriod}`
+                      : this.state.filter
+                  }
+                  sortAction={this.toggleSort}
+                />
+              }
+            />
+
+            <div className="new-post-container">
+              <div className="new-post-icon">
+                <img src={newPost} alt="add new post" />
               </div>
             </div>
           </Drawer>
-        </div>
+        </Drawer>
       </div>
     );
   }
