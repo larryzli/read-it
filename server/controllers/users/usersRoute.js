@@ -7,7 +7,8 @@ const {
   subscribe,
   blockUser,
   addFilter,
-  removeFilter
+  removeFilter,
+  editFilter
 } = require("./userAccountController");
 
 module.exports = function(app) {
@@ -20,4 +21,5 @@ module.exports = function(app) {
   app.post("/api/user/block", blockUser);
   app.post("/api/user/filter/add", addFilter);
   app.post("/api/user/filter/remove", removeFilter);
+  app.post("/api/user/filter/edit", editFilter);
 };

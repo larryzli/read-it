@@ -140,6 +140,15 @@ const removeFilter = (req, res, next) => {
     .catch(console.log);
 };
 
+const editFilter = (req, res, next) => {
+  const { id, filter_name } = req.body;
+  const db = req.app.get("db");
+  db
+    .editFilter([id, filter_name, req.user.id])
+    .then(response => res.status(200).json(response))
+    .catch(console.log);
+};
+
 module.exports = {
   getUserInfo,
   getAllFriends,
@@ -149,5 +158,6 @@ module.exports = {
   subscribe,
   blockUser,
   addFilter,
-  removeFilter
+  removeFilter,
+  editFilter
 };

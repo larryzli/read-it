@@ -30,7 +30,7 @@ const deleteMessage = (req, res, next) => {
     .post(
       "https://oauth.reddit.com/api/del_msg",
       querystring.stringify({
-        id
+        id: id
       }),
       {
         headers: {
@@ -79,7 +79,6 @@ const getSent = (req, res, next) => {
     .catch(console.log);
 };
 
-// NOT TESTED YET
 const markUnread = (req, res, next) => {
   const { id } = req.body;
   axios
@@ -99,7 +98,6 @@ const markUnread = (req, res, next) => {
     .catch(console.log);
 };
 
-// NOT TESTED YET
 const markRead = (req, res, next) => {
   const { id } = req.body;
   axios
@@ -123,9 +121,7 @@ const readAllMessages = (req, res, next) => {
   axios
     .post(
       "https://oauth.reddit.com/api/read_all_messages",
-      querystring.stringify({
-        filter_types: ""
-      }),
+      {},
       {
         headers: {
           Authorization: `bearer ${req.user.accessToken}`,
