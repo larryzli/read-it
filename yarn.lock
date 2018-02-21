@@ -5413,6 +5413,10 @@ react-error-overlay@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-4.0.0.tgz#d198408a85b4070937a98667f500c832f86bd5d4"
 
+react-infinite-scroll-component@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/react-infinite-scroll-component/-/react-infinite-scroll-component-3.0.2.tgz#cc391d3e6e2daef14ee874d857a410d006143da9"
+
 react-pull-to-refresh@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-pull-to-refresh/-/react-pull-to-refresh-1.1.1.tgz#f271858ea434a4542089ae6066fbf2580eb79edb"

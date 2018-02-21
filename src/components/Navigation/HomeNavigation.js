@@ -10,9 +10,9 @@ import sidebarIcon from "../../icons/ic_chrome_reader_mode_white_24px.svg";
 // import searchIcon from "../../icons/ic_search_white_24px.svg";
 
 // COMPONENT
-const HomeNavigation = ({ filterName, openMenu, sortAction, moreAction }) => {
+const HomeNavigation = ({ filterName, openMenu, sortAction, openSidebar }) => {
   const rightIcons = [sortIcon, sidebarIcon];
-  const rightActions = [sortAction, moreAction];
+  const rightActions = [sortAction, openSidebar];
   return (
     <Navigation
       title="frontpage"

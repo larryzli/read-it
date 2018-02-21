@@ -153,7 +153,10 @@ html {
             background-color: #505050; }
 
 .posts {
-  padding: 10px; }
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  overflow: auto; }
   .posts .card-container {
     margin-bottom: 10px;
     border-radius: 3px;
@@ -411,116 +414,18 @@ html {
       font-size: 14px;
       font-weight: 300; }
 
-.ptr-element {
-  position: absolute;
-  top: 56px;
-  left: 0;
-  width: 100%;
-  color: #fff;
-  z-index: -1;
+.loader-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .loader-wrapper .loader-svg {
+    width: 100%;
+    height: 6px; }
+
+.refresh-message {
   text-align: center;
-  height: 50px;
-  padding-top: 5px; }
-
-.ptr-element .genericon {
-  opacity: 0.6;
-  font-size: 12px;
-  width: auto;
-  height: auto;
-  transition: all 0.25s ease;
-  transform: rotate(90deg);
-  position: relative;
-  top: 5px; }
-  .ptr-element .genericon .loading-icon {
-    margin-bottom: -8px;
-    transform: rotate(180deg);
-    color: white; }
-  .ptr-element .genericon .load-text {
-    display: none; }
-
-.ptr-refresh .ptr-element .genericon .loading-icon {
-  transform: rotate(0deg); }
-.ptr-refresh .ptr-element .genericon .preload-text {
-  display: none; }
-.ptr-refresh .ptr-element .genericon .load-text {
-  display: inline; }
-
-.ptr-loading .ptr-element .genericon,
-.ptr-reset .ptr-element .genericon {
-  display: none; }
-
-.loading {
-  display: inline-block;
-  text-align: center;
+  padding: 10px;
   opacity: 0.4;
-  margin: 12px 0 0 5px;
-  display: none; }
-
-.ptr-loading .loading {
-  display: block; }
-
-.loading span {
-  display: inline-block;
-  vertical-align: middle;
-  width: 10px;
-  height: 10px;
-  margin-right: 3px;
-  transform: scale(0.3);
-  border-radius: 50%;
-  background-color: white;
-  animation: ptr-loading 0.4s infinite alternate; }
-
-.loading-ptr-1 {
-  animation-delay: 0 !important; }
-
-.loading-ptr-2 {
-  animation-delay: 0.2s !important; }
-
-.loading-ptr-3 {
-  animation-delay: 0.4s !important; }
-
-@-webkit-keyframes ptr-loading {
-  0% {
-    transform: translateY(0) scale(0.3);
-    opacity: 0; }
-  100% {
-    transform: scale(1);
-    opacity: 1; } }
-@keyframes ptr-loading {
-  0% {
-    transform: translateY(10px) scale(0.3);
-    opacity: 0; }
-  100% {
-    transform: scale(1);
-    opacity: 1; } }
-.ptr-loading .refresh-view,
-.ptr-reset .refresh-view,
-.ptr-loading .ptr-element,
-.ptr-reset .ptr-element {
-  transition: all 0.25s ease; }
-
-.ptr-reset .refresh-view {
-  transform: translate3d(0, 0, 0); }
-
-.ptr-loading .refresh-view {
-  transform: translate3d(0, 40px, 0); }
-
-/* react-pull-to-refresh CSS */
-#container {
-  background-color: #fff;
-  min-height: 100%;
-  z-index: 20;
-  -webkit-backface-visibility: hidden;
-  -webkit-perspective: 1000;
-  padding: 20px 20px;
-  text-align: center;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 24px;
-  font-weight: 200;
-  color: #555;
-  box-sizing: border-box; }
-
-body:not(.ptr-loading) #container .ptr-element {
-  transform: translate3d(0, -50px, 0); }
+  font-size: 14px; }
 
 /*# sourceMappingURL=App.css.map */

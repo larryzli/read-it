@@ -1,18 +1,29 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
 import moment from "moment";
-import ReactPullToRefresh from "react-pull-to-refresh";
+// import ReactPullToRefresh from "react-pull-to-refresh";
+import InfiniteScroll from "react-infinite-scroll-component";
 // IMPORT COMPONENTS
 import PostCard from "../PostCard/PostCard";
 // IMPORT ICONS
-import upIcon from "../../icons/ic_keyboard_arrow_up_white_24px.svg";
+// import upIcon from "../../icons/ic_keyboard_arrow_up_white_24px.svg";
+import loading from "../../icons/loading/loading-cylon-red.svg";
 
 // COMPONENT
 class SubredditPosts extends Component {
+  loadMore = () => {
+    console.log("LOADING MORE");
+    this.props.loadContent(
+      this.props.filter,
+      this.props.filterPeriod,
+      this.props.hasMore
+    );
+  };
   render() {
     // LOAD SUBREDDIT POSTS
-    const posts = this.props.subredditPosts.map((post, index) => {
-      return (
+    const posts = [];
+    this.props.subredditPosts.forEach((post, index) => {
+      posts.push(
         <PostCard
           key={index}
           title={post.post_title}
@@ -30,10 +41,16 @@ class SubredditPosts extends Component {
         />
       );
     });
+    const loader = (
+      <div className="loader-wrapper" key={"loader"}>
+        <img src={loading} className="loader-svg" alt="loading" />
+      </div>
+    );
     return (
       <div>
         {this.props.navigation}
-        <ReactPullToRefresh
+        {this.props.isLoading ? loader : null}
+        {/* <ReactPullToRefresh
           onRefresh={this.props.refreshHandler}
           icon={
             <span className="genericon genericon-next">
@@ -44,11 +61,26 @@ class SubredditPosts extends Component {
             </span>
           }
           distanceToRefresh={60}
+        > */}
+        {/* <div className="posts"> */}
+        <InfiniteScroll
+          next={() => setTimeout(this.loadMore, 500)}
+          hasMore={this.props.hasMore}
+          height={"calc(100vh - 56px)"}
+          loader={loader}
+          pullDownToRefresh
+          pullDownToRefreshContent={
+            <h3 className="refresh-message">&#8595; Pull down to refresh</h3>
+          }
+          releaseToRefreshContent={
+            <h3 className="refresh-message">&#8593; Release to refresh</h3>
+          }
+          refreshFunction={this.props.refreshHandler}
         >
-          <div className="posts" id="content">
-            {posts}
-          </div>
-        </ReactPullToRefresh>
+          <div className="posts">{posts}</div>
+        </InfiniteScroll>
+        {/* </div> */}
+        {/* </ReactPullToRefresh> */}
       </div>
     );
   }
