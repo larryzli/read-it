@@ -59,26 +59,6 @@ class Frontpage extends Component {
     this.toggleSort = this.toggleSort.bind(this);
     this.loadContent = this.loadContent.bind(this);
   }
-  // refreshHandler = (resolve, reject) => {
-  //   let success = false;
-  //   let url = `/api/${this.state.filter}?`;
-  //   if (this.state.filterPeriod) {
-  //     url += `t=${this.state.filterPeriod}&`;
-  //   }
-  //   axios
-  //     .get(url)
-  //     .then(response => {
-  //       success = true;
-  //       if (success) {
-  //         resolve();
-  //       }
-  //       this.setState({
-  //         posts: response.data.posts,
-  //         after: response.data.after
-  //       });
-  //     })
-  //     .catch(err => reject());
-  // };
   refreshHandler = () => {
     this.setState({ loading: true });
     let url = `/api/${this.state.filter}?`;
@@ -133,7 +113,7 @@ class Frontpage extends Component {
   };
   loadContent = (filter, timeFrame, loadMore) => {
     if (!loadMore) {
-      this.setState({ loading: true });
+      this.setState({ loading: true, posts: [], after: "" });
     }
     let url = `/api/${filter}?`;
     if (this.state.after && loadMore) {
@@ -154,7 +134,6 @@ class Frontpage extends Component {
         } else {
           this.setState({
             posts: this.state.posts.concat(response.data.posts),
-            // posts: response.data.posts,
             after: response.data.after,
             loading: false
           });
