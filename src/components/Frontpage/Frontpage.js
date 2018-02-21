@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import { Link } from "react-router-dom";
 // IMPORT COMPONENTS
 import SubredditPosts from "../SubredditPosts/SubredditPosts";
 import HomeNavigation from "../Navigation/HomeNavigation";
@@ -182,12 +183,16 @@ class Frontpage extends Component {
     const newPostDrawer = (
       <div className="newpost-drawer-wrapper" onClick={this.toggleNewPost}>
         <div className="newpost-drawer-container">
-          <div className="newpost-drawer-item">
+          {/* <div className="newpost-drawer-item"> */}
+          <Link to="submit/self" className="newpost-drawer-item">
             <img src={textIcon} alt="text post" />
-          </div>
-          <div className="newpost-drawer-item">
+          </Link>
+          {/* </div> */}
+          <Link to="submit/link" className="newpost-drawer-item">
+            {/* <div className="newpost-drawer-item"> */}
             <img src={linkIcon} alt="link post" />
-          </div>
+            {/* </div> */}
+          </Link>
         </div>
       </div>
     );
