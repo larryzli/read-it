@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 // IMPORT COMPONENTS
 import SubredditPosts from "../SubredditPosts/SubredditPosts";
-import HomeNavigation from "../Navigation/HomeNavigation";
+import SubNavigation from "../Navigation/SubNavigation";
 import Menu from "../Menu/Menu";
 import Drawer from "rc-drawer";
 import "rc-drawer/assets/index.css";
@@ -351,9 +351,10 @@ class Frontpage extends Component {
               isLoading={this.state.loading}
               enableControls={this.props.user.user.id ? true : false}
               navigation={
-                <HomeNavigation
+                <SubNavigation
                   openMenu={this.openMenu}
                   openSidebar={this.openSidebar}
+                  title="Frontpage"
                   filterName={
                     this.state.filterPeriod
                       ? `${this.state.filter}: ${this.state.filterPeriod}`

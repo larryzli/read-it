@@ -352,6 +352,10 @@ html {
           font-weight: 500; }
         .comment-wrapper .comment-container .comment-text .comment-data .comment-score {
           font-weight: 100;
+          color: grey;
+          padding: 0 5px; }
+        .comment-wrapper .comment-container .comment-text .comment-data .comment-age {
+          font-weight: 100;
           color: grey; }
       .comment-wrapper .comment-container .comment-text .comment-body {
         overflow-wrap: break-word;
@@ -396,6 +400,17 @@ html {
     box-shadow: 0px 0px 2px #111;
     cursor: pointer; }
     .new-post-container .new-post-icon:hover {
+      background-color: #bbb; }
+  .new-post-container .new-comment-icon {
+    background-color: grey;
+    padding-top: 15px;
+    padding-bottom: 9px;
+    padding-left: 13px;
+    padding-right: 13px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px #111;
+    cursor: pointer; }
+    .new-post-container .new-comment-icon:hover {
       background-color: #bbb; }
 
 .load-more {

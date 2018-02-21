@@ -10,12 +10,18 @@ import sidebarIcon from "../../icons/ic_web_asset_white_24px.svg";
 // import searchIcon from "../../icons/ic_search_white_24px.svg";
 
 // COMPONENT
-const HomeNavigation = ({ filterName, openMenu, sortAction, openSidebar }) => {
+const SubredditNavigation = ({
+  filterName,
+  openMenu,
+  sortAction,
+  openSidebar,
+  title
+}) => {
   const rightIcons = [sortIcon, sidebarIcon];
   const rightActions = [sortAction, openSidebar];
   return (
     <Navigation
-      title="Frontpage"
+      title={title}
       filterName={filterName}
       leftIcon={menuIcon}
       rightIcons={rightIcons}
@@ -27,4 +33,4 @@ const HomeNavigation = ({ filterName, openMenu, sortAction, openSidebar }) => {
 };
 
 // EXPORT COMPONENT
-export default HomeNavigation;
+export default SubredditNavigation;

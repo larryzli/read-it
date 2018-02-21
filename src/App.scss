@@ -521,7 +521,12 @@ html {
         }
         .comment-score {
           font-weight: 100;
-          color: grey;
+          color: $grey5;
+          padding: 0 5px;
+        }
+        .comment-age {
+          font-weight: 100;
+          color: $grey5;
         }
       }
       .comment-body {
@@ -568,7 +573,7 @@ html {
   }
 }
 
-// NEW POST BUTTON
+// NEW POST AND COMMENT BUTTON
 .new-post-container {
   position: fixed;
   bottom: 10px;
@@ -587,10 +592,23 @@ html {
       background-color: $grey3;
     }
   }
+  .new-comment-icon {
+    background-color: $grey5;
+    padding-top: 15px;
+    padding-bottom: 9px;
+    padding-left: 13px;
+    padding-right: 13px;
+    border-radius: 50%;
+    box-shadow: $shadow;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grey3;
+    }
+  }
 }
 
 // COMMENT LOAD MORE
-
 .load-more {
   font-size: $fsize1;
   color: $blue1;

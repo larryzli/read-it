@@ -8,6 +8,7 @@ import PostData from "../Post/PostData";
 import Comment from "../Comment/Comment";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
+// import commentIcon from "../../icons/comment_large.svg";
 // IMPORT REDUX FUNCTION
 import { getUserInfo } from "../../ducks/userReducer";
 
@@ -266,6 +267,11 @@ class Post extends Component {
             <div className="comments-wrapper">{comments}</div>
           </div>
         )}
+        {/* <div className="new-post-container" onClick={this.toggleNewPost}>
+          <div className="new-comment-icon">
+            <img src={commentIcon} alt="add new post" />
+          </div>
+        </div> */}
       </div>
     );
   }
