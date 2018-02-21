@@ -11,10 +11,11 @@ import downvoteIcon from "../../icons/ic_keyboard_arrow_down_white_24px.svg";
 import downvoteIconClicked from "../../icons/ic_keyboard_arrow_down_red_24px.svg";
 import starIconEmpty from "../../icons/ic_star_border_white_20px.svg";
 import starIconFilled from "../../icons/ic_star_white_20px.svg";
-import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
 import hideIcon from "../../icons/ic_clear_white_20px.svg";
 import unhideIcon from "../../icons/ic_check_white_20px.svg";
+// import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
 
+// COMPONENT
 class PostCard extends Component {
   constructor(props) {
     super(props);

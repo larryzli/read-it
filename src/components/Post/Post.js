@@ -1,5 +1,6 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import axios from "axios";
 // IMPORT COMPONENTS
 import PostNavigation from "../Navigation/PostNavigation";
@@ -13,7 +14,18 @@ class Post extends Component {
     super(props);
 
     this.state = {
+      // LOADING
       loading: true,
+
+      // VOTING
+      upvoted: false,
+      downvoted: false,
+
+      // FAVORITING
+      favorited: false,
+
+      // HIDING
+      hidden: false,
 
       postData: {},
       comments: [],
@@ -62,7 +74,14 @@ class Post extends Component {
           loader
         ) : (
           <div>
-            <PostData postData={this.state.postData} />
+            <PostData
+              postData={this.state.postData}
+              upvoted={this.state.upvoted}
+              downvoted={this.state.downvoted}
+              favorited={this.state.favorited}
+              hidden={this.state.hidden}
+              enableControls={this.props.user.user.id ? true : false}
+            />
             <div className="comments-wrapper">{comments}</div>
           </div>
         )}
@@ -71,4 +90,8 @@ class Post extends Component {
   }
 }
 
-export default Post;
+// CONNECT TO REDUX
+const mapStateToProps = state => {
+  return state;
+};
+export default connect(mapStateToProps)(Post);
