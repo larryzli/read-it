@@ -2,15 +2,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import { Link } from "react-router-dom";
 // IMPORT COMPONENTS
 import SubredditPosts from "../SubredditPosts/SubredditPosts";
-import HomeNavigation from "../Navigation/HomeNavigation";
+import SubNavigation from "../Navigation/SubNavigation";
 import Menu from "../Menu/Menu";
 import Drawer from "rc-drawer";
 import "rc-drawer/assets/index.css";
 // IMPORT ICONS
 import newPost from "../../icons/ic_create_white_24px.svg";
 import rightArrow from "../../icons/ic_arrow_drop_down_grey_20px.svg";
+import textIcon from "../../icons/ic_text_format_white_16px.svg";
+import linkIcon from "../../icons/ic_link_white_16px.svg";
 // IMPORT REDUX FUNCTIONS
 import { pullHot } from "../../ducks/subredditReducer";
 
@@ -50,7 +53,10 @@ class Frontpage extends Component {
 
       // FOR SORT
       showSortDrawer: false,
-      showSortPeriodDrawer: false
+      showSortPeriodDrawer: false,
+
+      // FOR NEW POST
+      showNewPostDrawer: false
     };
 
     this.openMenu = this.openMenu.bind(this);
@@ -101,6 +107,9 @@ class Frontpage extends Component {
       showSortPeriodDrawer: !this.state.showSortPeriodDrawer,
       filterPeriodTitle: periodTitle
     });
+  };
+  toggleNewPost = () => {
+    this.setState({ showNewPostDrawer: !this.state.showNewPostDrawer });
   };
   onDock = () => {
     const docked = !this.state.docked;
@@ -171,6 +180,22 @@ class Frontpage extends Component {
     // GET SIDEBAR INFO
   }
   render() {
+    const newPostDrawer = (
+      <div className="newpost-drawer-wrapper" onClick={this.toggleNewPost}>
+        <div className="newpost-drawer-container">
+          {/* <div className="newpost-drawer-item"> */}
+          <Link to="submit/self" className="newpost-drawer-item">
+            <img src={textIcon} alt="text post" />
+          </Link>
+          {/* </div> */}
+          <Link to="submit/link" className="newpost-drawer-item">
+            {/* <div className="newpost-drawer-item"> */}
+            <img src={linkIcon} alt="link post" />
+            {/* </div> */}
+          </Link>
+        </div>
+      </div>
+    );
     const sortDrawer = (
       <div className="drawer-wrapper" onClick={e => this.toggleSort()}>
         <div className="drawer-container">
@@ -270,7 +295,7 @@ class Frontpage extends Component {
       <div>
         {this.state.showSortDrawer ? sortDrawer : null}
         {this.state.showSortPeriodDrawer ? sortPeriodDrawer : null}
-
+        {this.state.showNewPostDrawer ? newPostDrawer : null};
         <Drawer
           sidebar={<Menu docked={this.state.docked} onDock={this.onDock} />}
           docked={this.state.docked}
@@ -326,9 +351,10 @@ class Frontpage extends Component {
               isLoading={this.state.loading}
               enableControls={this.props.user.user.id ? true : false}
               navigation={
-                <HomeNavigation
+                <SubNavigation
                   openMenu={this.openMenu}
                   openSidebar={this.openSidebar}
+                  title="Frontpage"
                   filterName={
                     this.state.filterPeriod
                       ? `${this.state.filter}: ${this.state.filterPeriod}`
@@ -339,7 +365,7 @@ class Frontpage extends Component {
               }
             />
 
-            <div className="new-post-container">
+            <div className="new-post-container" onClick={this.toggleNewPost}>
               <div className="new-post-icon">
                 <img src={newPost} alt="add new post" />
               </div>

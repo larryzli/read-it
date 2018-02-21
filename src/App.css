@@ -352,6 +352,10 @@ html {
           font-weight: 500; }
         .comment-wrapper .comment-container .comment-text .comment-data .comment-score {
           font-weight: 100;
+          color: grey;
+          padding: 0 5px; }
+        .comment-wrapper .comment-container .comment-text .comment-data .comment-age {
+          font-weight: 100;
           color: grey; }
       .comment-wrapper .comment-container .comment-text .comment-body {
         overflow-wrap: break-word;
@@ -387,19 +391,58 @@ html {
   bottom: 10px;
   right: 10px; }
   .new-post-container .new-post-icon {
-    background-color: #505050;
+    background-color: grey;
     padding-top: 13px;
     padding-bottom: 9px;
     padding-left: 14px;
     padding-right: 12px;
     border-radius: 50%;
-    box-shadow: 0px 0px 2px #111; }
+    box-shadow: 0px 0px 2px #111;
+    cursor: pointer; }
+    .new-post-container .new-post-icon:hover {
+      background-color: #bbb; }
+  .new-post-container .new-comment-icon {
+    background-color: grey;
+    padding-top: 15px;
+    padding-bottom: 9px;
+    padding-left: 13px;
+    padding-right: 13px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 2px #111;
+    cursor: pointer; }
+    .new-post-container .new-comment-icon:hover {
+      background-color: #bbb; }
 
 .load-more {
   font-size: 10px;
   color: #4a90e2;
   margin-left: 5px;
   cursor: pointer; }
+
+.newpost-drawer-wrapper {
+  z-index: 3;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end; }
+  .newpost-drawer-wrapper .newpost-drawer-container {
+    margin-right: 18px;
+    margin-bottom: 80px;
+    height: fit-content; }
+    .newpost-drawer-wrapper .newpost-drawer-container .newpost-drawer-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 35px;
+      background-color: grey;
+      box-shadow: 0px 0px 2px #111;
+      height: 35px;
+      margin-top: 20px;
+      border-radius: 50%; }
+      .newpost-drawer-wrapper .newpost-drawer-container .newpost-drawer-item:hover {
+        background-color: #bbb; }
 
 .drawer-wrapper {
   z-index: 3;

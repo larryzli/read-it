@@ -1,10 +1,11 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
 import axios from "axios";
+import moment from "moment";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
-import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
-import commentIcon from "../../icons/comment_tiny.svg";
+// import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
+// import commentIcon from "../../icons/comment_tiny.svg";
 import upvoteIcon from "../../icons/ic_keyboard_arrow_up_white_24px.svg";
 import upvoteIconClicked from "../../icons/ic_keyboard_arrow_up_green_24px 2.svg";
 import downvoteIcon from "../../icons/ic_keyboard_arrow_down_white_24px.svg";
@@ -133,6 +134,7 @@ class Comment extends Component {
   };
 
   render() {
+    console.log(this.props);
     // COMMENT COLORS
     const borderColors = [
       "#8F6DCE",
@@ -220,7 +222,7 @@ class Comment extends Component {
               <span className="comment-author">
                 {this.props.commentData.author}
               </span>
-              {"   "}
+
               <span
                 className="comment-score"
                 style={
@@ -232,6 +234,10 @@ class Comment extends Component {
                 {this.props.commentData.score_hidden
                   ? "[score hidden]"
                   : this.props.commentData.score + " points"}
+              </span>
+
+              <span className="comment-age">
+                {moment(this.props.commentData.created_utc * 1000).fromNow()}
               </span>
             </div>
             <div className="comment-body">{this.props.commentData.body}</div>
