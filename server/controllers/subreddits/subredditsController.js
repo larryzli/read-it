@@ -445,25 +445,23 @@ const subredditModerators = (req, res, next) => {
 //RESTRICT_SR RESTRICTS THE SEARCH TO JUST THE SUBREDDIT : "on"
 const searchSubreddit = (req, res, next) => {
   const { search_terms, restrict, sort, time } = req.query;
-  const { subreddit_name } = req.params
-  let baseURL = `https://www.reddit.com/search.json?q=${search_terms}`
+  const { subreddit_name } = req.params;
+  let baseURL = `https://www.reddit.com/search.json?q=${search_terms}`;
 
   if (subreddit_name) {
-    baseURL = `https://www.reddit.com/r/${subreddit_name}/search.json?q=${search_terms}`
+    baseURL = `https://www.reddit.com/r/${subreddit_name}/search.json?q=${search_terms}`;
   }
   if (restrict) {
-    baseURL += '&restrict_sr=on'
+    baseURL += "&restrict_sr=on";
   }
   if (sort) {
-    baseURL += `&sort=${sort}`
+    baseURL += `&sort=${sort}`;
   }
   if (time) {
-    baseURL += `&t=${time}`
+    baseURL += `&t=${time}`;
   }
-  console.log(baseURL)
-  axios
-    .get(baseURL)
-    .then(response => res.status(200).json(response.data));
+  console.log(baseURL);
+  axios.get(baseURL).then(response => res.status(200).json(response.data));
 };
 
 // SEARCH THE NAMES OF SUBREDDITS
@@ -471,14 +469,12 @@ const searchSubreddit = (req, res, next) => {
 //INCLUDE_OVER_18 IS IF NSFW SUBREDDITS ARE TO BE INCLUDED : (true or false)
 const searchSubNames = (req, res, next) => {
   const { query, include_over_18 } = req.query;
-  console.log(req.query)
-  let baseURL = `https://www.reddit.com/api/search_reddit_names.json?query=${query}`
+  console.log(req.query);
+  let baseURL = `https://www.reddit.com/api/search_reddit_names.json?query=${query}`;
   if (include_over_18) {
-    baseURL += `&include_over_18=${include_over_18}`
+    baseURL += `&include_over_18=${include_over_18}`;
   }
-  axios
-    .get(baseURL)
-    .then(response => res.status(200).json(response.data));
+  axios.get(baseURL).then(response => res.status(200).json(response.data));
 };
 
 module.exports = {

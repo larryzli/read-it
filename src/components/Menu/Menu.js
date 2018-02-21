@@ -154,7 +154,9 @@ class Menu extends Component {
             </div>
             {this.state.showMessagesSubnav ? (
               <div className="menu-submenu-bottom">
-                <div className="menu-submenu-bottom-item">Inbox</div>
+                <NavLink to="/inbox" className="menu-submenu-title">
+                  <div className="menu-submenu-bottom-item">Inbox</div>
+                </NavLink>
                 <div className="menu-submenu-bottom-item">Unread</div>
                 <div className="menu-submenu-bottom-item">Messages</div>
                 <div className="menu-submenu-bottom-item">Sent</div>

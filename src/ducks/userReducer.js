@@ -3,6 +3,7 @@ import axios from "axios";
 const GET_USER_INFO = "GET_USER_INFO";
 const ADD_FILTER = "ADD_FILTER";
 const REMOVE_FILTER = "REMOVE_FILTER";
+const EDIT_FILTER = "EDIT_FILTER";
 
 //Axios call to retrive user by their Reddit ID
 
@@ -31,6 +32,16 @@ export function removeFilter(id) {
     type: REMOVE_FILTER,
     payload: axios
       .post("/api/user/filter/remove", { id })
+      .then(response => response.data)
+      .catch(console.log)
+  };
+}
+
+export function editFilter(id, filter_name) {
+  return {
+    type: EDIT_FILTER,
+    payload: axios
+      .post("/api/user/filter/edit", { id, filter_name })
       .then(response => response.data)
       .catch(console.log)
   };
@@ -97,6 +108,24 @@ export default function userReducer(state = initialState, action) {
       });
 
     case `${REMOVE_FILTER}_REJECTED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        didError: true
+      });
+
+    // EDIT FILTER
+    case `${EDIT_FILTER}_PENDING`:
+      return Object.assign({}, state, {
+        isLoading: true
+      });
+
+    case `${EDIT_FILTER}_FULFILLED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        filter: action.payload
+      });
+
+    case `${EDIT_FILTER}_REJECTED`:
       return Object.assign({}, state, {
         isLoading: false,
         didError: true
