@@ -30,12 +30,15 @@ class Post extends Component {
       hidden: false,
 
       // CONTROLS
-      enableControls: this.props.user.user.id ? true : false,
+      enableControls: false,
 
       // DATA
       postData: {},
       comments: [],
-      filter: "TOP"
+      filter: "best",
+
+      // SORT
+      showSortDrawer: false
     };
 
     this.goHome = this.goHome.bind(this);
@@ -148,22 +151,75 @@ class Post extends Component {
       alert("Please login to use this feature");
     }
   };
-  componentDidMount() {
-    this.props.getUserInfo();
-    const { post, subreddit } = this.props.match.params;
-    axios.get(`/api/post/${subreddit}/${post}`).then(response => {
-      this.setState({
-        postData: response.data.post,
-        comments: response.data.comments,
-        loading: false,
-        upvoted: response.data.post.likes === true,
-        downvoted: response.data.post.likes === false,
-        favorited: response.data.post.saved,
-        hidden: response.data.post.hidden
-      });
+  changeFilter = filterVal => {
+    this.setState({
+      filter: filterVal,
+      loading: true
     });
+    if (filterVal === "best") {
+      filterVal = "confidence";
+    }
+    this.loadContent(filterVal);
+  };
+  toggleSort = () => {
+    this.setState({ showSortDrawer: !this.state.showSortDrawer });
+  };
+  loadContent = filter => {
+    const { post, subreddit } = this.props.match.params;
+    axios
+      .get(`/api/post/${subreddit}/${post}?sort=${filter}`)
+      .then(response => {
+        this.setState({
+          postData: response.data.post,
+          comments: response.data.comments,
+          loading: false,
+          upvoted: response.data.post.likes === true,
+          downvoted: response.data.post.likes === false,
+          favorited: response.data.post.saved,
+          hidden: response.data.post.hidden
+        });
+      });
+  };
+  componentDidMount() {
+    this.props.getUserInfo().then(response => {
+      this.setState({ enableControls: this.props.user.user.id ? true : false });
+    });
+    this.loadContent(this.state.filter);
   }
   render() {
+    const sortDrawer = (
+      <div className="drawer-wrapper" onClick={e => this.toggleSort()}>
+        <div className="drawer-container">
+          <div className="drawer-item" onClick={e => this.changeFilter("top")}>
+            Top
+          </div>
+          <div className="drawer-item" onClick={e => this.changeFilter("best")}>
+            Best
+          </div>
+          <div className="drawer-item" onClick={e => this.changeFilter("new")}>
+            New
+          </div>
+          <div className="drawer-item" onClick={e => this.changeFilter("old")}>
+            Old
+          </div>
+          <div
+            className="drawer-item"
+            onClick={e => this.changeFilter("random")}
+          >
+            Random
+          </div>
+          <div
+            className="drawer-item"
+            onClick={e => this.changeFilter("controversial")}
+          >
+            Controversial
+          </div>
+          <div className="drawer-item" onClick={e => this.changeFilter("qa")}>
+            Q&A
+          </div>
+        </div>
+      </div>
+    );
     const comments = this.state.comments.map((comment, index) => {
       return (
         <Comment
@@ -181,10 +237,12 @@ class Post extends Component {
     );
     return (
       <div>
+        {this.state.showSortDrawer ? sortDrawer : null}
         <PostNavigation
           title={this.state.postData.subreddit_title}
           filterName={this.state.filter}
           goHome={this.goHome}
+          sortAction={this.toggleSort}
         />
         {this.state.loading ? (
           loader
