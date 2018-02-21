@@ -6,8 +6,9 @@ import { Switch, Route } from "react-router-dom";
 import Frontpage from "./components/Frontpage/Frontpage";
 import Post from "./components/Post/Post";
 import Messaging from "./components/Messaging/Messaging";
-import Filter from "./components/Filter/Filter";
+import FilterNavigation from "./components/Navigation/FilterNavigation";
 import SubmitSelfPost from "./components/SubmitPost/SubmitSelfPost";
+import InboxNavigation from "./components/Navigation/InboxNavigation";
 
 export default (
   <Switch>
@@ -16,6 +17,7 @@ export default (
     <Route path="/r/:subreddit_name/submit/self" component={SubmitSelfPost} />
     <Route path="/r/:subreddit/:post" component={Post} />
     <Route path="/messages" component={Messaging} />
-    <Route path="/filter" component={Filter} />
+    <Route path="/filter" component={FilterNavigation} />
+    <Route path="/inbox" component={InboxNavigation} />
   </Switch>
 );

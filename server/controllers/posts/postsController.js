@@ -4,8 +4,19 @@ const { USER_AGENT } = process.env;
 
 const getPost = (req, res, next) => {
   const { subreddit_title, post_id } = req.params;
+  let baseURL = `https://www.reddit.com/r/${subreddit_title}/comments/${post_id}.json?`;
+  let headers = {};
+  if (req.user) {
+    baseURL = `https://oauth.reddit.com/r/${subreddit_title}/comments/${post_id}?`;
+    headers = {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    };
+  }
   axios
-    .get(`https://www.reddit.com/r/${subreddit_title}/${post_id}.json`)
+    .get(baseURL, headers)
     .then(response => {
       let r = response.data[0].data.children[0].data;
       res.status(200).json({
@@ -28,6 +39,20 @@ const getPost = (req, res, next) => {
           is_self: r.is_self,
           over_18: r.over_18,
           thumbnail: r.thumbnail,
+          permalink: r.permalink,
+          saved: r.saved,
+          likes: r.likes,
+          hidden: r.hidden,
+          clicked: r.clicked,
+          visited: r.visited,
+          pinned: r.pinned,
+          archived: r.archived,
+          spoiler: r.spoiler,
+          locked: r.lrcked,
+          stickied: r.stickied,
+          edited: r.edited,
+          gilded: r.gilded,
+          is_reddit_media: r.is_reddit_media_domain,
           video: r.preview
             ? r.preview.reddit_video_preview
               ? r.preview.reddit_video_preview.fallback_url
