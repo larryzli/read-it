@@ -581,6 +581,7 @@ html {
     padding-right: 12px;
     border-radius: 50%;
     box-shadow: $shadow;
+    cursor: pointer;
 
     &:hover {
       background-color: $grey3;

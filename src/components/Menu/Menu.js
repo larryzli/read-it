@@ -207,19 +207,6 @@ class Menu extends Component {
               </span>
             </div>
           </div>
-          <div className="menu-submenu-item">
-            <div className="menu-submenu-top">
-              <NavLink
-                to="/r/:subreddit_name/submit"
-                className="menu-submenu-title"
-              >
-                Submit Post
-              </NavLink>
-            </div>
-          </div>
-          <div className="menu-submenu-item">
-            <div className="menu-submenu-top" />
-          </div>
         </div>
         <div className="menu-subreddit-container">
           <input
