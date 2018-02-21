@@ -24,7 +24,8 @@ html {
     width: 60%;
     justify-content: flex-start; }
     .nav-background .nav-left .nav-left-icon {
-      margin-right: 15px; }
+      margin-right: 15px;
+      cursor: pointer; }
     .nav-background .nav-left .nav-page-container {
       display: flex;
       justify-content: space-between;
@@ -51,7 +52,8 @@ html {
     justify-content: flex-end;
     align-items: center; }
     .nav-background .nav-right .nav-left-icon {
-      margin-left: 15px; }
+      margin-left: 15px;
+      cursor: pointer; }
 
 .menu-container {
   display: flex;
@@ -121,13 +123,16 @@ html {
             margin-right: 10px; }
       .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom {
         background-color: #333; }
-        .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom .menu-submenu-bottom-item {
-          padding-top: 10px;
-          padding-bottom: 10px;
-          padding-left: 45px;
-          padding-right: 15px; }
-          .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom .menu-submenu-bottom-item:hover {
-            background-color: #505050; }
+        .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom .menu-submenu-bottom-link {
+          text-decoration: none;
+          color: #fff; }
+          .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom .menu-submenu-bottom-link .menu-submenu-bottom-item {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 45px;
+            padding-right: 15px; }
+            .menu-container .menu-submenu-list .menu-submenu-item .menu-submenu-bottom .menu-submenu-bottom-link .menu-submenu-bottom-item:hover {
+              background-color: #505050; }
   .menu-container .menu-subreddit-container {
     display: flex;
     flex-direction: column; }
@@ -215,7 +220,10 @@ html {
       .posts .card-container .post-container .post-dropdown {
         display: flex;
         justify-content: center;
-        align-items: center; }
+        align-items: center;
+        cursor: pointer; }
+        .posts .card-container .post-container .post-dropdown:hover {
+          background-color: #505050; }
     .posts .card-container .card-controls {
       display: flex;
       justify-content: space-between;
@@ -229,7 +237,8 @@ html {
         .posts .card-container .card-controls .card-left-controls .card-control-icon {
           padding-left: 10px;
           padding-right: 15px;
-          font-size: 15px; }
+          font-size: 15px;
+          cursor: pointer; }
           .posts .card-container .card-controls .card-left-controls .card-control-icon:first-child {
             padding-right: 10px; }
       .posts .card-container .card-controls .card-right-controls {
@@ -237,7 +246,8 @@ html {
         align-items: center;
         height: 100%; }
         .posts .card-container .card-controls .card-right-controls .card-control-icon {
-          padding: 0 8px; }
+          padding: 0 8px;
+          cursor: pointer; }
 
 .postdata-container {
   background-color: #444;
@@ -246,7 +256,7 @@ html {
     text-decoration: none; }
     .postdata-container .postdata-link .postdata-image {
       width: 100%;
-      max-height: 150px;
+      max-height: 35vh;
       object-fit: cover; }
     .postdata-container .postdata-link .postdata-link-info-container {
       color: #fff;
@@ -298,7 +308,8 @@ html {
       .postdata-container .postdata-controls .postdata-left-controls .postdata-control-icon {
         padding-left: 10px;
         padding-right: 15px;
-        font-size: 15px; }
+        font-size: 15px;
+        cursor: pointer; }
         .postdata-container .postdata-controls .postdata-left-controls .postdata-control-icon:first-child {
           padding-right: 10px; }
     .postdata-container .postdata-controls .postdata-right-controls {
@@ -306,7 +317,8 @@ html {
       align-items: center;
       height: 100%; }
       .postdata-container .postdata-controls .postdata-right-controls .postdata-control-icon {
-        padding: 0 8px; }
+        padding: 0 8px;
+        cursor: pointer; }
 
 .comments-wrapper {
   margin-top: 10px;
@@ -340,7 +352,7 @@ html {
           font-weight: 500; }
         .comment-wrapper .comment-container .comment-text .comment-data .comment-score {
           font-weight: 100;
-          opacity: 0.5; }
+          color: grey; }
       .comment-wrapper .comment-container .comment-text .comment-body {
         overflow-wrap: break-word;
         word-wrap: break-word;
@@ -358,7 +370,8 @@ html {
       .comment-wrapper .comment-controls .comment-left-controls .comment-control-icon {
         padding-left: 10px;
         padding-right: 15px;
-        font-size: 15px; }
+        font-size: 15px;
+        cursor: pointer; }
         .comment-wrapper .comment-controls .comment-left-controls .comment-control-icon:first-child {
           padding-right: 10px; }
     .comment-wrapper .comment-controls .comment-right-controls {
@@ -366,7 +379,8 @@ html {
       justify-content: space-between;
       align-items: center; }
       .comment-wrapper .comment-controls .comment-right-controls .comment-control-icon {
-        padding: 0 8px; }
+        padding: 0 8px;
+        cursor: pointer; }
 
 .new-post-container {
   position: fixed;
@@ -384,7 +398,8 @@ html {
 .load-more {
   font-size: 10px;
   color: #4a90e2;
-  margin-left: 5px; }
+  margin-left: 5px;
+  cursor: pointer; }
 
 .drawer-wrapper {
   z-index: 3;
@@ -412,7 +427,8 @@ html {
       width: 150px;
       justify-content: space-between;
       font-size: 14px;
-      font-weight: 300; }
+      font-weight: 300;
+      cursor: pointer; }
 
 .loader-wrapper {
   display: flex;
