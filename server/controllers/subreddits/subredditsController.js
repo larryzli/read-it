@@ -439,20 +439,47 @@ const subredditModerators = (req, res, next) => {
 
 //SEARCH A SUBREDDIT
 // NEEDS A SUBREDDIT NAME
-// SEARCHTERMS IS THE INPUT BEING SEARCHED,
-// t IS THE TIME PERIOD TO SORT(hour,day,week,month,year,all)
-// const searchSubreddit = (req, res, next) => {
-//   const { subreddit_name, searchTerms, t, sort, restrict_sr } = req.query;
-//   console.log(req.query)
-//   axios
-//     .get(`https://oauth.reddit.com/r/${subreddit_name}/q=${searchTerms}`,
-//     {
-//       headers: {
-//         Authorization: `bearer ${req.user.accessToken}`
-//       }
-//     }
-//       .then(response => res.status(200).json(response.data));
-// };
+// SEARCH_TERMS IS THE INPUT BEING SEARCHED,
+//SORT IS HOW TO SORT THE POSTS : "relevance","top","comments","new"
+// TIME IS THE TIME PERIOD TO SORT : "hour","day","week","month","year","all")
+//RESTRICT_SR RESTRICTS THE SEARCH TO JUST THE SUBREDDIT : "on"
+const searchSubreddit = (req, res, next) => {
+  const { search_terms, restrict, sort, time } = req.query;
+  const { subreddit_name } = req.params
+  let baseURL = `https://www.reddit.com/search.json?q=${search_terms}`
+
+  if (subreddit_name) {
+    baseURL = `https://www.reddit.com/r/${subreddit_name}/search.json?q=${search_terms}`
+  }
+  if (restrict) {
+    baseURL += '&restrict_sr=on'
+  }
+  if (sort) {
+    baseURL += `&sort=${sort}`
+  }
+  if (time) {
+    baseURL += `&t=${time}`
+  }
+  console.log(baseURL)
+  axios
+    .get(baseURL)
+    .then(response => res.status(200).json(response.data));
+};
+
+// SEARCH THE NAMES OF SUBREDDITS
+// QUERY IS THE SEAARCHED NAME
+//INCLUDE_OVER_18 IS IF NSFW SUBREDDITS ARE TO BE INCLUDED : (true or false)
+const searchSubNames = (req, res, next) => {
+  const { query, include_over_18 } = req.query;
+  console.log(req.query)
+  let baseURL = `https://www.reddit.com/api/search_reddit_names.json?query=${query}`
+  if (include_over_18) {
+    baseURL += `&include_over_18=${include_over_18}`
+  }
+  axios
+    .get(baseURL)
+    .then(response => res.status(200).json(response.data));
+};
 
 module.exports = {
   pullNew,
@@ -467,6 +494,7 @@ module.exports = {
   sidebar,
   subredditAbout,
   subredditRules,
-  subredditModerators
-  // searchSubreddit
+  subredditModerators,
+  searchSubreddit,
+  searchSubNames
 };
