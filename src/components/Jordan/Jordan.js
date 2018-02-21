@@ -4,9 +4,8 @@ import axios from 'axios'
 
 class Jordan extends Component {
   testApi() {
-
     axios
-      .get(`/api/default`)
+      .get(`/api/search/search_reddit_names?query=cringe`)
       .then(response => console.log(response))
   }
 
