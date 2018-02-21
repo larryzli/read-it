@@ -16,6 +16,10 @@ class SubmitSelfPost extends Component {
 
     };
 
+    componentDidMount() {
+        this.props.match.params.subreddit_name ? this.setState({ subredditName: this.props.match.params.subreddit_name }) : null
+    }
+
     handleChange = (props, value) => {
         this.setState({
             [props]: value
@@ -37,11 +41,12 @@ class SubmitSelfPost extends Component {
             })
             .then(response => response.data)
             .catch(console.log)
+
     }
 
 
     render() {
-        console.log(this.state)
+        console.log(this.props.match.params.subreddit_name, this.state)
         return (
             <div>
                 <SubmitNavigation
@@ -61,12 +66,18 @@ class SubmitSelfPost extends Component {
                         onChange={e => this.handleChange("selfText", e.target.value)}
                     />
                     <br />
-                    <input
-                        placeholder="Subreddit Name"
-                        type="text"
-                        onChange={e => this.handleChange("subredditName", e.target.value, )}
-                    />
-                    <br />
+                    {this.props.match.params.subreddit_name ?
+                        <div>Submiting to /r/{this.props.match.params.subreddit_name}</div> :
+                        <div>
+                            <input
+                                placeholder="Subreddit Name"
+                                type="text"
+                                onChange=
+
+                                {e => this.handleChange("subredditName", e.target.value, )}
+                            />
+                            <br />
+                        </div>}
                     <input type="checkBox" />
                     Send Replies To My Inbox
                     <button onClick={this.sendAction} > TEST</button >
