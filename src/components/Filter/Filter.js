@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-class Bruno extends Component {
+class Filter extends Component {
   render() {
     return (
       <div>
@@ -11,4 +11,4 @@ class Bruno extends Component {
   }
 }
 
-export default Bruno;
+export default Filter;

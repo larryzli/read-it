@@ -6,16 +6,16 @@ import { Switch, Route } from "react-router-dom";
 import Frontpage from "./components/Frontpage/Frontpage";
 import Post from "./components/Post/Post";
 import Messaging from "./components/Messaging/Messaging";
-import Bruno from "./components/Bruno/Bruno";
-import Jordan from "./components/Jordan/Jordan";
+import Filter from "./components/Filter/Filter";
+import SubmitPost from "./components/SubmitPost/SubmitPost";
 
 export default (
   <Switch>
     <Route exact path="/" component={Frontpage} />
     {/* <Route path="/r/:subreddit" component={Subreddit} /> */}
+    <Route path="/r/:subreddit_name/submit" component={SubmitPost} />
     <Route path="/r/:subreddit/:post" component={Post} />
     <Route path="/messages" component={Messaging} />
-    <Route path="/Bruno" component={Bruno} />
-    <Route path="/Jordan" component={Jordan} />
+    <Route path="/filter" component={Filter} />
   </Switch>
 );
