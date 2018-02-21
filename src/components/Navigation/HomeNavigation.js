@@ -15,7 +15,7 @@ const HomeNavigation = ({ filterName, openMenu, sortAction, openSidebar }) => {
   const rightActions = [sortAction, openSidebar];
   return (
     <Navigation
-      title="frontpage"
+      title="Frontpage"
       filterName={filterName}
       leftIcon={menuIcon}
       rightIcons={rightIcons}

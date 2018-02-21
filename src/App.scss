@@ -4,6 +4,7 @@ $grey1: #333;
 $grey2: #444;
 $grey3: #bbb;
 $grey4: rgb(80, 80, 80);
+$grey5: grey;
 $white: #fff;
 $blue1: #4a90e2;
 $up: #39ff7b;
@@ -573,15 +574,21 @@ html {
   bottom: 10px;
   right: 10px;
   .new-post-icon {
-    background-color: $grey4;
+    background-color: $grey5;
     padding-top: 13px;
     padding-bottom: 9px;
     padding-left: 14px;
     padding-right: 12px;
     border-radius: 50%;
     box-shadow: $shadow;
+
+    &:hover {
+      background-color: $grey3;
+    }
   }
 }
+
+// COMMENT LOAD MORE
 
 .load-more {
   font-size: $fsize1;
@@ -589,8 +596,40 @@ html {
   margin-left: 5px;
   cursor: pointer;
 }
+// NEW POST DRAWER
+.newpost-drawer-wrapper {
+  z-index: 3;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
 
-// TOP DRAWER
+  .newpost-drawer-container {
+    margin-right: 18px;
+    margin-bottom: 80px;
+    height: fit-content;
+
+    .newpost-drawer-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 35px;
+      background-color: $grey5;
+      box-shadow: $shadow;
+      height: 35px;
+      margin-top: 20px;
+      border-radius: 50%;
+
+      &:hover {
+        background-color: $grey3;
+      }
+    }
+  }
+}
+
+// TOPRIGHT DRAWER
 .drawer-wrapper {
   z-index: 3;
   height: 100vh;

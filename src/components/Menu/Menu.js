@@ -233,6 +233,9 @@ class Menu extends Component {
             <NavLink to="/" className="menu-subreddit-link">
               <div className="menu-subreddit-title">Frontpage</div>
             </NavLink>
+            <NavLink to="/" className="menu-subreddit-link">
+              <div className="menu-subreddit-title">All</div>
+            </NavLink>
             {subredditList}
           </div>
         </div>
