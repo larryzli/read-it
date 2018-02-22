@@ -20,7 +20,7 @@ const PostNavigation = ({
   const rightActions = [sortAction];
   return (
     <Navigation
-      title={title}
+      title={title || " "}
       filterName={filterName}
       leftIcon={backIcon}
       rightIcons={rightIcons}

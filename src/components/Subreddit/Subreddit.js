@@ -27,9 +27,9 @@ class Subreddit extends Component {
       loading: true,
 
       // FOR FILTERS
-      filter: "hot",
+      filter: this.props.match.params.filter || "hot",
       filterPeriodTitle: "",
-      filterPeriod: "",
+      filterPeriod: this.props.match.params.period || "",
 
       // FOR POSTS
       posts: [],
@@ -166,17 +166,18 @@ class Subreddit extends Component {
   };
   changeFilter = (filterVal, filterPeriod) => {
     this.setState({ loading: true });
-    if (
-      filterVal === "hot" ||
-      filterVal === "new" ||
-      filterVal === "rising" ||
-      filterVal === "controversial"
-    ) {
+    if (filterVal === "hot" || filterVal === "new" || filterVal === "rising") {
       this.setState({
         filter: filterVal,
         filterPeriod: "",
         loading: false
       });
+
+      if (this.state.subreddit) {
+        this.props.history.push(`/r/${this.state.subreddit}/${filterVal}`);
+      } else {
+        this.props.history.push(`/${filterVal}`);
+      }
       this.loadContent(filterVal);
     } else {
       this.setState({
@@ -184,31 +185,41 @@ class Subreddit extends Component {
         filterPeriod: filterPeriod,
         loading: false
       });
+      if (this.state.subreddit) {
+        this.props.history.push(
+          `/r/${this.state.subreddit}/${filterVal}/${filterPeriod}`
+        );
+      } else {
+        this.props.history.push(`/${filterVal}/${filterPeriod}`);
+      }
       this.loadContent(filterVal, filterPeriod);
     }
   };
   componentDidMount() {
     // DEFAULT: PULL HOT POSTS
-    this.loadContent(this.state.filter);
+    this.loadContent(this.state.filter, this.state.filterPeriod);
 
     // GET SIDEBAR INFO
   }
   componentWillReceiveProps(nextProps) {
-    if (
-      this.props.match.params.subreddit !== nextProps.match.params.subreddit
-    ) {
-      let url = `/api/hot?`;
+    if (this.props.match.params !== nextProps.match.params) {
+      let filter = nextProps.match.params.filter || "hot";
+      let period = nextProps.match.params.period || "";
+      let url = `/api/${filter}?`;
       if (nextProps.match.params.subreddit) {
-        url = `/api/hot?subreddit=${nextProps.match.params.subreddit}&`;
+        url = `/api/${filter}?subreddit=${nextProps.match.params.subreddit}&`;
+      }
+      if (period) {
+        url += `t=${period}`;
       }
       this.setState({ loading: true });
       axios.get(url).then(response => {
         this.setState({
           subreddit: nextProps.match.params.subreddit,
-          filter: "hot",
+          filter: filter,
           posts: response.data.posts,
           after: response.data.after,
-          filterPeriod: "",
+          filterPeriod: period,
           loading: false
         });
       });
