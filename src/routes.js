@@ -19,7 +19,7 @@ export default (
     <Route path="/r/:subreddit/:filter/:period" component={Subreddit} />
     <Route path="/r/:subreddit/:filter" component={Subreddit} />
     <Route path="/r/:subreddit" component={Subreddit} />
-    {/* <Route path="/profile/:username" component={Profile} /> */}
+    <Route path="/profile/:username" component={Profile} />
     <Route path="/submit/:type" component={SubmitPost} />
     <Route path="/messages" component={Messaging} />
     <Route path="/filter" component={FilterNavigation} />
