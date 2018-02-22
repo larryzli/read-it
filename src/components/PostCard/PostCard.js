@@ -153,7 +153,7 @@ class PostCard extends Component {
           )}
           <Link
             className="post-route"
-            to={`/r/${this.props.subreddit}/${this.props.postID}`}
+            to={`/r/${this.props.subreddit}/post/${this.props.postID}`}
           >
             <div className="post-info">
               <div className="post-title">

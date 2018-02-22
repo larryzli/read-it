@@ -17,6 +17,7 @@ import linkIcon from "../../icons/ic_link_white_16px.svg";
 // IMPORT REDUX FUNCTIONS
 import { pullHot } from "../../ducks/subredditReducer";
 
+// COMPONENT
 class Subreddit extends Component {
   constructor(props) {
     super(props);
@@ -71,7 +72,10 @@ class Subreddit extends Component {
   }
   refreshHandler = () => {
     this.setState({ loading: true });
-    let url = `/api/${this.state.filter}?subreddit=${this.state.subreddit}&`;
+    let url = `/api/${this.state.filter}?`;
+    if (this.state.subreddit) {
+      url = `/api/${this.state.filter}?subreddit=${this.state.subreddit}&`;
+    }
     if (this.state.filterPeriod) {
       url += `t=${this.state.filterPeriod}&`;
     }
@@ -131,7 +135,10 @@ class Subreddit extends Component {
     if (!loadMore) {
       this.setState({ loading: true, posts: [], after: "" });
     }
-    let url = `/api/${filter}?subreddit=${this.state.subreddit}&`;
+    let url = `/api/${filter}?`;
+    if (this.state.subreddit) {
+      url = `/api/${filter}?subreddit=${this.state.subreddit}&`;
+    }
     if (this.state.after && loadMore) {
       url += `after=${this.state.after}&`;
     }
@@ -190,7 +197,10 @@ class Subreddit extends Component {
     if (
       this.props.match.params.subreddit !== nextProps.match.params.subreddit
     ) {
-      let url = `/api/hot?subreddit=${nextProps.match.params.subreddit}&`;
+      let url = `/api/hot?`;
+      if (nextProps.match.params.subreddit) {
+        url = `/api/hot?subreddit=${nextProps.match.params.subreddit}&`;
+      }
       this.setState({ loading: true });
       axios.get(url).then(response => {
         this.setState({
@@ -209,13 +219,21 @@ class Subreddit extends Component {
       <div className="newpost-drawer-wrapper" onClick={this.toggleNewPost}>
         <div className="newpost-drawer-container">
           <Link
-            to={`/r/${this.state.subreddit}/submit/self`}
+            to={
+              this.state.subreddit
+                ? `/r/${this.state.subreddit}/submit/self`
+                : "submit/self"
+            }
             className="newpost-drawer-item"
           >
             <img src={textIcon} alt="text post" />
           </Link>
           <Link
-            to={`/r/${this.state.subreddit}/submit/link`}
+            to={
+              this.state.subreddit
+                ? `/r/${this.state.subreddit}/submit/link`
+                : "submit/link"
+            }
             className="newpost-drawer-item"
           >
             <img src={linkIcon} alt="link post" />
@@ -240,7 +258,7 @@ class Subreddit extends Component {
           </div>
           <div
             className="drawer-item"
-            onClick={e => this.toggleSortPeriod("Top")}
+            onClick={e => this.toggleSortPeriod("top")}
           >
             Top
             <img
@@ -251,7 +269,7 @@ class Subreddit extends Component {
           </div>
           <div
             className="drawer-item"
-            onClick={e => this.toggleSortPeriod("Controversial")}
+            onClick={e => this.toggleSortPeriod("controversial")}
           >
             Controversial
             <img
@@ -383,7 +401,9 @@ class Subreddit extends Component {
               loadContent={this.loadContent}
               isLoading={this.state.loading}
               enableControls={this.props.user.user.id ? true : false}
-              showSubredditControl={this.state.subreddit === "All"}
+              showSubredditControl={
+                !this.state.subreddit || this.state.subreddit === "All"
+              }
               navigation={
                 <SubNavigation
                   openMenu={this.openMenu}
