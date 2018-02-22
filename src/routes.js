@@ -22,6 +22,6 @@ export default (
     <Route path="/r/:subreddit/:post" component={Post} />
     <Route path="/messages" component={Messaging} />
     <Route path="/filter" component={FilterNavigation} />
-    <Route path="/inbox" component={InboxNavigation} />
+    <Route path="/inbox/:name" component={InboxNavigation} />
   </Switch>
 );
