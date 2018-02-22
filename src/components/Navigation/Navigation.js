@@ -1,6 +1,6 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 // IMPORT ICONS
 import dropdownIcon from "../../icons/ic_arrow_drop_down_white_24px.svg";
 // import searchIcon from "../../icons/ic_search_white_24px.svg";
@@ -29,8 +29,8 @@ class Navigation extends Component {
             alt="menu icon"
             onClick={e => this.props.leftAction()}
           />
-          <Link
-            to={this.props.title ? `/r/${this.props.title}` : "/"}
+          <div
+            // to={this.props.title ? `/r/${this.props.title}` : "/"}
             className="nav-page-container"
           >
             <div className="nav-title">
@@ -42,7 +42,7 @@ class Navigation extends Component {
             {this.props.dropdown ? (
               <img src={dropdownIcon} alt="dropdown icon" />
             ) : null}
-          </Link>
+          </div>
         </div>
         <div className="nav-right">{rightIcons}</div>
       </div>
