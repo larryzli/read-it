@@ -15,16 +15,16 @@ import Profile from "./components/Profile/Profile";
 export default (
   <Switch>
     <Route exact path="/" component={Subreddit} />
-    <Route path="/r/:subreddit_name/submit/self" component={SubmitSelfPost} />
-    <Route path="/r/:subreddit_name/submit/link" component={SubmitLinkPost} />
+    {/* <Route path="/r/:subreddit_name/submit/:type" component={SubmitSelfPost} /> */}
+    <Route path="/r/:subreddit_name/submit/:type" component={SubmitLinkPost} />
     <Route path="/r/:subreddit/post/:post/:filter" component={Post} />
     <Route path="/r/:subreddit/post/:post" component={Post} />
     <Route path="/r/:subreddit/:filter/:period" component={Subreddit} />
     <Route path="/r/:subreddit/:filter" component={Subreddit} />
     <Route path="/r/:subreddit" component={Subreddit} />
     {/* <Route path="/profile/:username" component={Profile} /> */}
-    <Route path="/submit/self" component={SubmitSelfPost} />
-    <Route path="/submit/link" component={SubmitLinkPost} />
+    {/* <Route path="/submit/:type" component={SubmitSelfPost} /> */}
+    <Route path="/submit/:type" component={SubmitLinkPost} />
     <Route path="/messages" component={Messaging} />
     <Route path="/filter" component={FilterNavigation} />
     <Route path="/inbox/:name" component={InboxNavigation} />

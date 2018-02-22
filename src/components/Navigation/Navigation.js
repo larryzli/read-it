@@ -37,7 +37,11 @@ class Navigation extends Component {
               <span className="nav-page-name">
                 {this.props.title || "Frontpage"}
               </span>
-              <span className="nav-page-subtitle">{this.props.filterName}</span>
+              {this.props.filterName ? (
+                <span className="nav-page-subtitle">
+                  {this.props.filterName}
+                </span>
+              ) : null}
             </div>
             {this.props.dropdown ? (
               <img src={dropdownIcon} alt="dropdown icon" />
