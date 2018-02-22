@@ -42,6 +42,7 @@ class SubredditPosts extends Component {
           edited={post.edited}
           gilded={post.gilded}
           isRedditMedia={post.is_reddit_media}
+          showSubredditControl={this.props.showSubredditControl}
         />
       );
     });
