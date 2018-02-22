@@ -7,7 +7,7 @@ import SubmitNavigation from "../Navigation/SubmitNavigation";
 import checkIcon from "../../icons/ic_check_white_20px.svg";
 
 // COMPONENT
-class SubmitLinkPost extends Component {
+class SubmitPost extends Component {
   constructor(props) {
     super(props);
 
@@ -182,4 +182,4 @@ class SubmitLinkPost extends Component {
 }
 
 // EXPORT COMPONENT
-export default SubmitLinkPost;
+export default SubmitPost;
