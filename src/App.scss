@@ -7,7 +7,7 @@ $grey4: rgb(80, 80, 80);
 $grey5: grey;
 $white: #fff;
 $blue1: #4a90e2;
-$up: #39ff7b;
+$up: #06d6a0;
 $down: #ff445b;
 
 // SHADOW
@@ -68,10 +68,10 @@ html {
         .nav-page-name {
           font-size: 14px;
           font-weight: 500;
-          margin-bottom: 3px;
         }
 
         .nav-page-subtitle {
+          margin-top: 3px;
           font-size: $fsize1;
           font-weight: 100;
           color: $grey3;
@@ -621,6 +621,96 @@ html {
   margin-left: 5px;
   cursor: pointer;
 }
+// SUBMIT POST
+.submit-post-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  align-items: center;
+
+  .submit-post-input {
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    color: $white;
+    background-color: $grey4;
+    border: 1px solid $grey5;
+    width: 100%;
+
+    &:focus {
+      outline: 1px solid $white;
+    }
+
+    &::placeholder {
+      color: $grey3;
+    }
+  }
+
+  .submit-post-text-area {
+    resize: vertical;
+    height: 38vh;
+  }
+
+  .submit-post-subreddit {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  .submit-post-checkbox-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .submit-post-checkbox-container {
+      display: flex;
+      align-items: center;
+      // justify-content: center;
+      margin-bottom: 10px;
+
+      .submit-post-checkbox {
+        margin-right: 10px;
+        height: 20px;
+        width: 20px;
+        background-color: $grey4;
+        border: 1px solid $grey5;
+
+        &:hover {
+          background-color: $grey5;
+          border: 1px solid $white;
+          cursor: pointer;
+        }
+      }
+      .submit-post-label {
+        font-size: 14px;
+        font-weight: 100;
+      }
+    }
+  }
+  .submit-post-submit {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    background-color: $white;
+    padding: 10px;
+    color: $grey2;
+    // border: 1px solid $grey5;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+
+    &:hover {
+      // border: 1px solid $up;
+      background-color: $up;
+      color: $white;
+      cursor: pointer;
+      // outline: 1px solid $up;
+    }
+  }
+}
+
 // NEW POST DRAWER
 .newpost-drawer-wrapper {
   z-index: 3;

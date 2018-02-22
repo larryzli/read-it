@@ -347,6 +347,13 @@ class Subreddit extends Component {
         </div>
       </div>
     );
+    const newPostButton = (
+      <div className="new-post-container" onClick={this.toggleNewPost}>
+        <div className="new-post-icon">
+          <img src={newPost} alt="add new post" />
+        </div>
+      </div>
+    );
     return (
       <div>
         {this.state.showSortDrawer ? sortDrawer : null}
@@ -430,11 +437,7 @@ class Subreddit extends Component {
               }
             />
 
-            <div className="new-post-container" onClick={this.toggleNewPost}>
-              <div className="new-post-icon">
-                <img src={newPost} alt="add new post" />
-              </div>
-            </div>
+            {this.props.user.user.id ? newPostButton : null}
           </Drawer>
         </Drawer>
       </div>

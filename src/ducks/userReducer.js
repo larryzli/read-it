@@ -90,17 +90,14 @@ export default function userReducer(state = initialState, action) {
 
     // LOGOUT
     case `${LOGOUT}_PENDING`:
-      console.log("PENDING");
       return Object.assign({}, state, {
         isLoading: true
       });
 
     case `${LOGOUT}_FULFILLED`:
-      console.log("_FULFILLED");
       return Object.assign({}, initialState, {});
 
     case `${LOGOUT}_REJECTED`:
-      console.log("_REJECTED");
       return Object.assign({}, state, {
         isLoading: false,
         didError: true
