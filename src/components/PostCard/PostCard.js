@@ -34,10 +34,10 @@ class PostCard extends Component {
       hidden: this.props.hidden
     };
   }
-  toggleControls = () => {
+  toggleControls() {
     this.setState({ showControls: !this.state.showControls });
-  };
-  upvote = () => {
+  }
+  upvote() {
     if (this.props.enableControls) {
       axios
         .post("/api/vote", { vote: 1, id: `t3_${this.props.postID}` })
@@ -49,8 +49,8 @@ class PostCard extends Component {
     } else {
       alert("Please login to use this feature");
     }
-  };
-  downvote = () => {
+  }
+  downvote() {
     if (this.props.enableControls) {
       axios
         .post("/api/vote", { vote: -1, id: `t3_${this.props.postID}` })
@@ -62,8 +62,8 @@ class PostCard extends Component {
     } else {
       alert("Please login to use this feature");
     }
-  };
-  cancelvote = () => {
+  }
+  cancelvote() {
     if (this.props.enableControls) {
       axios
         .post("/api/vote", { vote: 0, id: `t3_${this.props.postID}` })
@@ -75,8 +75,8 @@ class PostCard extends Component {
     } else {
       alert("Please login to use this feature");
     }
-  };
-  favorite = () => {
+  }
+  favorite() {
     if (this.props.enableControls) {
       axios
         .post("/api/favorites/save", { id: `t3_${this.props.postID}` })
@@ -88,8 +88,8 @@ class PostCard extends Component {
     } else {
       alert("Please login to use this feature");
     }
-  };
-  unfavorite = () => {
+  }
+  unfavorite() {
     if (this.props.enableControls) {
       axios
         .post("/api/favorites/unsave", { id: `t3_${this.props.postID}` })
@@ -101,8 +101,8 @@ class PostCard extends Component {
     } else {
       alert("Please login to use this feature");
     }
-  };
-  hide = () => {
+  }
+  hide() {
     if (this.props.enableControls) {
       axios
         .post("/api/post/hide", { id: `t3_${this.props.postID}` })
@@ -114,8 +114,8 @@ class PostCard extends Component {
     } else {
       alert("Please login to use this feature");
     }
-  };
-  unhide = () => {
+  }
+  unhide() {
     if (this.props.enableControls) {
       axios
         .post("/api/post/unhide", { id: `t3_${this.props.postID}` })
@@ -127,7 +127,7 @@ class PostCard extends Component {
     } else {
       alert("Please login to use this feature");
     }
-  };
+  }
   // openMore = () => {};
   render() {
     if (this.state.hidden) {
