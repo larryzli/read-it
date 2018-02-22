@@ -68,7 +68,6 @@ class Menu extends Component {
     });
   }
   render() {
-    console.log(this.props);
     const filteredSubreddits = this.state.subredditList.filter(subreddit => {
       return subreddit.display_name
         .toLowerCase()

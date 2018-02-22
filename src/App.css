@@ -39,9 +39,9 @@ html {
         flex-direction: column; }
         .nav-background .nav-left .nav-page-container .nav-title .nav-page-name {
           font-size: 14px;
-          font-weight: 500;
-          margin-bottom: 3px; }
+          font-weight: 500; }
         .nav-background .nav-left .nav-page-container .nav-title .nav-page-subtitle {
+          margin-top: 3px;
           font-size: 10px;
           font-weight: 100;
           color: #bbb;
@@ -74,7 +74,7 @@ html {
     .menu-container .menu-logo-container .menu-logo {
       font-size: 25px; }
       .menu-container .menu-logo-container .menu-logo .logo-up {
-        color: #39ff7b;
+        color: #06d6a0;
         transform: rotate(0.5turn);
         display: inline-block;
         margin-left: 2px; }
@@ -90,7 +90,7 @@ html {
     justify-content: space-between; }
     .menu-container .menu-account-container .menu-add-account {
       outline: 0;
-      color: #39ff7b;
+      color: #06d6a0;
       background-color: transparent;
       border: none;
       padding: 0; }
@@ -424,6 +424,69 @@ html {
   color: #4a90e2;
   margin-left: 5px;
   cursor: pointer; }
+
+.submit-post-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 15px;
+  align-items: center; }
+  .submit-post-container .submit-post-input {
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    color: #fff;
+    background-color: #505050;
+    border: 1px solid grey;
+    width: 100%; }
+    .submit-post-container .submit-post-input:focus {
+      outline: 1px solid #fff; }
+    .submit-post-container .submit-post-input::placeholder {
+      color: #bbb; }
+  .submit-post-container .submit-post-text-area {
+    resize: vertical;
+    height: 38vh; }
+  .submit-post-container .submit-post-subreddit {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 14px; }
+  .submit-post-container .submit-post-checkbox-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%; }
+    .submit-post-container .submit-post-checkbox-list .submit-post-checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px; }
+      .submit-post-container .submit-post-checkbox-list .submit-post-checkbox-container .submit-post-checkbox {
+        margin-right: 10px;
+        height: 20px;
+        width: 20px;
+        background-color: #505050;
+        border: 1px solid grey; }
+        .submit-post-container .submit-post-checkbox-list .submit-post-checkbox-container .submit-post-checkbox:hover {
+          background-color: grey;
+          border: 1px solid #fff;
+          cursor: pointer; }
+      .submit-post-container .submit-post-checkbox-list .submit-post-checkbox-container .submit-post-label {
+        font-size: 14px;
+        font-weight: 100; }
+  .submit-post-container .submit-post-submit {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 10px;
+    color: #444;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500; }
+    .submit-post-container .submit-post-submit:hover {
+      background-color: #06d6a0;
+      color: #fff;
+      cursor: pointer; }
 
 .newpost-drawer-wrapper {
   z-index: 3;
