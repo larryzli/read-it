@@ -1,5 +1,6 @@
 const {
   getUserInfo,
+  logout,
   getAllFriends,
   friend,
   unfriend,
@@ -13,6 +14,7 @@ const {
 
 module.exports = function(app) {
   app.get("/api/user/info", getUserInfo);
+  app.get("/api/user/logout", logout);
   app.get("/api/friends/get", getAllFriends);
   app.get("/api/user/about", getUserAbout);
   app.post("/api/user/friend", friend);

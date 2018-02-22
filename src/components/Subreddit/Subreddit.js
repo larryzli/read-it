@@ -17,6 +17,7 @@ import linkIcon from "../../icons/ic_link_white_16px.svg";
 // IMPORT REDUX FUNCTIONS
 import { pullHot } from "../../ducks/subredditReducer";
 
+// COMPONENT
 class Subreddit extends Component {
   constructor(props) {
     super(props);
@@ -26,9 +27,9 @@ class Subreddit extends Component {
       loading: true,
 
       // FOR FILTERS
-      filter: "hot",
+      filter: this.props.match.params.filter || "hot",
       filterPeriodTitle: "",
-      filterPeriod: "",
+      filterPeriod: this.props.match.params.period || "",
 
       // FOR POSTS
       posts: [],
@@ -71,7 +72,10 @@ class Subreddit extends Component {
   }
   refreshHandler = () => {
     this.setState({ loading: true });
-    let url = `/api/${this.state.filter}?subreddit=${this.state.subreddit}&`;
+    let url = `/api/${this.state.filter}?`;
+    if (this.state.subreddit) {
+      url = `/api/${this.state.filter}?subreddit=${this.state.subreddit}&`;
+    }
     if (this.state.filterPeriod) {
       url += `t=${this.state.filterPeriod}&`;
     }
@@ -131,7 +135,10 @@ class Subreddit extends Component {
     if (!loadMore) {
       this.setState({ loading: true, posts: [], after: "" });
     }
-    let url = `/api/${filter}?subreddit=${this.state.subreddit}&`;
+    let url = `/api/${filter}?`;
+    if (this.state.subreddit) {
+      url = `/api/${filter}?subreddit=${this.state.subreddit}&`;
+    }
     if (this.state.after && loadMore) {
       url += `after=${this.state.after}&`;
     }
@@ -159,17 +166,18 @@ class Subreddit extends Component {
   };
   changeFilter = (filterVal, filterPeriod) => {
     this.setState({ loading: true });
-    if (
-      filterVal === "hot" ||
-      filterVal === "new" ||
-      filterVal === "rising" ||
-      filterVal === "controversial"
-    ) {
+    if (filterVal === "hot" || filterVal === "new" || filterVal === "rising") {
       this.setState({
         filter: filterVal,
         filterPeriod: "",
         loading: false
       });
+
+      if (this.state.subreddit) {
+        this.props.history.push(`/r/${this.state.subreddit}/${filterVal}`);
+      } else {
+        this.props.history.push(`/${filterVal}`);
+      }
       this.loadContent(filterVal);
     } else {
       this.setState({
@@ -177,28 +185,41 @@ class Subreddit extends Component {
         filterPeriod: filterPeriod,
         loading: false
       });
+      if (this.state.subreddit) {
+        this.props.history.push(
+          `/r/${this.state.subreddit}/${filterVal}/${filterPeriod}`
+        );
+      } else {
+        this.props.history.push(`/${filterVal}/${filterPeriod}`);
+      }
       this.loadContent(filterVal, filterPeriod);
     }
   };
   componentDidMount() {
     // DEFAULT: PULL HOT POSTS
-    this.loadContent(this.state.filter);
+    this.loadContent(this.state.filter, this.state.filterPeriod);
 
     // GET SIDEBAR INFO
   }
   componentWillReceiveProps(nextProps) {
-    if (
-      this.props.match.params.subreddit !== nextProps.match.params.subreddit
-    ) {
-      let url = `/api/hot?subreddit=${nextProps.match.params.subreddit}&`;
+    if (this.props.match.params !== nextProps.match.params) {
+      let filter = nextProps.match.params.filter || "hot";
+      let period = nextProps.match.params.period || "";
+      let url = `/api/${filter}?`;
+      if (nextProps.match.params.subreddit) {
+        url = `/api/${filter}?subreddit=${nextProps.match.params.subreddit}&`;
+      }
+      if (period) {
+        url += `t=${period}`;
+      }
       this.setState({ loading: true });
       axios.get(url).then(response => {
         this.setState({
           subreddit: nextProps.match.params.subreddit,
-          filter: "hot",
+          filter: filter,
           posts: response.data.posts,
           after: response.data.after,
-          filterPeriod: "",
+          filterPeriod: period,
           loading: false
         });
       });
@@ -209,13 +230,21 @@ class Subreddit extends Component {
       <div className="newpost-drawer-wrapper" onClick={this.toggleNewPost}>
         <div className="newpost-drawer-container">
           <Link
-            to={`/r/${this.state.subreddit}/submit/self`}
+            to={
+              this.state.subreddit
+                ? `/r/${this.state.subreddit}/submit/self`
+                : "submit/self"
+            }
             className="newpost-drawer-item"
           >
             <img src={textIcon} alt="text post" />
           </Link>
           <Link
-            to={`/r/${this.state.subreddit}/submit/link`}
+            to={
+              this.state.subreddit
+                ? `/r/${this.state.subreddit}/submit/link`
+                : "submit/link"
+            }
             className="newpost-drawer-item"
           >
             <img src={linkIcon} alt="link post" />
@@ -240,7 +269,7 @@ class Subreddit extends Component {
           </div>
           <div
             className="drawer-item"
-            onClick={e => this.toggleSortPeriod("Top")}
+            onClick={e => this.toggleSortPeriod("top")}
           >
             Top
             <img
@@ -251,7 +280,7 @@ class Subreddit extends Component {
           </div>
           <div
             className="drawer-item"
-            onClick={e => this.toggleSortPeriod("Controversial")}
+            onClick={e => this.toggleSortPeriod("controversial")}
           >
             Controversial
             <img
@@ -383,7 +412,9 @@ class Subreddit extends Component {
               loadContent={this.loadContent}
               isLoading={this.state.loading}
               enableControls={this.props.user.user.id ? true : false}
-              showSubredditControl={this.state.subreddit === "All"}
+              showSubredditControl={
+                !this.state.subreddit || this.state.subreddit === "All"
+              }
               navigation={
                 <SubNavigation
                   openMenu={this.openMenu}

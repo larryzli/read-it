@@ -31,7 +31,9 @@ html {
       justify-content: space-between;
       flex-grow: 1;
       align-items: center;
-      max-width: 250px; }
+      max-width: 250px;
+      text-decoration: none;
+      color: white; }
       .nav-background .nav-left .nav-page-container .nav-title {
         display: flex;
         flex-direction: column; }
@@ -467,7 +469,8 @@ html {
       width: 150px;
       font-size: 14px;
       font-weight: 500;
-      border-bottom: 1px solid #333; }
+      border-bottom: 1px solid #333;
+      text-transform: capitalize; }
     .drawer-wrapper .drawer-container .drawer-item {
       padding: 10px 15px;
       display: flex;

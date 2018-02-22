@@ -58,6 +58,8 @@ html {
       flex-grow: 1;
       align-items: center;
       max-width: 250px;
+      text-decoration: none;
+      color: white;
 
       .nav-title {
         display: flex;
@@ -675,6 +677,7 @@ html {
       font-size: 14px;
       font-weight: 500;
       border-bottom: 1px solid $grey1;
+      text-transform: capitalize;
     }
     .drawer-item {
       padding: 10px 15px;
