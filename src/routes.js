@@ -24,6 +24,6 @@ export default (
     <Route path="/submit/link" component={SubmitLinkPost} />
     <Route path="/messages" component={Messaging} />
     <Route path="/filter" component={FilterNavigation} />
-    <Route path="/inbox" component={InboxNavigation} />
+    <Route path="/inbox/:name" component={InboxNavigation} />
   </Switch>
 );
