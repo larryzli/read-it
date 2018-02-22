@@ -47,27 +47,43 @@ class SubmitLinkPost extends Component {
   // SUBMIT POST API CALL
   sendAction = () => {
     if (this.state.type === "link") {
-      axios
-        .post("/api/post/submit", {
-          kind: this.state.type,
-          title: this.state.title,
-          url: this.state.url,
-          sr: this.state.subredditName
-        })
-        .then(response => response.data)
-        .catch(console.log);
+      if (this.state.title && this.state.url && this.state.subredditName) {
+        axios
+          .post("/api/post/submit", {
+            kind: this.state.type,
+            title: this.state.title,
+            url: this.state.url,
+            sr: this.state.subredditName,
+            nsfw: this.state.markNSFW,
+            sendreplies: this.state.sendReplies
+          })
+          .then(response => {
+            this.props.history.push(`/r/${this.state.subredditName}`);
+          })
+          .catch(() => alert("Submit post failed"));
+      } else {
+        alert("Please fill out all post information");
+      }
     } else if (this.state.type === "self") {
-      axios
-        .post("/api/post/submit", {
-          kind: this.state.type,
-          title: this.state.title,
-          text: this.state.selfText,
-          sr: this.state.subredditName
-        })
-        .then(response => response.data)
-        .catch(console.log);
+      if (this.state.title && this.state.selfText && this.state.subredditName) {
+        axios
+          .post("/api/post/submit", {
+            kind: this.state.type,
+            title: this.state.title,
+            text: this.state.selfText,
+            sr: this.state.subredditName,
+            nsfw: this.state.markNSFW,
+            sendreplies: this.state.sendReplies
+          })
+          .then(response => {
+            this.props.history.push(`/r/${this.state.subredditName}`);
+          })
+          .catch(() => alert("Submit post failed"));
+      } else {
+        alert("Please fill out all post information");
+      }
     } else {
-      alert("invalid post");
+      alert("Invalid post type");
     }
   };
 
@@ -80,7 +96,9 @@ class SubmitLinkPost extends Component {
           sendAction={this.sendAction}
           backAction={this.backAction}
           title={
-            this.state.type === "link" ? "Submit Link Post" : "Submit Self Post"
+            this.state.type === "link"
+              ? "Submit Link Post"
+              : this.state.type === "self" ? "Submit Self Post" : null
           }
         />
         <div className="submit-post-container">
@@ -99,11 +117,11 @@ class SubmitLinkPost extends Component {
             />
           ) : null}
           {this.state.type === "self" ? (
-            <input
+            <textarea
               placeholder="Post Text"
               type="text"
               onChange={e => this.handleChange("selfText", e.target.value)}
-              className="submit-post-input"
+              className="submit-post-input submit-post-text-area"
             />
           ) : null}
           {this.props.match.params.subreddit_name ? (

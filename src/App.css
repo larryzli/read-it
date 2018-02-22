@@ -442,8 +442,12 @@ html {
       outline: 1px solid #fff; }
     .submit-post-container .submit-post-input::placeholder {
       color: #bbb; }
+  .submit-post-container .submit-post-text-area {
+    resize: vertical;
+    height: 38vh; }
   .submit-post-container .submit-post-subreddit {
     margin-top: 10px;
+    margin-bottom: 10px;
     font-size: 14px; }
   .submit-post-container .submit-post-checkbox-list {
     margin-top: 10px;

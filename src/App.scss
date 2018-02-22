@@ -646,8 +646,14 @@ html {
     }
   }
 
+  .submit-post-text-area {
+    resize: vertical;
+    height: 38vh;
+  }
+
   .submit-post-subreddit {
     margin-top: 10px;
+    margin-bottom: 10px;
     font-size: 14px;
   }
   .submit-post-checkbox-list {
