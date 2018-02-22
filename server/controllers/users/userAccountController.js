@@ -11,6 +11,11 @@ const getUserInfo = (req, res, next) => {
   }
 };
 
+const logout = (req, res, next) => {
+  req.session.destroy();
+  res.status(200).json();
+};
+
 const getAllFriends = (req, res, next) => {
   axios
     .get("https://oauth.reddit.com/api/v1/me/friends", {
@@ -159,5 +164,6 @@ module.exports = {
   blockUser,
   addFilter,
   removeFilter,
-  editFilter
+  editFilter,
+  logout
 };
