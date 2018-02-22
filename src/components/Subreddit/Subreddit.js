@@ -120,7 +120,11 @@ class Subreddit extends Component {
     });
   };
   toggleNewPost = () => {
-    this.setState({ showNewPostDrawer: !this.state.showNewPostDrawer });
+    if (this.props.user.user.id) {
+      this.setState({ showNewPostDrawer: !this.state.showNewPostDrawer });
+    } else {
+      alert("Please log in to submit a post");
+    }
   };
   onDock = () => {
     const docked = !this.state.docked;
@@ -437,7 +441,7 @@ class Subreddit extends Component {
               }
             />
 
-            {this.props.user.user.id ? newPostButton : null}
+            {newPostButton}
           </Drawer>
         </Drawer>
       </div>

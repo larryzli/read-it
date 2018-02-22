@@ -223,14 +223,14 @@ class Menu extends Component {
               {this.state.showMessagesSubnav ? (
                 <div className="menu-submenu-bottom">
                   <NavLink
-                    to="/inbox/inbox"
+                    to="/messages/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Inbox</div>
                   </NavLink>
                   <NavLink
-                    to="/inbox/unread"
+                    to="/messages/unread"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
@@ -244,7 +244,7 @@ class Menu extends Component {
                   <div className="menu-submenu-bottom-item">Messages</div>
                 </NavLink> */}
                   <NavLink
-                    to="/inbox/sent"
+                    to="/messages/sent"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
