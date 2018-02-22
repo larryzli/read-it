@@ -3,11 +3,11 @@
  */
 import { filter, editName } from "./components/Navigation/FilterNavigation";
 import {
-  docked,
-  open,
-  filterPeriodTitle,
-  filterPeriod
-} from "./components/Frontpage/Frontpage";
+  title,
+  url,
+  selfText,
+  sendReplies
+} from "./components/SubmitPost/SubmitPost";
 import {
   showControls,
   showReplyInput,
@@ -24,10 +24,12 @@ it("test editName", () => expect(editName).toBeFalsy());
 it("test showReplyInput", () => expect(showReplyInput).toBeFalsy());
 it("test replySubmitted", () => expect(replySubmitted).toBeFalsy());
 it("test showControls", () => expect(showControls).toBeFalsy());
-it("test docked", () => expect(docked).toBeFalsy());
-it("test open", () => expect(open).toBeFalsy());
-it("test filterPeriodTitle", () => expect(filterPeriodTitle).toBeFalsy());
-it("test filterPeriod", () => expect(filterPeriod).toBeFalsy());
+
+it("test title", () => expect(title).toBeFalsy());
+it("test url", () => expect(url).toBeFalsy());
+it("test selfText", () => expect(selfText).toBeFalsy());
+it("test sendReplies", () => expect(sendReplies).toBeFalsy());
+
 it("test hidden", () => expect(hidden).toBeFalsy());
 it("test showSortDrawer", () => expect(showSortDrawer).toBeFalsy());
 it("test inbox", () => expect(inbox).toBeFalsy());
