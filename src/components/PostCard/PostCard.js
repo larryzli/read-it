@@ -130,7 +130,7 @@ class PostCard extends Component {
   };
   // openMore = () => {};
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     if (this.state.hidden) {
       return null;
     }
@@ -267,7 +267,14 @@ class PostCard extends Component {
                   onClick={this.hide}
                 />
               )}
-              <span className="card-control-icon">{" /r/"}</span>
+              {this.props.showSubredditControl ? (
+                <Link
+                  to={`/r/${this.props.subreddit}`}
+                  className="card-control-icon"
+                >
+                  {" /r/"}
+                </Link>
+              ) : null}
             </div>
             {/* <div className="card-right-controls">
               <img className="card-control-icon" src={moreIcon} alt="" />

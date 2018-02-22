@@ -360,6 +360,7 @@ class Frontpage extends Component {
               loadContent={this.loadContent}
               isLoading={this.state.loading}
               enableControls={this.props.user.user.id ? true : false}
+              showSubredditControl={true}
               navigation={
                 <SubNavigation
                   openMenu={this.openMenu}

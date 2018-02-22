@@ -237,6 +237,8 @@ html {
         .posts .card-container .card-controls .card-left-controls .card-control-icon {
           padding-left: 10px;
           padding-right: 15px;
+          text-decoration: none;
+          color: white;
           font-size: 15px;
           cursor: pointer; }
           .posts .card-container .card-controls .card-left-controls .card-control-icon:first-child {
