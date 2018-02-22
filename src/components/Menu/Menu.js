@@ -10,7 +10,7 @@ import settingsIcon from "../../icons/ic_settings_white_20px.svg";
 import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
 import filterIcon from "../../icons/ic_filter_list_white_20px.svg";
 // IMPORT REDUX FUNCTIONS
-import { getUserInfo } from "../../ducks/userReducer";
+import { getUserInfo, logout } from "../../ducks/userReducer";
 
 // COMPENENT
 class Menu extends Component {
@@ -21,7 +21,8 @@ class Menu extends Component {
       showMessagesSubnav: false,
 
       subredditFilter: "",
-      subredditList: []
+      subredditList: [],
+      guest: true
     };
   }
   toggleProfileSubnav = () => {
@@ -40,8 +41,13 @@ class Menu extends Component {
     });
   };
   loginHandler = () => {
+    this.setState({ guest: false });
     window.location.href = `${process.env.REACT_APP_HOST}/auth/reddit`;
   };
+  logoutHandler = () => {
+    this.props.logout().then(() => this.setState({ guest: false }));
+  };
+
   componentDidMount() {
     this.props.getUserInfo().then(response => {
       if (this.props.user.user.id) {
@@ -62,6 +68,7 @@ class Menu extends Component {
     });
   }
   render() {
+    console.log(this.props);
     const filteredSubreddits = this.state.subredditList.filter(subreddit => {
       return subreddit.display_name
         .toLowerCase()
@@ -92,10 +99,15 @@ class Menu extends Component {
         </div>
         <div className="menu-account-container">
           <span>
-            {this.props.user.user ? this.props.user.user.name : "Guest"}
+            {this.props.user.user.id ? this.props.user.user.name : "Guest"}
           </span>
-          {this.props.user.user ? (
-            <button className="menu-remove-account">LOGOUT</button>
+          {this.props.user.user.id ? (
+            <button
+              className="menu-remove-account"
+              onClick={() => this.logoutHandler()}
+            >
+              LOGOUT
+            </button>
           ) : (
             <button
               className="menu-add-account"
@@ -304,4 +316,4 @@ class Menu extends Component {
 const mapStateToProps = state => {
   return state;
 };
-export default connect(mapStateToProps, { getUserInfo })(Menu);
+export default connect(mapStateToProps, { getUserInfo, logout })(Menu);

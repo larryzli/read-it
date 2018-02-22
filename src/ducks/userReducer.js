@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const GET_USER_INFO = "GET_USER_INFO";
+const LOGOUT = "LOGOUT";
 const ADD_FILTER = "ADD_FILTER";
 const REMOVE_FILTER = "REMOVE_FILTER";
 const EDIT_FILTER = "EDIT_FILTER";
@@ -12,6 +13,16 @@ export function getUserInfo() {
     type: GET_USER_INFO,
     payload: axios
       .get("/api/user/info")
+      .then(response => response.data)
+      .catch(console.log)
+  };
+}
+
+export function logout() {
+  return {
+    type: LOGOUT,
+    payload: axios
+      .get("/api/user/logout")
       .then(response => response.data)
       .catch(console.log)
   };
@@ -72,6 +83,24 @@ export default function userReducer(state = initialState, action) {
       });
     //GET_USER_INFO axios call failed
     case `${GET_USER_INFO}_REJECTED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        didError: true
+      });
+
+    // LOGOUT
+    case `${LOGOUT}_PENDING`:
+      console.log("PENDING");
+      return Object.assign({}, state, {
+        isLoading: true
+      });
+
+    case `${LOGOUT}_FULFILLED`:
+      console.log("_FULFILLED");
+      return Object.assign({}, initialState, {});
+
+    case `${LOGOUT}_REJECTED`:
+      console.log("_REJECTED");
       return Object.assign({}, state, {
         isLoading: false,
         didError: true
