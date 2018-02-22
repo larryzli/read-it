@@ -36,7 +36,7 @@ class Post extends Component {
       // DATA
       postData: {},
       comments: [],
-      filter: "best",
+      filter: this.props.match.params.filter || "best",
 
       // SORT
       showSortDrawer: false
@@ -157,6 +157,11 @@ class Post extends Component {
       filter: filterVal,
       loading: true
     });
+    // this.props.history.push(
+    //   `/r/${this.props.match.params.subreddit}/post/${
+    //     this.props.match.params.post
+    //   }/${filterVal}`
+    // );
     if (filterVal === "best") {
       filterVal = "confidence";
     }
