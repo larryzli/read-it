@@ -121,7 +121,6 @@ class Messaging extends Component {
   }
 
   render() {
-    console.log(this.props);
     const message = [
       <MessageCard
         date={"test"}
@@ -145,17 +144,6 @@ class Messaging extends Component {
         key={2}
       />
     ];
-    console.log(this.props.history);
-    // return (
-    //   <div>
-    // <MessageNavigation
-    //   filterName={this.state.filter}
-    //   refreshAction={this.refreshAction}
-    //   backAction={this.backAction}
-    // />
-    //     <div className="posts">{message}</div>
-    //   </div>
-    // );
     return (
       <div>
         <MessageNavigation
