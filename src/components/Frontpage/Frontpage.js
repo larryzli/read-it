@@ -66,7 +66,7 @@ class Frontpage extends Component {
     this.toggleSort = this.toggleSort.bind(this);
     this.loadContent = this.loadContent.bind(this);
   }
-  refreshHandler = () => {
+  refreshHandler() {
     this.setState({ loading: true });
     let url = `/api/${this.state.filter}?`;
     if (this.state.filterPeriod) {
@@ -84,38 +84,38 @@ class Frontpage extends Component {
         }, 1000);
       })
       .catch(console.log);
-  };
-  onOpenChange = open => {
+  }
+  onOpenChange(open) {
     this.setState({ open });
-  };
-  openMenu = () => {
+  }
+  openMenu() {
     this.setState({ open: !this.state.open, docked: false });
-  };
-  closeMenu = () => {
+  }
+  closeMenu() {
     this.setState({ open: false });
-  };
-  sidebarOnOpenChange = open => {
+  }
+  sidebarOnOpenChange(open) {
     this.setState({ sidebarOpen: open });
-  };
-  openSidebar = () => {
+  }
+  openSidebar() {
     this.setState({
       sidebarOpen: !this.state.sidebarOpen,
       sidebarDocked: false
     });
-  };
-  toggleSort = () => {
+  }
+  toggleSort() {
     this.setState({ showSortDrawer: !this.state.showSortDrawer });
-  };
-  toggleSortPeriod = periodTitle => {
+  }
+  toggleSortPeriod(periodTitle) {
     this.setState({
       showSortPeriodDrawer: !this.state.showSortPeriodDrawer,
       filterPeriodTitle: periodTitle
     });
-  };
-  toggleNewPost = () => {
+  }
+  toggleNewPost() {
     this.setState({ showNewPostDrawer: !this.state.showNewPostDrawer });
-  };
-  onDock = () => {
+  }
+  onDock() {
     const docked = !this.state.docked;
     this.setState({
       docked
@@ -123,8 +123,8 @@ class Frontpage extends Component {
     if (!docked) {
       this.onOpenChange(false);
     }
-  };
-  loadContent = (filter, timeFrame, loadMore) => {
+  }
+  loadContent(filter, timeFrame, loadMore) {
     if (!loadMore) {
       this.setState({ loading: true, posts: [], after: "" });
     }
@@ -153,8 +153,8 @@ class Frontpage extends Component {
         }
       })
       .catch(console.log);
-  };
-  changeFilter = (filterVal, filterPeriod) => {
+  }
+  changeFilter(filterVal, filterPeriod) {
     this.setState({ loading: true });
     if (
       filterVal === "hot" ||
@@ -176,7 +176,7 @@ class Frontpage extends Component {
       });
       this.loadContent(filterVal, filterPeriod);
     }
-  };
+  }
   componentDidMount() {
     // DEFAULT: PULL HOT POSTS
     this.loadContent(this.state.filter);
