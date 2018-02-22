@@ -1,0 +1,419 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Read It Testing",
+		"_postman_id": "f2cad8cc-ae62-17bd-3f22-5b23e3463c25",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Bruno",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/post/IAmA/7zfmm5/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Hot",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/hot",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Best",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/best",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get New",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/new",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Top",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/top",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Larry",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Hot",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Response is an Object\", function () {",
+									"  pm.expect(typeof(responseJSON)).to.eql('object')",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/hot",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Best",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Response is an Object\", function () {",
+									"  pm.expect(typeof(responseJSON)).to.eql('object')",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/best",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get New",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Response is an Object\", function () {",
+									"  pm.expect(typeof(responseJSON)).to.eql('object')",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/new",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Top",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Response is an Object\", function () {",
+									"  pm.expect(typeof(responseJSON)).to.eql('object')",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/top",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rising",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Response is an Object\", function () {",
+									"  pm.expect(typeof(responseJSON)).to.eql('object')",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/rising",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jordan",
+			"description": "",
+			"item": [
+				{
+					"name": "Get Hot",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Posts is an Array\", function () {",
+									"  pm.expect(Array.isArray(responseJSON.posts)).to.eql(true)",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/hot",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Best",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Posts is an Array\", function () {",
+									"  pm.expect(Array.isArray(responseJSON.posts)).to.eql(true)",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/best",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get New",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Posts is an Array\", function () {",
+									"  pm.expect(Array.isArray(responseJSON.posts)).to.eql(true)",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/new",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Top",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Posts is an Array\", function () {",
+									"  pm.expect(Array.isArray(responseJSON.posts)).to.eql(true)",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/top",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Get Rising",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"const responseJSON = pm.response.json();",
+									"",
+									"pm.test(\"Posts is an Array\", function () {",
+									"  pm.expect(Array.isArray(responseJSON.posts)).to.eql(true)",
+									"});"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "http://localhost:3005/api/rising",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
