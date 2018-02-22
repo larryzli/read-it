@@ -58,22 +58,41 @@ const unfriend = (req, res, next) => {
 };
 
 //GET USER INFO FROM THEIR USERNAME
-//NEEDS USERNAME TO WORK BUT CAN USE SORT AND T TO CHANGE THE LIST OF THE USER'S COMMENTS
+//NEEDS USERNAME TO WORK
+// CAN USE SORT AND T TO CHANGE THE LIST OF THE USER'S COMMENTS
 //SORT = "TOP" or "CONTROVERSIAL" AND CAN BE SORTED BY TIME WITH T="HOUR, DAY,WEEK,MONTH,YEAR,ALL"
 const getUserAbout = (req, res, next) => {
   const { username, sort, t } = req.query;
-  let baseURL = `https://oauth.reddit.com/user/${username}/overview?sort=top`;
+  let baseURL = `https://www.reddit.com/user/${username}/overview.json?sort=top`;
+  let headers = {};
+  let profileData = {};
+  if (req.user) {
+    baseURL = `https://oauth.reddit.com/user/${username}/overview.json?sort=top`
+    headers = {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    }
+  }
   if (sort) {
-    baseURL = `https://oauth.reddit.com/user/${username}/overview?sort=${sort}&t=${t}`;
+    baseURL += `?sort=${sort}&t=${t}`;
   }
 
   axios
-    .get(baseURL, {
-      headers: {
-        Authorization: `bearer ${req.user.accessToken}`
-      }
+    .get(baseURL, headers)
+    .then(response => {
+      axios
+        .get(`https://www.reddit.com/user/${username}/about.json`, headers)
+        .then(result => {
+          profileData.linkKarma = result.data.data.link_karma
+          profileData.commentKarma = result.data.data.comment_karma
+          profileData.created = result.data.data.created_utc
+          profileData.posts = response.data.data.children
+
+          return res.status(200).json(profileData)
+        }).catch(console.log)
     })
-    .then(response => res.status(200).json(response.data.data))
     .catch(console.log);
 };
 

@@ -19,7 +19,7 @@ export default (
     <Route path="/r/:subreddit_name/submit/link" component={SubmitLinkPost} />
     <Route path="/r/:subreddit/:post" component={Post} />
     <Route path="/r/:subreddit" component={Subreddit} />
-    {/* <Route path="/profile/:username" component={Profile} /> */}
+    <Route path="/profile/:username" component={Profile} />
     <Route path="/submit/self" component={SubmitSelfPost} />
     <Route path="/submit/link" component={SubmitLinkPost} />
     <Route path="/messages" component={Messaging} />
