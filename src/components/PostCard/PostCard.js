@@ -137,7 +137,7 @@ class PostCard extends Component {
       // POST
       <div className="card-container">
         <div className="post-container">
-          {this.props.thumbnail === "self" ? null : this.props.thumbnail ===
+          {!this.props.thumbnail ? null : this.props.thumbnail === "self" ? null : this.props.thumbnail ===
           "image" ? (
             <a className="post-link" href={this.props.url}>
               <img className="post-thumbnail" src={this.props.url} alt="" />
@@ -153,7 +153,7 @@ class PostCard extends Component {
           )}
           <Link
             className="post-route"
-            to={`/r/${this.props.subreddit}/post/${this.props.postID}`}
+            to={`/r/${this.props.subreddit}/post/${this.props.type === "t1" ? this.props.link_id.split("_")[1] : this.props.postID}`}
           >
             <div className="post-info">
               <div className="post-title">
