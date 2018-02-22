@@ -1,6 +1,7 @@
 // IMPORT DEPENDENCIES
 import React from "react";
 import moment from "moment";
+import { Link } from "react-router-dom";
 // IMPORT ICONS
 import commentIcon from "../../icons/comment_tiny.svg";
 import upvoteIcon from "../../icons/ic_keyboard_arrow_up_white_24px.svg";
@@ -30,6 +31,7 @@ const PostData = ({
   hide,
   unhide
 }) => {
+  console.log(postData);
   return (
     <div className="postdata-container">
       <div>
@@ -142,7 +144,12 @@ const PostData = ({
             src={profileIcon}
             alt="author profile"
           />
-          {/* <span className="postdata-control-icon">{"/r/"}</span> */}
+          <Link
+            to={`/r/${postData.subreddit_title}`}
+            className="postdata-control-icon"
+          >
+            {"/r/"}
+          </Link>
         </div>
         {/* <div className="postdata-right-controls">
           <img className="postdata-control-icon" src={moreIcon} alt="" />

@@ -65,11 +65,16 @@ class Menu extends Component {
     const filteredSubreddits = this.state.subredditList.filter(subreddit => {
       return subreddit.display_name
         .toLowerCase()
-        .includes(this.state.subredditFilter);
+        .includes(this.state.subredditFilter.toLowerCase());
     });
     const subredditList = filteredSubreddits.map((subreddit, index) => {
       return (
-        <NavLink key={subreddit.id} to="/" className="menu-subreddit-link">
+        <NavLink
+          key={subreddit.id}
+          to={subreddit.url}
+          className="menu-subreddit-link"
+          onClick={this.props.closeMenu}
+        >
           <div className="menu-subreddit-title">{subreddit.display_name}</div>
         </NavLink>
       );
@@ -123,22 +128,46 @@ class Menu extends Component {
             </div>
             {this.state.showProfileSubnav ? (
               <div className="menu-submenu-bottom">
-                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">Comments</div>
                 </NavLink>
-                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">Submitted</div>
                 </NavLink>
-                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">Upvoted</div>
                 </NavLink>
-                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">Saved</div>
                 </NavLink>
-                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">Friends</div>
                 </NavLink>
-                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">Watching</div>
                 </NavLink>
               </div>
@@ -166,30 +195,55 @@ class Menu extends Component {
             </div>
             {this.state.showMessagesSubnav ? (
               <div className="menu-submenu-bottom">
-                <NavLink to="/inbox/inbox" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox/inbox"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">Inbox</div>
                 </NavLink>
                 <NavLink
                   to="/inbox/unread"
                   className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
                 >
                   <div className="menu-submenu-bottom-item">Unread</div>
                 </NavLink>
-                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">Messages</div>
                 </NavLink>
-                <NavLink to="/inbox/sent" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox/sent"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">Sent</div>
                 </NavLink>
-                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">
                     Comment replies
                   </div>
                 </NavLink>
-                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">Post replies</div>
                 </NavLink>
-                <NavLink to="/inbox" className="menu-submenu-bottom-link">
+                <NavLink
+                  to="/inbox"
+                  className="menu-submenu-bottom-link"
+                  onClick={this.props.closeMenu}
+                >
                   <div className="menu-submenu-bottom-item">Mentions</div>
                 </NavLink>
               </div>
@@ -197,7 +251,11 @@ class Menu extends Component {
           </div>
           <div className="menu-submenu-item">
             <div className="menu-submenu-top">
-              <NavLink to="/filter" className="menu-submenu-title">
+              <NavLink
+                to="/filter"
+                className="menu-submenu-title"
+                onClick={this.props.closeMenu}
+              >
                 <img className="menu-submenu-icon" src={filterIcon} alt="" />
                 Domain Filters
               </NavLink>
@@ -210,19 +268,6 @@ class Menu extends Component {
               </span>
             </div>
           </div>
-          <div className="menu-submenu-item">
-            <div className="menu-submenu-top">
-              <NavLink
-                to="/r/:subreddit_name/submit"
-                className="menu-submenu-title"
-              >
-                Submit Post
-              </NavLink>
-            </div>
-          </div>
-          <div className="menu-submenu-item">
-            <div className="menu-submenu-top" />
-          </div>
         </div>
         <div className="menu-subreddit-container">
           <input
@@ -233,8 +278,19 @@ class Menu extends Component {
             placeholder="View subreddit"
           />
           <div className="menu-subreddit-list">
-            <NavLink to="/" className="menu-subreddit-link">
+            <NavLink
+              to="/"
+              className="menu-subreddit-link"
+              onClick={this.props.closeMenu}
+            >
               <div className="menu-subreddit-title">Frontpage</div>
+            </NavLink>
+            <NavLink
+              to="/r/All"
+              className="menu-subreddit-link"
+              onClick={this.props.closeMenu}
+            >
+              <div className="menu-subreddit-title">All</div>
             </NavLink>
             {subredditList}
           </div>
