@@ -134,7 +134,6 @@ class Comment extends Component {
   };
 
   render() {
-    console.log(this.props);
     // COMMENT COLORS
     const borderColors = [
       "#8F6DCE",

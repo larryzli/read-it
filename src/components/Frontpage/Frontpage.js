@@ -60,6 +60,7 @@ class Frontpage extends Component {
     };
 
     this.openMenu = this.openMenu.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
     this.onDock = this.onDock.bind(this);
     this.refreshHandler = this.refreshHandler.bind(this);
     this.toggleSort = this.toggleSort.bind(this);
@@ -89,6 +90,9 @@ class Frontpage extends Component {
   };
   openMenu = () => {
     this.setState({ open: !this.state.open, docked: false });
+  };
+  closeMenu = () => {
+    this.setState({ open: false });
   };
   sidebarOnOpenChange = open => {
     this.setState({ sidebarOpen: open });
@@ -297,7 +301,13 @@ class Frontpage extends Component {
         {this.state.showSortPeriodDrawer ? sortPeriodDrawer : null}
         {this.state.showNewPostDrawer ? newPostDrawer : null};
         <Drawer
-          sidebar={<Menu docked={this.state.docked} onDock={this.onDock} />}
+          sidebar={
+            <Menu
+              docked={this.state.docked}
+              onDock={this.onDock}
+              closeMenu={this.closeMenu}
+            />
+          }
           docked={this.state.docked}
           open={this.state.open}
           touch={this.state.touch}
