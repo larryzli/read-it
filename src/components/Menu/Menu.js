@@ -65,7 +65,7 @@ class Menu extends Component {
     const filteredSubreddits = this.state.subredditList.filter(subreddit => {
       return subreddit.display_name
         .toLowerCase()
-        .includes(this.state.subredditFilter);
+        .includes(this.state.subredditFilter.toLowerCase());
     });
     const subredditList = filteredSubreddits.map((subreddit, index) => {
       return (

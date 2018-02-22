@@ -311,6 +311,8 @@ html {
         padding-left: 10px;
         padding-right: 15px;
         font-size: 15px;
+        text-decoration: none;
+        color: white;
         cursor: pointer; }
         .postdata-container .postdata-controls .postdata-left-controls .postdata-control-icon:first-child {
           padding-right: 10px; }
