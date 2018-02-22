@@ -17,6 +17,10 @@ class Profile extends Component {
         this.goHome = this.goHome.bind(this);
     }
 
+    componentDidMount(){
+        
+    }
+
     goHome() {
         this.props.history.goBack();
       }
