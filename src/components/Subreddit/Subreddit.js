@@ -191,7 +191,6 @@ class Subreddit extends Component {
       this.props.match.params.subreddit !== nextProps.match.params.subreddit
     ) {
       let url = `/api/hot?subreddit=${nextProps.match.params.subreddit}&`;
-      console.log(url);
       this.setState({ loading: true });
       axios.get(url).then(response => {
         this.setState({

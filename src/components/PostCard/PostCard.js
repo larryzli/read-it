@@ -161,7 +161,7 @@ class PostCard extends Component {
                 <span className="post-domain"> ({this.props.domain})</span>
               </div>
               <div className="post-details">
-                <span className="post-subreddit">r/{this.props.subreddit}</span>
+                <span className="post-subreddit">{this.props.subreddit}</span>
                 {" • "}
                 <span className="post-author">{this.props.author}</span>
               </div>
