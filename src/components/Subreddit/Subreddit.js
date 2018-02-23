@@ -69,7 +69,11 @@ class Subreddit extends Component {
     this.refreshHandler = this.refreshHandler.bind(this);
     this.toggleSort = this.toggleSort.bind(this);
     this.loadContent = this.loadContent.bind(this);
+    this.loadSubreddit = this.loadSubreddit.bind(this);
   }
+  loadSubreddit = subreddit => {
+    this.props.history.push(`/r/${subreddit}`);
+  };
   refreshHandler = () => {
     this.setState({ loading: true, after: "" });
     let url = `/api/${this.state.filter}?`;
@@ -363,6 +367,7 @@ class Subreddit extends Component {
               docked={this.state.docked}
               onDock={this.onDock}
               closeMenu={this.closeMenu}
+              loadSubreddit={this.loadSubreddit}
             />
           }
           docked={this.state.docked}

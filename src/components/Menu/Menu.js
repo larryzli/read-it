@@ -24,7 +24,14 @@ class Menu extends Component {
       subredditList: [],
       guest: true
     };
+
+    this.loadSubreddit = this.loadSubreddit.bind(this);
   }
+  loadSubreddit = e => {
+    e.preventDefault();
+    this.props.loadSubreddit(this.state.subredditFilter);
+    this.props.closeMenu();
+  };
   toggleProfileSubnav = () => {
     this.setState({
       showProfileSubnav: !this.state.showProfileSubnav
@@ -300,13 +307,19 @@ class Menu extends Component {
           </div>
         </div>
         <div className="menu-subreddit-container">
-          <input
-            className="menu-subreddit-search"
-            type="text"
-            value={this.state.subredditFilter}
-            onChange={e => this.filterChange(e.target.value)}
-            placeholder="View subreddit"
-          />
+          <form
+            className="menu-subreddit-search-form"
+            onSubmit={this.loadSubreddit}
+          >
+            <input
+              className="menu-subreddit-search"
+              type="text"
+              value={this.state.subredditFilter}
+              onChange={e => this.filterChange(e.target.value)}
+              placeholder="View subreddit"
+            />
+            <input type="submit" style={{ display: "none" }} />
+          </form>
           <div className="menu-subreddit-list">
             <NavLink
               to="/"
@@ -323,6 +336,28 @@ class Menu extends Component {
               <div className="menu-subreddit-title">All</div>
             </NavLink>
             {subredditList}
+            {this.state.subredditFilter ? (
+              <div>
+                <NavLink
+                  to={`/r/${this.state.subredditFilter}`}
+                  className="menu-subreddit-link"
+                  onClick={this.props.closeMenu}
+                >
+                  <div className="menu-subreddit-title suggestion">
+                    {this.state.subredditFilter}
+                  </div>
+                </NavLink>
+                <NavLink
+                  to={`/profile/${this.state.subredditFilter}`}
+                  className="menu-subreddit-link"
+                  onClick={this.props.closeMenu}
+                >
+                  <div className="menu-subreddit-title suggestion">
+                    /u/{this.state.subredditFilter}
+                  </div>
+                </NavLink>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>

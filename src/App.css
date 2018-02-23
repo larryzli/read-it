@@ -138,16 +138,21 @@ html {
   .menu-container .menu-subreddit-container {
     display: flex;
     flex-direction: column; }
-    .menu-container .menu-subreddit-container .menu-subreddit-search {
-      background-color: transparent;
-      color: white;
-      outline: 0;
-      border: none;
-      padding: 5px 0;
-      margin: 15px;
-      border-bottom: 1px solid #bbb; }
-      .menu-container .menu-subreddit-container .menu-subreddit-search::placeholder {
-        color: #bbb; }
+    .menu-container .menu-subreddit-container .menu-subreddit-search-form {
+      width: 100%; }
+      .menu-container .menu-subreddit-container .menu-subreddit-search-form .menu-subreddit-search {
+        background-color: transparent;
+        color: white;
+        font-size: 12px;
+        box-sizing: border-box;
+        width: 87%;
+        outline: 0;
+        border: none;
+        padding: 5px 0;
+        margin: 15px;
+        border-bottom: 1px solid #bbb; }
+        .menu-container .menu-subreddit-container .menu-subreddit-search-form .menu-subreddit-search::placeholder {
+          color: #bbb; }
     .menu-container .menu-subreddit-container .menu-subreddit-list {
       display: flex;
       flex-direction: column; }
@@ -158,6 +163,9 @@ html {
           padding: 10px 15px; }
           .menu-container .menu-subreddit-container .menu-subreddit-list .menu-subreddit-link .menu-subreddit-title:hover {
             background-color: #505050; }
+        .menu-container .menu-subreddit-container .menu-subreddit-list .menu-subreddit-link .suggestion {
+          font-style: italic;
+          color: #bbb; }
 
 .posts {
   padding-top: 10px;

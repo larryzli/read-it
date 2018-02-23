@@ -209,18 +209,24 @@ html {
   .menu-subreddit-container {
     display: flex;
     flex-direction: column;
+    .menu-subreddit-search-form {
+      width: 100%;
+      .menu-subreddit-search {
+        background-color: transparent;
+        color: white;
+        font-size: 12px;
+        box-sizing: border-box;
+        // display: block;
+        width: 87%;
+        outline: 0;
+        border: none;
+        padding: 5px 0;
+        margin: 15px;
+        border-bottom: 1px solid $grey3;
 
-    .menu-subreddit-search {
-      background-color: transparent;
-      color: white;
-      outline: 0;
-      border: none;
-      padding: 5px 0;
-      margin: 15px;
-      border-bottom: 1px solid $grey3;
-
-      &::placeholder {
-        color: $grey3;
+        &::placeholder {
+          color: $grey3;
+        }
       }
     }
 
@@ -238,6 +244,11 @@ html {
           &:hover {
             background-color: $grey4;
           }
+        }
+
+        .suggestion {
+          font-style: italic;
+          color: $grey3;
         }
       }
     }
