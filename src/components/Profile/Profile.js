@@ -7,9 +7,12 @@ import InfiniteScroll from "react-infinite-scroll-component";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
 import rightArrow from "../../icons/ic_arrow_drop_down_grey_20px.svg";
-//IMPORT COMPONENTS
+import newMessageIcon from "../../icons/ic_create_white_24px.svg";
+// IMPORT COMPONENTS
 import PostNavigation from "../../components/Navigation/PostNavigation";
 import PostCard from "../PostCard/PostCard";
+// IMPORT REDUX FUNCTIONS
+import { getUserInfo } from "../../ducks/userReducer";
 
 class Profile extends Component {
   constructor(props) {
@@ -44,7 +47,9 @@ class Profile extends Component {
   }
 
   componentDidMount() {
-    this.loadContent(this.state.filter);
+    this.props.getUserInfo().then(response => {
+      this.loadContent(this.state.filter);
+    });
   }
 
   refreshHandler = () => {
@@ -86,9 +91,7 @@ class Profile extends Component {
       url += `t=${timeFrame}&`;
     }
 
-    console.log(url);
     axios.get(url).then(response => {
-      console.log(response);
       this.setState({
         posts: loadMore
           ? this.state.posts.concat(response.data.overview.data.children)
@@ -133,11 +136,26 @@ class Profile extends Component {
       filterPeriodTitle: periodTitle
     });
   };
+
+  createMessage = username => {
+    this.props.history.push(`/createmessage/${username}`);
+  };
   render() {
     // LOADER
     const loader = (
       <div className="loader-wrapper" key={"loader"}>
         <img src={loading} className="loader-svg" alt="loading" />
+      </div>
+    );
+    // CREATE MESSAGE BUTTON
+    const newMessageButton = (
+      <div
+        className="new-post-container"
+        onClick={e => this.createMessage(this.props.match.params.username)}
+      >
+        <div className="new-post-icon">
+          <img src={newMessageIcon} alt="send message to user" />
+        </div>
       </div>
     );
     // SORT DRAWER
@@ -331,6 +349,10 @@ class Profile extends Component {
             {posts.length > 0 || this.state.loading ? posts : emptyPosts}
           </div>
         </InfiniteScroll>
+        {this.props.user.user.name &&
+        this.props.match.params.username !== this.props.user.user.name
+          ? newMessageButton
+          : null}
       </div>
     );
   }
@@ -340,4 +362,4 @@ const mapStateToProps = state => {
   return state;
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { getUserInfo })(Profile);

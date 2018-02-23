@@ -76,7 +76,7 @@ class Subreddit extends Component {
     this.props.history.push(`/r/${subreddit}`);
   };
   refreshHandler = () => {
-    this.setState({ loading: true, after: "" });
+    this.setState({ loading: true, after: "", posts: [] });
     let url = `/api/${this.state.filter}?`;
     if (this.state.subreddit) {
       url = `/api/${this.state.filter}?subreddit=${this.state.subreddit}&`;
@@ -215,7 +215,7 @@ class Subreddit extends Component {
       if (period) {
         url += `t=${period}`;
       }
-      this.setState({ loading: true });
+      this.setState({ loading: true, posts: [], after: "" });
       axios.get(url).then(response => {
         this.setState({
           subreddit: nextProps.match.params.subreddit,
