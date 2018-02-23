@@ -70,6 +70,7 @@ const getUserAbout = (req, res, next) => {
   const { username, sort, t, after } = req.query;
   let baseURL = `https://www.reddit.com/user/${username}/overview.json?`;
   let baseURL2 = `https://www.reddit.com/user/${username}/about.json?`;
+  let baseURL3 = `https://www.reddit.com/user/${username}/saved.json`;
   let headers = {};
   let profileData = {};
   if (req.user) {
