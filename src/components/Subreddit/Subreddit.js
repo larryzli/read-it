@@ -9,6 +9,7 @@ import SubNavigation from "../Navigation/SubNavigation";
 import Menu from "../Menu/Menu";
 import Drawer from "rc-drawer";
 import "rc-drawer/assets/index.css";
+import Sidebar from "../Sidebar/Sidebar";
 // IMPORT ICONS
 import newPost from "../../icons/ic_create_white_24px.svg";
 import rightArrow from "../../icons/ic_arrow_drop_down_grey_20px.svg";
@@ -391,7 +392,7 @@ class Subreddit extends Component {
           }}
         >
           <Drawer
-            sidebar={<div>SIDEBAR HERE</div>}
+            sidebar={<Sidebar subreddit={this.props.match.params.subreddit} />}
             open={this.state.sidebarOpen}
             touch={this.state.sidebarTouch}
             enableDragHandle={false}
