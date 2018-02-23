@@ -212,7 +212,7 @@ class Messaging extends Component {
         <img src={loading} className="loader-svg" alt="loading" />
       </div>
     );
-    const end = <div>No more messages</div>;
+    const end = <div className="end-message">No more messages</div>;
     const messages = this.state.inbox.map(message => {
       let m = message.data;
       console.log(m);
@@ -248,6 +248,7 @@ class Messaging extends Component {
           unread={this.markUnread}
           delete={this.deleteMessage}
           visitAuthor={this.authorProfile}
+          filter={this.state.filter}
         />
       );
     });
@@ -285,9 +286,7 @@ class Messaging extends Component {
           {this.state.inbox.length ? (
             <div className="posts">{messages}</div>
           ) : !this.state.loading ? (
-            <div>
-              <p>No messages to display</p>
-            </div>
+            <div className="end-message">No messages to display</div>
           ) : null}
           {this.state.inbox.length && !this.state.after ? end : null}
         </InfiniteScroll>

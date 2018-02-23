@@ -2,6 +2,8 @@ import axios from "axios";
 
 const PULL_HOT = "PULL_HOT";
 const PULL_BEST = "PULL_BEST";
+const GET_SIDEBAR_SUBREDDIT = "GET_SIDEBAR_SUBREDDIT";
+const GET_SIDEBAR_TRENDING = "GET_SIDEBAR_TRENDING";
 
 //Axios call to pull "hot" posts from Reddit
 export function pullHot(after, limit) {
@@ -42,9 +44,31 @@ export function pullBest(after, limit) {
   };
 }
 
+export function getSidebarSubreddit(subreddit_name) {
+  return {
+    type: GET_SIDEBAR_SUBREDDIT,
+    payload: axios
+      .get(`/api/sidebar/${subreddit_name}`)
+      .then(response => response.data.data)
+      .catch(console.log)
+  };
+}
+
+export function getSidebarTrending() {
+  return {
+    type: GET_SIDEBAR_TRENDING,
+    payload: axios
+      .get("/api/subreddits/trending")
+      .then(response => response.data)
+      .catch(console.log)
+  };
+}
+
 const initialState = {
   posts: [],
   after: "",
+  subreddit: {},
+  trending: [],
   isLoading: false,
   didError: false
 };
@@ -85,6 +109,38 @@ export default function userReducer(state = initialState, action) {
 
     //PULL_BEST axios call failed
     case `${PULL_BEST}_REJECTED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        didError: true
+      });
+
+    // GET SIDEBAR SUBREDDIT
+    case `${GET_SIDEBAR_SUBREDDIT}_PENDING`:
+      return Object.assign({}, state, { isLoading: true });
+
+    case `${GET_SIDEBAR_SUBREDDIT}_FULFILLED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        subreddit: action.payload
+      });
+
+    case `${GET_SIDEBAR_SUBREDDIT}_REJECTED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        didError: true
+      });
+
+    // GET SIDEBAR TRENDING
+    case `${GET_SIDEBAR_TRENDING}_PENDING`:
+      return Object.assign({}, state, { isLoading: true });
+
+    case `${GET_SIDEBAR_TRENDING}_FULFILLED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        trending: action.payload
+      });
+
+    case `${GET_SIDEBAR_TRENDING}_REJECTED`:
       return Object.assign({}, state, {
         isLoading: false,
         didError: true
