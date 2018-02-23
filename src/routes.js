@@ -10,11 +10,13 @@ import FilterNavigation from "./components/Navigation/FilterNavigation";
 import SubmitPost from "./components/SubmitPost/SubmitPost";
 import Profile from "./components/Profile/Profile";
 import SendMessage from "./components/Messaging/SendMessage";
+import Saved from "./components/Profile/Saved";
 export default (
   <Switch>
     <Route exact path="/" component={Subreddit} />
     <Route path="/createmessage/:username" component={SendMessage} />
     <Route path='/createmessage/' component={SendMessage} />
+    <Route path="/saved/:username" component={Saved} />
     <Route path="/r/:subreddit_name/submit/:type" component={SubmitPost} />
     <Route path="/r/:subreddit/post/:post/:filter" component={Post} />
     <Route path="/r/:subreddit/post/:post" component={Post} />
