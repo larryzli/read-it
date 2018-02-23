@@ -391,6 +391,21 @@ html {
   }
 }
 
+// MESSAGE CARD STYLING
+.message-card-info {
+  flex-grow: 1;
+}
+.message-dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $grey4;
+  }
+}
+
 // POSTDATA STYLING
 .postdata-container {
   background-color: $grey2;

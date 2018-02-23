@@ -33,6 +33,14 @@ class PostCard extends Component {
       // HIDING
       hidden: this.props.hidden
     };
+
+    this.upvote = this.upvote.bind(this);
+    this.downvote = this.downvote.bind(this);
+    this.cancelvote = this.cancelvote.bind(this);
+    this.favorite = this.favorite.bind(this);
+    this.unfavorite = this.unfavorite.bind(this);
+    this.hide = this.hide.bind(this);
+    this.unhide = this.unhide.bind(this);
   }
   toggleControls() {
     this.setState({ showControls: !this.state.showControls });

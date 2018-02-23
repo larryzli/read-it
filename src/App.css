@@ -260,6 +260,17 @@ html {
           padding: 0 8px;
           cursor: pointer; }
 
+.message-card-info {
+  flex-grow: 1; }
+
+.message-dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; }
+  .message-dropdown:hover {
+    background-color: #505050; }
+
 .postdata-container {
   background-color: #444;
   box-shadow: 0px 0px 2px #111; }

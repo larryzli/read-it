@@ -85,7 +85,6 @@ class Menu extends Component {
         </NavLink>
       );
     });
-    console.log(this.props.user);
     return (
       <div className="menu-container">
         <div className="menu-logo-container">
