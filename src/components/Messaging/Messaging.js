@@ -1,5 +1,6 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import axios from "axios";
 import moment from "moment";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -9,6 +10,8 @@ import MessageCard from "../MessageCard/MessageCard";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
 import newMessageIcon from "../../icons/ic_create_white_24px.svg";
+// IMPORT REDUX FUNCTIONS
+import { getUserInfo } from "../../ducks/userReducer";
 
 // COMPONENT
 class Messaging extends Component {
@@ -22,6 +25,7 @@ class Messaging extends Component {
       inbox: [],
       after: "",
       filter: "",
+      loggedIn: null,
 
       // INBOX DRAWER
       showMessagesDrawer: false
@@ -39,16 +43,20 @@ class Messaging extends Component {
     this.createMessage = this.createMessage.bind(this);
   }
   componentDidMount() {
-    const { name } = this.props.match.params;
-    if (name === "inbox") {
-      this.retrieveInbox();
-    }
-    if (name === "unread") {
-      this.retrieveUnread();
-    }
-    if (name === "sent") {
-      this.retrieveSent();
-    }
+    this.props.getUserInfo().then(response => {
+      if (this.props.user.user.id) {
+        const { name } = this.props.match.params;
+        if (name === "inbox") {
+          this.retrieveInbox();
+        }
+        if (name === "unread") {
+          this.retrieveUnread();
+        }
+        if (name === "sent") {
+          this.retrieveSent();
+        }
+      } else this.setState({ loggedIn: false, loading: false });
+    });
   }
 
   backAction() {
@@ -91,7 +99,8 @@ class Messaging extends Component {
             : response.data.data.children,
           filter: "inbox",
           after: response.data.data.after,
-          loading: false
+          loading: false,
+          loggedIn: true
         });
       })
       .catch(console.log);
@@ -112,7 +121,8 @@ class Messaging extends Component {
             : response.data.data.children,
           filter: "unread",
           after: response.data.data.after,
-          loading: false
+          loading: false,
+          loggedIn: true
         });
       })
       .catch(console.log);
@@ -133,7 +143,8 @@ class Messaging extends Component {
             : response.data.data.children,
           filter: "sent",
           after: response.data.data.after,
-          loading: false
+          loading: false,
+          loggedIn: true
         });
       })
       .catch(console.log);
@@ -299,13 +310,21 @@ class Messaging extends Component {
           {this.state.inbox.length ? (
             <div className="posts">{messages}</div>
           ) : !this.state.loading ? (
-            <div className="end-message">No messages to display</div>
+            <div className="end-message">
+              {this.state.loggedIn
+                ? "No messages to display"
+                : "Please log in to view messages"}
+            </div>
           ) : null}
           {this.state.inbox.length && !this.state.after ? end : null}
         </InfiniteScroll>
-        {newMessageButton}
+        {this.state.loggedIn === true ? newMessageButton : null}
       </div>
     );
   }
 }
-export default Messaging;
+const mapStateToProps = state => {
+  return state;
+};
+
+export default connect(mapStateToProps, { getUserInfo })(Messaging);

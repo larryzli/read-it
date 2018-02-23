@@ -14,7 +14,10 @@ export function getUserInfo() {
     payload: axios
       .get("/api/user/info")
       .then(response => response.data)
-      .catch(console.log)
+      .catch(err => {
+        logout();
+        alert("Access token expired. Please log in again.");
+      })
   };
 }
 
