@@ -10,7 +10,7 @@ import rightArrow from "../../icons/ic_arrow_drop_down_grey_20px.svg";
 //IMPORT COMPONENTS
 import SavedNavigation from "../../components/Navigation/SavedNavigation";
 import PostCard from "../PostCard/PostCard";
-
+import { getUserInfo } from "../../ducks/userReducer";
 
 class Profile extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class Profile extends Component {
         filterPeriod: "",
   
         // USER INFO
-        username: `${this.props.match.params.username}`,
+        username: `${this.props.user.user}`,
         showSortDrawer: false,
         created: "",
         commentKarma: 0,
@@ -43,28 +43,21 @@ class Profile extends Component {
     }
   
     componentDidMount() {
+      this.props.getUserInfo()
       this.loadContent(this.state.filter);
     }
   
     refreshHandler = () => {
       this.setState({ loading: true, after: "" });
   
-      let url = `/api/user/about?username=${
-        this.props.match.params.username
-      }&sort=${this.state.filter}&`;
-  
-      if (this.state.filterPeriod) {
-        url += `t=${this.state.filterPeriod}&`;
-      }
+      let url = `/api/user/saved?username=${
+        this.props.user.user}`
   
       axios.get(url).then(response => {
         console.log(response);
         this.setState({
-          posts: response.data.overview.data.children,
-          after: response.data.overview.data.after,
-          created: response.data.about.data.created_utc,
-          linkKarma: response.data.about.data.link_karma,
-          commentKarma: response.data.about.data.comment_karma,
+          posts: response.data.data.children,
+          after: response.data.data.after,
           loading: false
         });
       });
@@ -74,9 +67,9 @@ class Profile extends Component {
       if (!loadMore) {
         this.setState({ loading: true, posts: [], after: "" });
       }
-      let url = `/api/user/about?username=${
+      let url = `/api/user/saved?username=${
         this.props.match.params.username
-      }&sort=${filter}&`;
+      }`
   
       if (this.state.after && loadMore) {
         url += `after=${this.state.after}&`;
@@ -90,12 +83,9 @@ class Profile extends Component {
         console.log(response);
         this.setState({
           posts: loadMore
-            ? this.state.posts.concat(response.data.overview.data.children)
-            : response.data.overview.data.children,
-          after: response.data.overview.data.after,
-          created: response.data.about.data.created_utc,
-          linkKarma: response.data.about.data.link_karma,
-          commentKarma: response.data.about.data.comment_karma,
+            ? this.state.posts.concat(response.data.data.children)
+            : response.data.data.children,
+          after: response.data.data.after,
           loading: false
         });
       });
@@ -199,5 +189,5 @@ class Profile extends Component {
     return state;
   };
   
-  export default connect(mapStateToProps)(Profile);
+  export default connect(mapStateToProps, {getUserInfo})(Profile);
   
