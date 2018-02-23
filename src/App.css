@@ -138,16 +138,21 @@ html {
   .menu-container .menu-subreddit-container {
     display: flex;
     flex-direction: column; }
-    .menu-container .menu-subreddit-container .menu-subreddit-search {
-      background-color: transparent;
-      color: white;
-      outline: 0;
-      border: none;
-      padding: 5px 0;
-      margin: 15px;
-      border-bottom: 1px solid #bbb; }
-      .menu-container .menu-subreddit-container .menu-subreddit-search::placeholder {
-        color: #bbb; }
+    .menu-container .menu-subreddit-container .menu-subreddit-search-form {
+      width: 100%; }
+      .menu-container .menu-subreddit-container .menu-subreddit-search-form .menu-subreddit-search {
+        background-color: transparent;
+        color: white;
+        font-size: 12px;
+        box-sizing: border-box;
+        width: 87%;
+        outline: 0;
+        border: none;
+        padding: 5px 0;
+        margin: 15px;
+        border-bottom: 1px solid #bbb; }
+        .menu-container .menu-subreddit-container .menu-subreddit-search-form .menu-subreddit-search::placeholder {
+          color: #bbb; }
     .menu-container .menu-subreddit-container .menu-subreddit-list {
       display: flex;
       flex-direction: column; }
@@ -158,6 +163,9 @@ html {
           padding: 10px 15px; }
           .menu-container .menu-subreddit-container .menu-subreddit-list .menu-subreddit-link .menu-subreddit-title:hover {
             background-color: #505050; }
+        .menu-container .menu-subreddit-container .menu-subreddit-list .menu-subreddit-link .suggestion {
+          font-style: italic;
+          color: #bbb; }
 
 .posts {
   padding-top: 10px;
@@ -193,11 +201,18 @@ html {
           .posts .card-container .post-container .post-route .post-info .post-title {
             font-size: 12px;
             font-weight: 300;
-            color: #fff; }
+            color: #fff;
+            padding-right: 3px; }
             .posts .card-container .post-container .post-route .post-info .post-title .post-domain {
               color: #bbb;
               font-weight: 200;
               font-size: 10px; }
+          .posts .card-container .post-container .post-route .post-info .post-comment-body {
+            margin: 3px 0;
+            color: white;
+            font-size: 12px;
+            font-weight: 100;
+            padding-right: 3px; }
           .posts .card-container .post-container .post-route .post-info .post-details {
             font-size: 10px;
             color: grey;
@@ -252,6 +267,17 @@ html {
         .posts .card-container .card-controls .card-right-controls .card-control-icon {
           padding: 0 8px;
           cursor: pointer; }
+
+.message-card-info {
+  flex-grow: 1; }
+
+.message-dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer; }
+  .message-dropdown:hover {
+    background-color: #505050; }
 
 .postdata-container {
   background-color: #444;
@@ -424,6 +450,31 @@ html {
   color: #4a90e2;
   margin-left: 5px;
   cursor: pointer; }
+
+.profile-page .profile-karma-container {
+  display: flex;
+  background-color: #444;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 2px #111; }
+.profile-page .profile-karma {
+  padding: 15px 0;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+  .profile-page .profile-karma .karma-value {
+    font-size: 24px;
+    margin-bottom: 5px; }
+  .profile-page .profile-karma .karma-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #bbb; }
+.profile-page .link-karma {
+  border-right: 1px solid #333; }
 
 .submit-post-container {
   display: flex;

@@ -33,6 +33,14 @@ class PostCard extends Component {
       // HIDING
       hidden: this.props.hidden
     };
+
+    this.upvote = this.upvote.bind(this);
+    this.downvote = this.downvote.bind(this);
+    this.cancelvote = this.cancelvote.bind(this);
+    this.favorite = this.favorite.bind(this);
+    this.unfavorite = this.unfavorite.bind(this);
+    this.hide = this.hide.bind(this);
+    this.unhide = this.unhide.bind(this);
   }
   toggleControls() {
     this.setState({ showControls: !this.state.showControls });
@@ -137,8 +145,8 @@ class PostCard extends Component {
       // POST
       <div className="card-container">
         <div className="post-container">
-          {!this.props.thumbnail ? null : this.props.thumbnail === "self" ? null : this.props.thumbnail ===
-          "image" ? (
+          {!this.props.thumbnail ? null : this.props.thumbnail ===
+          "self" ? null : this.props.thumbnail === "image" ? (
             <a className="post-link" href={this.props.url}>
               <img className="post-thumbnail" src={this.props.url} alt="" />
             </a>
@@ -153,7 +161,11 @@ class PostCard extends Component {
           )}
           <Link
             className="post-route"
-            to={`/r/${this.props.subreddit}/post/${this.props.type === "t1" ? this.props.link_id.split("_")[1] : this.props.postID}`}
+            to={`/r/${this.props.subreddit}/post/${
+              this.props.type === "t1"
+                ? this.props.link_id.split("_")[1]
+                : this.props.postID
+            }`}
           >
             <div className="post-info">
               <div className="post-title">
@@ -165,6 +177,11 @@ class PostCard extends Component {
                 {" • "}
                 <span className="post-author">{this.props.author}</span>
               </div>
+              {this.props.type === "t1" ? (
+                <div className="post-comment-body">
+                  {this.props.commentBody}
+                </div>
+              ) : null}
               <div className="post-data">
                 <span
                   className="post-score"

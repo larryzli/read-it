@@ -44,38 +44,53 @@ const deleteMessage = (req, res, next) => {
 };
 
 const getInbox = (req, res, next) => {
+  let baseURL = `https://oauth.reddit.com/message/inbox?limit=100&`;
+  const { after } = req.query;
+  if (after) {
+    baseURL += `after=${after}&`;
+  }
   axios
-    .get("https://oauth.reddit.com/message/inbox", {
+    .get(baseURL, {
       headers: {
         Authorization: `bearer ${req.user.accessToken}`,
         "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
-    .then(response => res.status(200).json(response.data.data.children))
+    .then(response => res.status(200).json(response.data))
     .catch(console.log);
 };
 
 const getUnread = (req, res, next) => {
+  let baseURL = `https://oauth.reddit.com/message/unread?limit=100&`;
+  const { after } = req.query;
+  if (after) {
+    baseURL += `after=${after}&`;
+  }
   axios
-    .get("https://oauth.reddit.com/message/unread", {
+    .get(baseURL, {
       headers: {
         Authorization: `bearer ${req.user.accessToken}`,
         "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
-    .then(response => res.status(200).json(response.data.data.children))
+    .then(response => res.status(200).json(response.data))
     .catch(console.log);
 };
 
 const getSent = (req, res, next) => {
+  let baseURL = `https://oauth.reddit.com/message/sent?limit=100&`;
+  const { after } = req.query;
+  if (after) {
+    baseURL += `after=${after}&`;
+  }
   axios
-    .get("https://oauth.reddit.com/message/sent", {
+    .get(baseURL, {
       headers: {
         Authorization: `bearer ${req.user.accessToken}`,
         "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
-    .then(response => res.status(200).json(response.data.data.children))
+    .then(response => res.status(200).json(response.data))
     .catch(console.log);
 };
 

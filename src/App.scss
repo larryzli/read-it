@@ -209,18 +209,24 @@ html {
   .menu-subreddit-container {
     display: flex;
     flex-direction: column;
+    .menu-subreddit-search-form {
+      width: 100%;
+      .menu-subreddit-search {
+        background-color: transparent;
+        color: white;
+        font-size: 12px;
+        box-sizing: border-box;
+        // display: block;
+        width: 87%;
+        outline: 0;
+        border: none;
+        padding: 5px 0;
+        margin: 15px;
+        border-bottom: 1px solid $grey3;
 
-    .menu-subreddit-search {
-      background-color: transparent;
-      color: white;
-      outline: 0;
-      border: none;
-      padding: 5px 0;
-      margin: 15px;
-      border-bottom: 1px solid $grey3;
-
-      &::placeholder {
-        color: $grey3;
+        &::placeholder {
+          color: $grey3;
+        }
       }
     }
 
@@ -238,6 +244,11 @@ html {
           &:hover {
             background-color: $grey4;
           }
+        }
+
+        .suggestion {
+          font-style: italic;
+          color: $grey3;
         }
       }
     }
@@ -288,12 +299,21 @@ html {
             font-size: 12px;
             font-weight: 300;
             color: $white;
+            padding-right: 3px;
 
             .post-domain {
               color: $grey3;
               font-weight: 200;
               font-size: $fsize1;
             }
+          }
+
+          .post-comment-body {
+            margin: 3px 0;
+            color: white;
+            font-size: 12px;
+            font-weight: 100;
+            padding-right: 3px;
           }
 
           .post-details {
@@ -379,6 +399,21 @@ html {
         }
       }
     }
+  }
+}
+
+// MESSAGE CARD STYLING
+.message-card-info {
+  flex-grow: 1;
+}
+.message-dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $grey4;
   }
 }
 
@@ -621,6 +656,41 @@ html {
   margin-left: 5px;
   cursor: pointer;
 }
+
+// PROFILE PAGE
+.profile-page {
+  .profile-karma-container {
+    display: flex;
+    background-color: $grey2;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-radius: 3px;
+    box-shadow: $shadow;
+  }
+  .profile-karma {
+    padding: 15px 0;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .karma-value {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+    .karma-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: $grey3;
+    }
+  }
+  .link-karma {
+    border-right: 1px solid $grey1;
+  }
+}
+
 // SUBMIT POST
 .submit-post-container {
   display: flex;

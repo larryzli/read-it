@@ -1,25 +1,24 @@
-import React from 'react';
+import React from "react";
 //IMORT COMPONENTS
-import Navigation from './Navigation';
+import Navigation from "./Navigation";
 //IMPORT ICONS
-import refreshIcon from '../../icons/ic_refresh_white_24px.svg'
-import backArrowIcon from '../../icons/ic_arrow_back_white_24px.svg'
+import sortIcon from "../../icons/ic_sort_white_24px.svg";
+import backArrowIcon from "../../icons/ic_arrow_back_white_24px.svg";
 
-const MessageNavigation = ({ filterName, backAction, refreshAction }) => {
-    const rightIcons = [refreshIcon]
-    return (
-        <Navigation
-            title="Messaging"
-            filterName={filterName}
-            leftIcon={backArrowIcon}
-            leftActions={backAction}
-            dropdown={true}
-            rightIcons={rightIcons}
-            rightActions={refreshAction}
-        />
-
-    );
-
+const MessageNavigation = ({ filterName, backAction, sortAction }) => {
+  const rightIcons = [sortIcon];
+  const rightActions = [sortAction];
+  return (
+    <Navigation
+      title="Messaging"
+      filterName={filterName}
+      leftIcon={backArrowIcon}
+      leftAction={backAction}
+      dropdown={false}
+      rightIcons={rightIcons}
+      rightActions={rightActions}
+    />
+  );
 };
 
-export default MessageNavigation
+export default MessageNavigation;

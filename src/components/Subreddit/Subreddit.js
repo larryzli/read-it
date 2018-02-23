@@ -69,9 +69,13 @@ class Subreddit extends Component {
     this.refreshHandler = this.refreshHandler.bind(this);
     this.toggleSort = this.toggleSort.bind(this);
     this.loadContent = this.loadContent.bind(this);
+    this.loadSubreddit = this.loadSubreddit.bind(this);
   }
+  loadSubreddit = subreddit => {
+    this.props.history.push(`/r/${subreddit}`);
+  };
   refreshHandler = () => {
-    this.setState({ loading: true });
+    this.setState({ loading: true, after: "" });
     let url = `/api/${this.state.filter}?`;
     if (this.state.subreddit) {
       url = `/api/${this.state.filter}?subreddit=${this.state.subreddit}&`;
@@ -120,7 +124,11 @@ class Subreddit extends Component {
     });
   };
   toggleNewPost = () => {
-    this.setState({ showNewPostDrawer: !this.state.showNewPostDrawer });
+    if (this.props.user.user.id) {
+      this.setState({ showNewPostDrawer: !this.state.showNewPostDrawer });
+    } else {
+      alert("Please log in to submit a post");
+    }
   };
   onDock = () => {
     const docked = !this.state.docked;
@@ -148,19 +156,13 @@ class Subreddit extends Component {
     axios
       .get(url)
       .then(response => {
-        if (!loadMore) {
-          this.setState({
-            posts: response.data.posts,
-            after: response.data.after,
-            loading: false
-          });
-        } else {
-          this.setState({
-            posts: this.state.posts.concat(response.data.posts),
-            after: response.data.after,
-            loading: false
-          });
-        }
+        this.setState({
+          posts: loadMore
+            ? this.state.posts.concat(response.data.posts)
+            : response.data.posts,
+          after: response.data.after,
+          loading: false
+        });
       })
       .catch(console.log);
   };
@@ -365,6 +367,7 @@ class Subreddit extends Component {
               docked={this.state.docked}
               onDock={this.onDock}
               closeMenu={this.closeMenu}
+              loadSubreddit={this.loadSubreddit}
             />
           }
           docked={this.state.docked}
@@ -437,7 +440,7 @@ class Subreddit extends Component {
               }
             />
 
-            {this.props.user.user.id ? newPostButton : null}
+            {newPostButton}
           </Drawer>
         </Drawer>
       </div>

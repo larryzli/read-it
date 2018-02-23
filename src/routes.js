@@ -6,7 +6,7 @@ import Subreddit from "./components/Subreddit/Subreddit";
 import Post from "./components/Post/Post";
 import Messaging from "./components/Messaging/Messaging";
 import FilterNavigation from "./components/Navigation/FilterNavigation";
-import InboxNavigation from "./components/Navigation/InboxNavigation";
+// import InboxNavigation from "./components/Navigation/InboxNavigation";
 import SubmitPost from "./components/SubmitPost/SubmitPost";
 import Profile from "./components/Profile/Profile";
 
@@ -21,9 +21,8 @@ export default (
     <Route path="/r/:subreddit" component={Subreddit} />
     <Route path="/profile/:username" component={Profile} />
     <Route path="/submit/:type" component={SubmitPost} />
-    <Route path="/messages" component={Messaging} />
     <Route path="/filter" component={FilterNavigation} />
-    <Route path="/inbox/:name" component={InboxNavigation} />
+    <Route path="/messages/:name" component={Messaging} />
     <Route path="/:filter/:period" component={Subreddit} />
     <Route path="/:filter" component={Subreddit} />
   </Switch>
