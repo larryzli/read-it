@@ -67,10 +67,9 @@ const unfriend = (req, res, next) => {
 // CAN USE SORT AND T TO CHANGE THE LIST OF THE USER'S COMMENTS
 //SORT = "TOP" or "CONTROVERSIAL" AND CAN BE SORTED BY TIME WITH T="HOUR, DAY,WEEK,MONTH,YEAR,ALL"
 const getUserAbout = (req, res, next) => {
-  const { username, sort, t, after } = req.query;
+  const { username, sort, t, after, saved } = req.query;
   let baseURL = `https://www.reddit.com/user/${username}/overview.json?`;
   let baseURL2 = `https://www.reddit.com/user/${username}/about.json?`;
-  let baseURL3 = `https://www.reddit.com/user/${username}/saved.json`;
   let headers = {};
   let profileData = {};
   if (req.user) {
@@ -108,6 +107,25 @@ const getUserAbout = (req, res, next) => {
     })
     .catch(console.log);
 };
+
+//GET USER SAVED POSTS
+const getUserSaved = (req, res, next) => {
+  const { username, sort, t, after, saved } = req.query;
+    baseURL = `https://oauth.reddit.com/user/${username}/saved.json`;
+    headers = {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    };
+  axios
+    .get(baseURL, headers)
+    .then(response => 
+      res.status(200).json(response.data))
+    .catch(console.log);
+    }
+
+
 
 // SUBSCRIBE TO SUBREDDIT
 // NEEDS SR_NAME AND ACTION
@@ -192,5 +210,6 @@ module.exports = {
   addFilter,
   removeFilter,
   editFilter,
+  getUserSaved,
   logout
 };
