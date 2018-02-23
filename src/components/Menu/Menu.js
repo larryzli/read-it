@@ -316,7 +316,7 @@ class Menu extends Component {
               type="text"
               value={this.state.subredditFilter}
               onChange={e => this.filterChange(e.target.value)}
-              placeholder="View subreddit"
+              placeholder="Search subreddits"
             />
             <input type="submit" style={{ display: "none" }} />
           </form>
