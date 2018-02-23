@@ -536,17 +536,16 @@ const getUserSubscriptions = (req, res, next) => {
   recursiveSubs(url);
 };
 
-// NOT WORKING
 const sidebar = (req, res, next) => {
   const { subreddit_name } = req.params;
   axios
-    .get(`https://oauth.reddit.com/r/${subreddit_name}/sidebar`, {
+    .get(`https://oauth.reddit.com/r/${subreddit_name}/about/sidebar`, {
       headers: {
         Authorization: `bearer ${req.user.accessToken}`,
         "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
       }
     })
-    .then(response => console.log(response))
+    .then(response => res.status(200).json(response.data))
     .catch(console.log);
 };
 
