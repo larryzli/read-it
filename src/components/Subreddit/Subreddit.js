@@ -392,7 +392,9 @@ class Subreddit extends Component {
           }}
         >
           <Drawer
-            sidebar={<Sidebar subreddit={this.props.match.params.subreddit} />}
+            sidebar={
+              <Sidebar subreddit_name={this.props.match.params.subreddit} />
+            }
             open={this.state.sidebarOpen}
             touch={this.state.sidebarTouch}
             enableDragHandle={false}
