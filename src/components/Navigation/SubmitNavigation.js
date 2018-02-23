@@ -8,6 +8,7 @@ import sendArrowIcon from "../../icons/ic_send_white_24px.svg";
 
 const SubmitNavigation = ({ backAction, sendAction, title }) => {
   const rightIcons = [sendArrowIcon];
+  const rightActions = [sendAction]
   return (
     <Navigation
       title={title}
@@ -15,7 +16,7 @@ const SubmitNavigation = ({ backAction, sendAction, title }) => {
       leftAction={backAction}
       dropdown={false}
       rightIcons={rightIcons}
-      rightActions={sendAction}
+      rightActions={rightActions}
     />
   );
 };
