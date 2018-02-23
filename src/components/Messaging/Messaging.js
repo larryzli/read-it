@@ -8,6 +8,7 @@ import MessageNavigation from "../Navigation/MessageNavigation";
 import MessageCard from "../MessageCard/MessageCard";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
+import newMessageIcon from "../../icons/ic_create_white_24px.svg";
 
 // COMPONENT
 class Messaging extends Component {
@@ -35,6 +36,7 @@ class Messaging extends Component {
     this.backAction = this.backAction.bind(this);
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.authorProfile = this.authorProfile.bind(this);
+    this.createMessage = this.createMessage.bind(this);
   }
   componentDidMount() {
     const { name } = this.props.match.params;
@@ -191,7 +193,18 @@ class Messaging extends Component {
       .catch(console.log);
   }
 
+  createMessage() {
+    this.props.history.push("/createmessage");
+  }
+
   render() {
+    const newMessageButton = (
+      <div className="new-post-container" onClick={this.createMessage}>
+        <div className="new-post-icon">
+          <img src={newMessageIcon} alt="add new post" />
+        </div>
+      </div>
+    );
     const messagesDrawer = (
       <div className="drawer-wrapper" onClick={this.toggleDrawer}>
         <div className="drawer-container">
@@ -215,7 +228,7 @@ class Messaging extends Component {
     const end = <div className="end-message">No more messages</div>;
     const messages = this.state.inbox.map(message => {
       let m = message.data;
-      console.log(m);
+
       return (
         // <div key={m.name}>
         //   <p>author: {m.author}</p>
@@ -290,6 +303,7 @@ class Messaging extends Component {
           ) : null}
           {this.state.inbox.length && !this.state.after ? end : null}
         </InfiniteScroll>
+        {newMessageButton}
       </div>
     );
   }
