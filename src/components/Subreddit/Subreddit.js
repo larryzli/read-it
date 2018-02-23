@@ -71,7 +71,7 @@ class Subreddit extends Component {
     this.loadContent = this.loadContent.bind(this);
   }
   refreshHandler = () => {
-    this.setState({ loading: true });
+    this.setState({ loading: true, after: "" });
     let url = `/api/${this.state.filter}?`;
     if (this.state.subreddit) {
       url = `/api/${this.state.filter}?subreddit=${this.state.subreddit}&`;
@@ -152,19 +152,13 @@ class Subreddit extends Component {
     axios
       .get(url)
       .then(response => {
-        if (!loadMore) {
-          this.setState({
-            posts: response.data.posts,
-            after: response.data.after,
-            loading: false
-          });
-        } else {
-          this.setState({
-            posts: this.state.posts.concat(response.data.posts),
-            after: response.data.after,
-            loading: false
-          });
-        }
+        this.setState({
+          posts: loadMore
+            ? this.state.posts.concat(response.data.posts)
+            : response.data.posts,
+          after: response.data.after,
+          loading: false
+        });
       })
       .catch(console.log);
   };

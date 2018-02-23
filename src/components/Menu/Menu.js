@@ -85,6 +85,7 @@ class Menu extends Component {
         </NavLink>
       );
     });
+    console.log(this.props.user);
     return (
       <div className="menu-container">
         <div className="menu-logo-container">
@@ -144,7 +145,7 @@ class Menu extends Component {
               {this.state.showProfileSubnav ? (
                 <div className="menu-submenu-bottom">
                   <NavLink
-                    to="/inbox"
+                    to={`/profile/${this.props.user.user.name}`}
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
