@@ -539,6 +539,50 @@ html {
 .profile-page .link-karma {
   border-right: 1px solid #333; }
 
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  align-items: center; }
+  .filter-container .filter-new {
+    width: 100%;
+    display: flex;
+    margin-bottom: 10px; }
+    .filter-container .filter-new .filter-new-input {
+      padding: 10px;
+      box-sizing: border-box;
+      color: #fff;
+      background-color: #505050;
+      border: 1px solid grey;
+      flex-grow: 1; }
+      .filter-container .filter-new .filter-new-input:focus {
+        outline: 1px solid #fff; }
+      .filter-container .filter-new .filter-new-input::placeholder {
+        color: #bbb; }
+    .filter-container .filter-new .filter-new-submit {
+      background-color: #fff;
+      padding: 0 10px;
+      margin-left: 10px;
+      color: #444;
+      width: 75px;
+      border: none;
+      border-radius: 3px;
+      outline: none;
+      font-size: 12px;
+      font-weight: 500; }
+      .filter-container .filter-new .filter-new-submit:hover {
+        background-color: #06d6a0;
+        color: #fff;
+        cursor: pointer; }
+  .filter-container .filter-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; }
+    .filter-container .filter-list .filter-list-item {
+      background-color: #444;
+      box-shadow: 0px 0px 2px #111; }
+
 .submit-post-container {
   display: flex;
   flex-direction: column;

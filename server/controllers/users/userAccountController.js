@@ -163,6 +163,15 @@ const addFilter = (req, res, next) => {
     .catch(console.log);
 };
 
+const getFilters = (req, res, next) => {
+  const { id } = req.user;
+  const db = req.app.get("db");
+  db
+    .getFilterInfo([id])
+    .then(response => res.status(200).json(response))
+    .catch(console.log);
+};
+
 const removeFilter = (req, res, next) => {
   const { id } = req.body;
   const db = req.app.get("db");
@@ -192,5 +201,6 @@ module.exports = {
   addFilter,
   removeFilter,
   editFilter,
+  getFilters,
   logout
 };

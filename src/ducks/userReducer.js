@@ -5,6 +5,7 @@ const LOGOUT = "LOGOUT";
 const ADD_FILTER = "ADD_FILTER";
 const REMOVE_FILTER = "REMOVE_FILTER";
 const EDIT_FILTER = "EDIT_FILTER";
+const GET_FILTERS = "GET_FILTERS";
 
 //Axios call to retrive user by their Reddit ID
 
@@ -26,6 +27,16 @@ export function logout() {
     type: LOGOUT,
     payload: axios
       .get("/api/user/logout")
+      .then(response => response.data)
+      .catch(console.log)
+  };
+}
+
+export function getFilters() {
+  return {
+    type: GET_FILTERS,
+    payload: axios
+      .get("/api/user/filter/get")
       .then(response => response.data)
       .catch(console.log)
   };
@@ -101,6 +112,24 @@ export default function userReducer(state = initialState, action) {
       return Object.assign({}, initialState, {});
 
     case `${LOGOUT}_REJECTED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        didError: true
+      });
+
+    // GET FILTERS
+    case `${GET_FILTERS}_PENDING`:
+      return Object.assign({}, state, {
+        isLoading: true
+      });
+
+    case `${GET_FILTERS}_FULFILLED`:
+      return Object.assign({}, state, {
+        isLoading: false,
+        filter: action.payload
+      });
+
+    case `${GET_FILTERS}_REJECTED`:
       return Object.assign({}, state, {
         isLoading: false,
         didError: true
