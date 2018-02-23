@@ -121,15 +121,15 @@ class MessageCard extends Component {
                 alt="author profile"
                 onClick={e => this.props.visitAuthor(this.props.author)}
               />
+              {this.state.messageType === "Message" ? (
+                <img
+                  className="card-control-icon"
+                  src={replyIcon}
+                  alt="reply to message"
+                  onClick={e => console.log("reply function")}
+                />
+              ) : null}
             </div>
-            {this.state.messageType === "Message" ? (
-              <img
-                className="card-control-icon"
-                src={replyIcon}
-                alt="reply to message"
-                onClick={e => console.log("reply function")}
-              />
-            ) : null}
             {this.state.messageType === "Message" ? (
               <div className="card-right-controls">
                 <img
