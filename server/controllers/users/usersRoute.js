@@ -10,7 +10,8 @@ const {
   addFilter,
   removeFilter,
   editFilter,
-  getFilters
+  getFilters,
+  getUserSaved
 } = require("./userAccountController");
 
 module.exports = function(app) {
@@ -26,4 +27,5 @@ module.exports = function(app) {
   app.post("/api/user/filter/remove", removeFilter);
   app.post("/api/user/filter/edit", editFilter);
   app.get("/api/user/filter/get", getFilters);
+  app.get("/api/user/saved", getUserSaved);
 };
