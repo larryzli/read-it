@@ -1,13 +1,13 @@
+// IMPORT DEPENDENCIES
 import React, { Component } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-
+// IMPORT COMPONENTS
 import SubmitNavigation from "../Navigation/SubmitNavigation";
-
+// IMPORT REDUX FUNCTIONS
 import { getUserInfo } from "../../ducks/userReducer";
 
-import checkIcon from "../../icons/ic_check_white_20px.svg";
-
+// COMPONENT
 class SendMessage extends Component {
   constructor(props) {
     super(props);
@@ -99,6 +99,8 @@ class SendMessage extends Component {
     );
   }
 }
+
+// CONECT TO REDUX
 const mapStateToProps = state => {
   return state;
 };

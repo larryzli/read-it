@@ -272,7 +272,6 @@ class Messaging extends Component {
           unread={this.markUnread}
           delete={this.deleteMessage}
           visitAuthor={this.authorProfile}
-          filter={this.state.filter}
         />
       );
     });

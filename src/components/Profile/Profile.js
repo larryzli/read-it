@@ -29,7 +29,6 @@ class Profile extends Component {
 
       // USER INFO
       username: `${this.props.match.params.username}`,
-      showSortDrawer: false,
       created: "",
       commentKarma: 0,
       linkKarma: 0,

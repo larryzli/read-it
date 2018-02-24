@@ -841,6 +841,69 @@ html {
     .filter-list-item {
       background-color: $grey2;
       box-shadow: $shadow;
+      border-radius: 3px;
+      margin-bottom: 10px;
+
+      .filter-item-content {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        height: 37px;
+
+        .filter-item-name {
+          flex-grow: 1;
+          font-size: 14px;
+        }
+        .filter-item-button {
+          background-color: $white;
+          padding: 0 10px;
+          margin-left: 10px;
+          color: $grey2;
+          width: 60px;
+          border: none;
+          height: 100%;
+          border-radius: 3px;
+          outline: none;
+          font-size: 10px;
+          font-weight: 500;
+
+          &:hover {
+            background-color: $up;
+            color: $white;
+            cursor: pointer;
+          }
+        }
+        .edit {
+          &:hover {
+            background-color: $blue1;
+            color: $white;
+          }
+        }
+
+        .delete {
+          &:hover {
+            background-color: $down;
+            color: $white;
+          }
+        }
+
+        .filter-item-input {
+          padding: 10px;
+          box-sizing: border-box;
+          color: $white;
+          background-color: $grey4;
+          border: 1px solid $grey5;
+          flex-grow: 1;
+
+          &:focus {
+            outline: 1px solid $white;
+          }
+
+          &::placeholder {
+            color: $grey3;
+          }
+        }
+      }
     }
   }
 }
