@@ -8,7 +8,7 @@ import PostData from "../Post/PostData";
 import Comment from "../Comment/Comment";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
-// import commentIcon from "../../icons/comment_large.svg";
+import replyIcon from "../../icons/ic_reply_white_20px.svg";
 // IMPORT REDUX FUNCTION
 import { getUserInfo } from "../../ducks/userReducer";
 

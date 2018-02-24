@@ -13,7 +13,6 @@ import starIconFilled from "../../icons/ic_star_white_20px.svg";
 import hideIcon from "../../icons/ic_visibility_off_white_20px.svg";
 import unhideIcon from "../../icons/ic_visibility_white_20px.svg";
 import profileIcon from "../../icons/ic_person_white_20px.svg";
-// import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
 
 // COMPONENT
 const PostData = ({
@@ -139,11 +138,12 @@ const PostData = ({
               onClick={hide}
             />
           )}
-          <img
+          <Link
             className="postdata-control-icon"
-            src={profileIcon}
-            alt="author profile"
-          />
+            to={`/profile/${postData.author}`}
+          >
+            <img src={profileIcon} alt="author profile" />
+          </Link>
           <Link
             to={`/r/${postData.subreddit_title}`}
             className="postdata-control-icon"
