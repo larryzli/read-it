@@ -14,7 +14,10 @@ class FilterCard extends Component {
     this.toggleEdit = this.toggleEdit.bind(this);
   }
 
-  editFilter() {
+  editFilter(e) {
+    if (e) {
+      e.preventDefault();
+    }
     if (this.state.editName) {
       this.props.editFilter(this.props.filter.id, this.state.editName);
       this.toggleEdit();
@@ -59,6 +62,7 @@ class FilterCard extends Component {
               placeholder="Edit Filter"
             />
             <button
+              type="button"
               className="filter-item-button edit"
               onClick={e => this.toggleEdit()}
             >
@@ -66,7 +70,7 @@ class FilterCard extends Component {
             </button>
             <input
               className="filter-item-button"
-              onClick={() => this.editFilter()}
+              onClick={e => this.editFilter(e)}
               type="submit"
               value="SAVE"
             />

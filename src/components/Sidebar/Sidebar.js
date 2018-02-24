@@ -57,7 +57,6 @@ class Sidebar extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         {this.props.subreddit_name ? (

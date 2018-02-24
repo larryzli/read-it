@@ -11,6 +11,7 @@ import {
   editFilter,
   getFilters
 } from "../../ducks/userReducer";
+import { getUserInfo } from "../../ducks/userReducer";
 
 // COMPONENT
 class Filter extends Component {
@@ -26,11 +27,13 @@ class Filter extends Component {
     this.createFilter = this.createFilter.bind(this);
   }
   componentDidMount() {
-    if (this.props.user.user.id) {
-      this.props.getFilters();
-    } else {
-      this.setState({ loggedIn: false });
-    }
+    this.props.getUserInfo().then(response => {
+      if (this.props.user.user.id) {
+        this.props.getFilters();
+      } else {
+        this.setState({ loggedIn: false });
+      }
+    });
   }
   goBack() {
     this.props.history.goBack();
@@ -41,6 +44,7 @@ class Filter extends Component {
     if (this.state.loggedIn) {
       if (this.state.filter) {
         this.props.addFilter(this.state.filter);
+        this.setState({ filter: "" });
       } else {
         alert("Please enter a valid filter");
       }
@@ -50,6 +54,7 @@ class Filter extends Component {
   }
 
   render() {
+    const filters = this.props.user.filter || [];
     return (
       <div>
         <FilterNavigation backAction={this.goBack} />
@@ -68,7 +73,7 @@ class Filter extends Component {
             />
           </form>
           <div className="filter-list">
-            {this.props.user.filter.map((filter, index) => {
+            {filters.map((filter, index) => {
               return (
                 <FilterCard
                   key={index}
@@ -77,23 +82,6 @@ class Filter extends Component {
                   removeFilter={this.props.removeFilter}
                 />
               );
-
-              // <div className="filter-list-item" key={filter.id}>
-              //   <p>{filter.filter_name}</p>
-              //   <input
-              //     onChange={e => this.setState({ editName: e.target.value })}
-              //   />
-              //   <button
-              //     onClick={() =>
-              //       this.props.editFilter(filter.id, this.state.editName)
-              //     }
-              //   >
-              //     Edit
-              //   </button>
-              //   <button onClick={() => this.props.removeFilter(filter.id)}>
-              //     Remove
-              //   </button>
-              // </div>
             })}
           </div>
         </div>
@@ -109,5 +97,6 @@ export default connect(mapStateToProps, {
   removeFilter,
   addFilter,
   editFilter,
-  getFilters
+  getFilters,
+  getUserInfo
 })(Filter);

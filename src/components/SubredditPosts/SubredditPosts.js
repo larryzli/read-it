@@ -1,5 +1,6 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import moment from "moment";
 import InfiniteScroll from "react-infinite-scroll-component";
 // IMPORT COMPONENTS
@@ -11,40 +12,44 @@ import loading from "../../icons/loading/loading-cylon-red.svg";
 class SubredditPosts extends Component {
   render() {
     // LOAD SUBREDDIT POSTS
+    const domainFiltersObj = this.props.user.filter || [];
+    const domainFilters = domainFiltersObj.map(e => e.filter_name);
     const posts = [];
     this.props.subredditPosts.forEach((post, index) => {
-      posts.push(
-        <PostCard
-          key={index}
-          title={post.post_title}
-          domain={post.domain}
-          subreddit={post.subreddit_title}
-          author={post.author}
-          thumbnail={post.post_thumbnail}
-          comments={post.num_comments}
-          score={post.score}
-          subredditID={post.subreddit_id}
-          created={moment(post.created_utc * 1000).fromNow()}
-          url={post.url}
-          over18={post.over_18}
-          postID={post.post_id}
-          likes={post.likes}
-          saved={post.saved}
-          enableControls={this.props.enableControls}
-          hidden={post.hidden}
-          clicked={post.clicked}
-          visited={post.visited}
-          pinned={post.pinned}
-          archived={post.archived}
-          spoiler={post.spoiler}
-          locked={post.locked}
-          stickied={post.stickied}
-          edited={post.edited}
-          gilded={post.gilded}
-          isRedditMedia={post.is_reddit_media}
-          showSubredditControl={this.props.showSubredditControl}
-        />
-      );
+      if (!domainFilters.includes(post.domain)) {
+        posts.push(
+          <PostCard
+            key={index}
+            title={post.post_title}
+            domain={post.domain}
+            subreddit={post.subreddit_title}
+            author={post.author}
+            thumbnail={post.post_thumbnail}
+            comments={post.num_comments}
+            score={post.score}
+            subredditID={post.subreddit_id}
+            created={moment(post.created_utc * 1000).fromNow()}
+            url={post.url}
+            over18={post.over_18}
+            postID={post.post_id}
+            likes={post.likes}
+            saved={post.saved}
+            enableControls={this.props.enableControls}
+            hidden={post.hidden}
+            clicked={post.clicked}
+            visited={post.visited}
+            pinned={post.pinned}
+            archived={post.archived}
+            spoiler={post.spoiler}
+            locked={post.locked}
+            stickied={post.stickied}
+            edited={post.edited}
+            gilded={post.gilded}
+            isRedditMedia={post.is_reddit_media}
+            showSubredditControl={this.props.showSubredditControl}
+          />
+        );
+      }
     });
     const loader = (
       <div className="loader-wrapper" key={"loader"}>
@@ -82,5 +87,7 @@ class SubredditPosts extends Component {
   }
 }
 
-// EXPORT COMPONENT
-export default SubredditPosts;
+const mapStateToProps = state => {
+  return state;
+};
+export default connect(mapStateToProps)(SubredditPosts);

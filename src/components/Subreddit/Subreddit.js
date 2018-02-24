@@ -201,8 +201,6 @@ class Subreddit extends Component {
   componentDidMount() {
     // DEFAULT: PULL HOT POSTS
     this.loadContent(this.state.filter, this.state.filterPeriod);
-
-    // GET SIDEBAR INFO
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.match.params !== nextProps.match.params) {
@@ -428,6 +426,7 @@ class Subreddit extends Component {
               showSubredditControl={
                 !this.state.subreddit || this.state.subreddit === "All"
               }
+              domainFilters={this.props.user.user.filter || []}
               navigation={
                 <SubNavigation
                   openMenu={this.openMenu}
