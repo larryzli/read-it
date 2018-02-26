@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import InfiniteScroll from "react-infinite-scroll-component";
 // IMPORT COMPONENTS
 import PostNavigation from "../Navigation/PostNavigation";
 import PostData from "../Post/PostData";
@@ -52,6 +53,7 @@ class Post extends Component {
     this.unfavorite = this.unfavorite.bind(this);
     this.hide = this.hide.bind(this);
     this.unhide = this.unhide.bind(this);
+    this.loadContent = this.loadContent.bind(this);
   }
   goHome() {
     this.props.history.goBack();
@@ -185,6 +187,7 @@ class Post extends Component {
     this.setState({ showSortDrawer: !this.state.showSortDrawer });
   };
   loadContent = filter => {
+    this.setState({ loading: true });
     const { post, subreddit } = this.props.match.params;
     axios
       .get(`/api/post/${subreddit}/${post}?sort=${filter}`)
@@ -280,29 +283,40 @@ class Post extends Component {
           goHome={this.goHome}
           sortAction={this.toggleSort}
         />
-        {this.state.loading ? (
-          loader
-        ) : (
-          <div>
-            <PostData
-              postData={this.state.postData}
-              score={this.state.score}
-              upvoted={this.state.upvoted}
-              downvoted={this.state.downvoted}
-              favorited={this.state.favorited}
-              hidden={this.state.hidden}
-              enableControls={this.state.enableControls}
-              upvote={this.upvote}
-              downvote={this.downvote}
-              cancelvote={this.cancelvote}
-              favorite={this.favorite}
-              unfavorite={this.unfavorite}
-              hide={this.hide}
-              unhide={this.unhide}
-            />
-            <div className="comments-wrapper">{comments}</div>
-          </div>
-        )}
+        {this.state.loading ? loader : null}
+        <InfiniteScroll
+          height={"calc(100vh - 56px)"}
+          pullDownToRefresh
+          pullDownToRefreshContent={
+            <h3 className="refresh-message">&#8595; Pull down to refresh</h3>
+          }
+          releaseToRefreshContent={
+            <h3 className="refresh-message">&#8593; Release to refresh</h3>
+          }
+          refreshFunction={e => this.loadContent(this.state.filter)}
+        >
+          {this.state.loading ? null : (
+            <div>
+              <PostData
+                postData={this.state.postData}
+                score={this.state.score}
+                upvoted={this.state.upvoted}
+                downvoted={this.state.downvoted}
+                favorited={this.state.favorited}
+                hidden={this.state.hidden}
+                enableControls={this.state.enableControls}
+                upvote={this.upvote}
+                downvote={this.downvote}
+                cancelvote={this.cancelvote}
+                favorite={this.favorite}
+                unfavorite={this.unfavorite}
+                hide={this.hide}
+                unhide={this.unhide}
+              />
+              <div className="comments-wrapper">{comments}</div>
+            </div>
+          )}
+        </InfiniteScroll>
         {newCommentButton}
       </div>
     );
