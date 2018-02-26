@@ -236,7 +236,7 @@ class Messaging extends Component {
         <img src={loading} className="loader-svg" alt="loading" />
       </div>
     );
-    const end = <div className="end-message">No more messages</div>;
+    const end = <div className="end-message">End of messages</div>;
     const messages = this.state.inbox.map(message => {
       let m = message.data;
 

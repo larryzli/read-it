@@ -19,13 +19,13 @@ class Profile extends Component {
       // LOADING
       loading: true,
       loadingMore: false,
+      loggedIn: true,
 
       // FILTERS
       filter: "Saved",
-      filterPeriod: "",
 
       // USER INFO
-      username: `${this.props.user.user}`,
+      username: "Guest",
       showSortDrawer: false,
       created: "",
       commentKarma: 0,
@@ -35,21 +35,27 @@ class Profile extends Component {
       // USER POSTS
       posts: [],
       after: ""
-
-      // SOR
     };
     this.goHome = this.goHome.bind(this);
   }
 
   componentDidMount() {
-    this.props.getUserInfo();
-    this.loadContent(this.state.filter);
+    this.props.getUserInfo().then(response => {
+      if (this.props.user.user.id) {
+        this.setState({
+          username: this.props.user.user.name
+        });
+        this.loadContent(this.state.filter);
+      } else {
+        this.setState({ loggedIn: false, loading: false });
+      }
+    });
   }
 
   refreshHandler = () => {
-    this.setState({ loading: true, after: "" });
+    this.setState({ loading: true, after: "", posts: [] });
 
-    let url = `/api/user/saved?username=${this.props.user.user}`;
+    let url = `/api/user/saved?username=${this.state.username}`;
 
     axios.get(url).then(response => {
       console.log(response);
@@ -61,17 +67,14 @@ class Profile extends Component {
     });
   };
 
-  loadContent = (filter, timeFrame, loadMore) => {
+  loadContent = (filter, loadMore) => {
     if (!loadMore) {
       this.setState({ loading: true, posts: [], after: "" });
     }
-    let url = `/api/user/saved?username=${this.props.match.params.username}`;
+    let url = `/api/user/saved?username=${this.state.username}&`;
 
     if (this.state.after && loadMore) {
       url += `after=${this.state.after}&`;
-    }
-    if (timeFrame) {
-      url += `t=${timeFrame}&`;
     }
 
     console.log(url);
@@ -92,6 +95,7 @@ class Profile extends Component {
   }
 
   render() {
+    console.log(this.props);
     // LOADER
     const loader = (
       <div className="loader-wrapper" key={"loader"}>
@@ -99,8 +103,16 @@ class Profile extends Component {
       </div>
     );
     // EMPTY POSTS
-    const emptyPosts = <div>There doesn't seem to be anything here</div>;
-    //PROFILE COMMENTS AND POSTS
+    const emptyPosts = (
+      <div className="end-message">
+        {this.state.loggedIn
+          ? "There doesn't seem to be anything here"
+          : "Please log in to use this feature"}
+      </div>
+    );
+    // END OF SAVED
+    const end = <div className="end-message">End of saved</div>;
+    // PROFILE COMMENTS AND POSTS
     const posts = [];
     this.state.posts.forEach((post, index) => {
       posts.push(
@@ -120,7 +132,7 @@ class Profile extends Component {
           postID={post.data.id}
           likes={post.data.likes}
           saved={post.data.saved}
-          enableControls={this.props.enableControls}
+          enableControls={true}
           hidden={post.data.hidden}
           clicked={post.data.clicked}
           visited={post.data.visited}
@@ -150,11 +162,7 @@ class Profile extends Component {
         {this.state.loading ? loader : null}
         <InfiniteScroll
           next={() =>
-            this.loadContent(
-              this.state.filter,
-              this.state.filterPeriod,
-              this.state.after ? true : false
-            )
+            this.loadContent(this.state.filter, this.state.after ? true : false)
           }
           hasMore={this.state.after ? true : false}
           height={"calc(100vh - 56px)"}
@@ -171,6 +179,7 @@ class Profile extends Component {
           <div className="posts">
             {posts.length > 0 || this.state.loading ? posts : emptyPosts}
           </div>
+          {this.state.posts.length && !this.state.after ? end : null}
         </InfiniteScroll>
       </div>
     );

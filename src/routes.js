@@ -15,7 +15,7 @@ export default (
     <Route exact path="/" component={Subreddit} />
     <Route path="/createmessage/:username" component={SendMessage} />
     <Route path="/createmessage/" component={SendMessage} />
-    <Route path="/saved/:username" component={Saved} />
+    <Route path="/saved/" component={Saved} />
     <Route path="/r/:subreddit_name/submit/:type" component={SubmitPost} />
     <Route path="/r/:subreddit/post/:post/:filter" component={Post} />
     <Route path="/r/:subreddit/post/:post" component={Post} />

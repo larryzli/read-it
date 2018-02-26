@@ -110,8 +110,11 @@ const getUserAbout = (req, res, next) => {
 
 //GET USER SAVED POSTS
 const getUserSaved = (req, res, next) => {
-  const { username, sort, t, after, saved } = req.query;
-  baseURL = `https://oauth.reddit.com/user/${username}/saved.json`;
+  const { username, after } = req.query;
+  baseURL = `https://oauth.reddit.com/user/${username}/saved?`;
+  if (after) {
+    baseURL += `after=${after}&`;
+  }
   headers = {
     headers: {
       Authorization: `bearer ${req.user.accessToken}`,

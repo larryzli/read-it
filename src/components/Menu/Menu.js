@@ -180,14 +180,14 @@ class Menu extends Component {
                     <div className="menu-submenu-bottom-item">Upvoted</div>
                   </NavLink>
                   <NavLink
-                    to="/inbox"
+                    to="/saved"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Saved</div>
                   </NavLink>
                   <NavLink
-                    to="/inbox"
+                    to="/friends"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
