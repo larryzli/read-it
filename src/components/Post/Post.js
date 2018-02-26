@@ -195,7 +195,6 @@ class Post extends Component {
       .then(response => {
         const newComment = response.data.json.data.things;
         newComment[0].data.depth = 0;
-        console.log(response);
         this.setState({
           replyText: "",
           showReplyInput: false,

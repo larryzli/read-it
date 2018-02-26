@@ -13,6 +13,7 @@ import starIconEmpty from "../../icons/ic_star_border_white_20px.svg";
 import starIconFilled from "../../icons/ic_star_white_20px.svg";
 import hideIcon from "../../icons/ic_visibility_off_white_20px.svg";
 import unhideIcon from "../../icons/ic_visibility_white_20px.svg";
+import lockIcon from "../../icons/ic_lock_outline_white_10px.svg";
 // import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
 
 // COMPONENT
@@ -166,8 +167,8 @@ class PostCard extends Component {
       alert("Please login to use this feature");
     }
   }
-  // openMore = () => {};
   render() {
+    console.log(this.props);
     if (this.state.hidden) {
       return null;
     }
@@ -203,6 +204,36 @@ class PostCard extends Component {
                 <span className="post-domain"> ({this.props.domain})</span>
               </div>
               <div className="post-details">
+                <span className="post-tags">
+                  {this.props.over18 ? (
+                    <span className="post-tag">
+                      <span className="red-tag">NSFW</span>
+                      {" • "}
+                    </span>
+                  ) : null}
+                  {this.props.spoiler ? (
+                    <span className="post-tag">
+                      <span className="red-tag">SPOILER</span>
+                      {" • "}
+                    </span>
+                  ) : null}
+                  {this.props.locked ? (
+                    <span className="post-tag">
+                      <img
+                        className="tag-icon"
+                        src={lockIcon}
+                        alt="locked post"
+                      />
+                      {" • "}
+                    </span>
+                  ) : null}
+                  {this.props.stickied ? (
+                    <span className="post-tag">STICKIED{" • "}</span>
+                  ) : null}
+                  {this.props.pinned ? (
+                    <span className="post-tag">PINNED{" • "}</span>
+                  ) : null}
+                </span>
                 <span className="post-subreddit">{this.props.subreddit}</span>
                 {" • "}
                 <span className="post-author">{this.props.author}</span>

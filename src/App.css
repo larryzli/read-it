@@ -222,6 +222,11 @@ body {
             font-size: 10px;
             color: grey;
             padding: 3px 0; }
+            .posts .card-container .post-container .post-route .post-info .post-details .post-tags .post-tag .red-tag {
+              color: #ff445b;
+              font-weight: 900; }
+            .posts .card-container .post-container .post-route .post-info .post-details .post-tags .post-tag .tag-icon {
+              margin-bottom: -2px; }
             .posts .card-container .post-container .post-route .post-info .post-details .post-subreddit {
               color: #4a90e2;
               white-space: nowrap; }
@@ -590,14 +595,15 @@ body {
   margin-left: 5px;
   cursor: pointer; }
 
-.profile-page .profile-karma-container {
+.profile-page .profile-info-container {
   display: flex;
   background-color: #444;
   margin-left: 10px;
   margin-right: 10px;
   margin-top: 10px;
   border-radius: 3px;
-  box-shadow: 0px 0px 2px #111; }
+  box-shadow: 0px 0px 2px #111;
+  height: 75px; }
 .profile-page .profile-karma {
   padding: 15px 0;
   width: 50%;
@@ -612,8 +618,53 @@ body {
     font-size: 10px;
     text-transform: uppercase;
     color: #bbb; }
-.profile-page .link-karma {
-  border-right: 1px solid #333; }
+.profile-page .comment-karma {
+  border-left: 1px solid #333; }
+.profile-page .profile-age {
+  padding: 15px 0;
+  display: flex;
+  width: 50%;
+  flex-grow: 1;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 300;
+  text-align: center; }
+  .profile-page .profile-age .age-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #bbb;
+    margin-bottom: 5px; }
+.profile-page .profile-friend {
+  padding: 15px 0;
+  display: flex;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 300;
+  border-left: 1px solid #333; }
+  .profile-page .profile-friend .profile-friend-button {
+    height: 100%;
+    width: 100%;
+    margin: 0 15px;
+    color: #fff;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: 500; }
+  .profile-page .profile-friend .add-friend {
+    background-color: #06d6a0; }
+    .profile-page .profile-friend .add-friend:hover {
+      background-color: #fff;
+      color: #06d6a0; }
+  .profile-page .profile-friend .remove-friend {
+    background-color: #ff445b; }
+    .profile-page .profile-friend .remove-friend:hover {
+      background-color: #fff;
+      color: #ff445b; }
 
 .filter-container {
   display: flex;
