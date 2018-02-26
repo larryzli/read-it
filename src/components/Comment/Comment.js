@@ -29,6 +29,7 @@ class Comment extends Component {
       // REPLY INPUT
       showReplyInput: false,
       replySubmitted: false,
+      replyText: "",
 
       // LOADING
       loading: false,
@@ -45,6 +46,13 @@ class Comment extends Component {
       hidden: false
     };
   }
+  // COMMENT REPLY INPUT METHODS
+  toggleInput = () => {
+    this.setState({ showReplyInput: !this.state.showReplyInput });
+  };
+  inputChange = value => {
+    this.setState({ replyText: value });
+  };
   // COMMENT REPLY METHODS
   revealReplies = () => {
     this.setState({ showReplies: !this.state.showReplies });
@@ -157,6 +165,18 @@ class Comment extends Component {
       "#FFD166"
     ];
     // REPLIES
+    const replyInput = (
+      <div className="comment-reply-container">
+        <textarea
+          type="text"
+          className="comment-reply-input"
+          value={this.state.replyText}
+          onChange={e => this.inputChange(e.target.value)}
+          placeholder={`Reply to ${this.props.commentData.author}`}
+        />
+        <button className="comment-reply-submit">POST REPLY</button>
+      </div>
+    );
     let replies;
     if (this.props.commentData.replies) {
       replies = this.props.commentData.replies.data.children.map(
@@ -321,14 +341,24 @@ class Comment extends Component {
                   onClick={this.favorite}
                 />
               )}
-              <img className="comment-control-icon" src={profileIcon} alt="" />
-              <img className="comment-control-icon" src={replyIcon} alt="" />
+              <img
+                className="comment-control-icon"
+                src={profileIcon}
+                alt="view author profile"
+              />
+              <img
+                className="comment-control-icon"
+                src={replyIcon}
+                alt="reply to comment"
+                onClick={e => this.toggleInput()}
+              />
             </div>
             {/* <div className="comment-right-controls">
               <img className="comment-control-icon" src={moreIcon} alt="" />
             </div> */}
           </div>
         ) : null}
+        {this.state.showReplyInput ? replyInput : null}
         {this.state.showReplies && replies ? replies : null}
         {this.state.loading ? loader : null}
         {moreComments}

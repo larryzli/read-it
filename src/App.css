@@ -480,6 +480,41 @@ html {
       .comment-wrapper .comment-controls .comment-right-controls .comment-control-icon {
         padding: 0 8px;
         cursor: pointer; }
+  .comment-wrapper .comment-reply-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    .comment-wrapper .comment-reply-container .comment-reply-input {
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      color: #fff;
+      background-color: #505050;
+      border: 1px solid grey;
+      width: 100%;
+      resize: none;
+      height: 100px; }
+      .comment-wrapper .comment-reply-container .comment-reply-input:focus {
+        outline: 1px solid #fff; }
+      .comment-wrapper .comment-reply-container .comment-reply-input::placeholder {
+        color: #bbb; }
+    .comment-wrapper .comment-reply-container .comment-reply-submit {
+      width: 100%;
+      max-width: 400px;
+      background-color: #fff;
+      padding: 10px;
+      color: #444;
+      border: none;
+      border-radius: 3px;
+      outline: none;
+      font-size: 12px;
+      font-weight: 500; }
+      .comment-wrapper .comment-reply-container .comment-reply-submit:hover {
+        background-color: #06d6a0;
+        color: #fff;
+        cursor: pointer; }
 
 .new-post-container {
   position: fixed;

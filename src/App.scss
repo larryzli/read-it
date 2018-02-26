@@ -702,6 +702,52 @@ html {
       }
     }
   }
+  .comment-reply-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .comment-reply-input {
+      padding: 10px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+      color: $white;
+      background-color: $grey4;
+      border: 1px solid $grey5;
+      width: 100%;
+      resize: none;
+      height: 100px;
+
+      &:focus {
+        outline: 1px solid $white;
+      }
+
+      &::placeholder {
+        color: $grey3;
+      }
+    }
+
+    .comment-reply-submit {
+      width: 100%;
+      max-width: 400px;
+      background-color: $white;
+      padding: 10px;
+      color: $grey2;
+      border: none;
+      border-radius: 3px;
+      outline: none;
+      font-size: 12px;
+      font-weight: 500;
+
+      &:hover {
+        background-color: $up;
+        color: $white;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 // NEW POST AND COMMENT BUTTON
@@ -981,7 +1027,6 @@ html {
     background-color: $white;
     padding: 10px;
     color: $grey2;
-    // border: 1px solid $grey5;
     border: none;
     border-radius: 3px;
     outline: none;
@@ -989,11 +1034,9 @@ html {
     font-weight: 500;
 
     &:hover {
-      // border: 1px solid $up;
       background-color: $up;
       color: $white;
       cursor: pointer;
-      // outline: 1px solid $up;
     }
   }
 }
