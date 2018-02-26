@@ -166,15 +166,15 @@ class Comment extends Component {
     ];
     // REPLIES
     const replyInput = (
-      <div className="comment-reply-container">
+      <div className="reply-container">
         <textarea
           type="text"
-          className="comment-reply-input"
+          className="reply-input"
           value={this.state.replyText}
           onChange={e => this.inputChange(e.target.value)}
           placeholder={`Reply to ${this.props.commentData.author}`}
         />
-        <button className="comment-reply-submit">POST REPLY</button>
+        <button className="reply-submit">POST REPLY</button>
       </div>
     );
     let replies;

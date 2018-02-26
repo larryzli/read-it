@@ -42,7 +42,10 @@ class Post extends Component {
       filter: this.props.match.params.filter || "best",
 
       // SORT
-      showSortDrawer: false
+      showSortDrawer: false,
+
+      // REPLY
+      showReplyInput: false
     };
 
     this.goHome = this.goHome.bind(this);
@@ -54,6 +57,7 @@ class Post extends Component {
     this.hide = this.hide.bind(this);
     this.unhide = this.unhide.bind(this);
     this.loadContent = this.loadContent.bind(this);
+    this.toggleReply = this.toggleReply.bind(this);
   }
   goHome() {
     this.props.history.goBack();
@@ -168,6 +172,10 @@ class Post extends Component {
       alert("Please login to use this feature");
     }
   };
+  toggleReply = () => {
+    this.setState({ showReplyInput: !this.state.showReplyInput });
+    // window.scrollTo(0, 0);
+  };
   changeFilter = filterVal => {
     this.setState({
       filter: filterVal,
@@ -212,7 +220,7 @@ class Post extends Component {
   }
   render() {
     const newCommentButton = (
-      <div className="new-post-container" onClick={this.toggleNewPost}>
+      <div className="new-post-container" onClick={this.toggleReply}>
         <div
           className="new-post-icon"
           style={{
@@ -269,6 +277,20 @@ class Post extends Component {
         />
       );
     });
+    // COMMENT REPLY
+    const reply = (
+      <div className="reply-container">
+        <textarea
+          type="text"
+          className="reply-input"
+          value={this.state.replyText}
+          onChange={e => this.inputChange(e.target.value)}
+          placeholder={`Comment on this post`}
+        />
+        <button className="reply-submit">POST COMMENT</button>
+      </div>
+    );
+    // LOADER
     const loader = (
       <div className="loader-wrapper" key={"loader"}>
         <img src={loading} className="loader-svg" alt="loading" />
@@ -313,6 +335,7 @@ class Post extends Component {
                 hide={this.hide}
                 unhide={this.unhide}
               />
+              {this.state.showReplyInput ? reply : null}
               <div className="comments-wrapper">{comments}</div>
             </div>
           )}
