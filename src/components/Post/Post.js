@@ -10,7 +10,7 @@ import Comment from "../Comment/Comment";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
 import replyIcon from "../../icons/ic_reply_white_20px.svg";
-import commentIcon from "../../icons/comment_large.svg";
+// import commentIcon from "../../icons/comment_large.svg";
 // IMPORT REDUX FUNCTION
 import { getUserInfo } from "../../ducks/userReducer";
 
@@ -216,13 +216,13 @@ class Post extends Component {
         <div
           className="new-post-icon"
           style={{
-            paddingTop: "14px",
+            paddingTop: "12px",
             paddingLeft: "13px",
             paddingRight: "13px",
             paddingBottom: "10px"
           }}
         >
-          <img src={commentIcon} alt="add new post" />
+          <img src={replyIcon} alt="add new post" />
         </div>
       </div>
     );

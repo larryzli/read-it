@@ -92,7 +92,7 @@ class Messaging extends Component {
     axios
       .get(url)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           inbox: loadMore
             ? this.state.inbox.concat(response.data.data.children)
@@ -114,7 +114,7 @@ class Messaging extends Component {
     axios
       .get(url)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           inbox: loadMore
             ? this.state.inbox.concat(response.data.data.children)
@@ -136,7 +136,7 @@ class Messaging extends Component {
     axios
       .get(url)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           inbox: loadMore
             ? this.state.inbox.concat(response.data.data.children)

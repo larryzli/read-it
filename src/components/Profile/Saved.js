@@ -59,7 +59,6 @@ class Saved extends Component {
       let url = `/api/user/saved?username=${this.state.username}`;
 
       axios.get(url).then(response => {
-        console.log(response);
         this.setState({
           posts: response.data.data.children,
           after: response.data.data.after,
@@ -79,9 +78,7 @@ class Saved extends Component {
       url += `after=${this.state.after}&`;
     }
 
-    console.log(url);
     axios.get(url).then(response => {
-      console.log(response);
       this.setState({
         posts: loadMore
           ? this.state.posts.concat(response.data.data.children)
@@ -97,7 +94,6 @@ class Saved extends Component {
   }
 
   render() {
-    console.log(this.props);
     // LOADER
     const loader = (
       <div className="loader-wrapper" key={"loader"}>
