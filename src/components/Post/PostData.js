@@ -17,6 +17,7 @@ import profileIcon from "../../icons/ic_person_white_20px.svg";
 // COMPONENT
 const PostData = ({
   postData,
+  score,
   upvoted,
   downvoted,
   favorited,
@@ -62,11 +63,15 @@ const PostData = ({
           <div className="postdata-body">{postData.body}</div>
         ) : null}
         <div className="postdata-data">
-          <span className="postdata-score">
-            {postData.score > 10000
-              ? (postData.score / 1000).toFixed(1) + "k"
-              : postData.score}{" "}
-            points
+          <span
+            className="postdata-score"
+            style={
+              upvoted
+                ? { color: "#06D6A0" }
+                : downvoted ? { color: "#ff445b" } : null
+            }
+          >
+            {score > 10000 ? (score / 1000).toFixed(1) + "k" : score} points
           </span>
           {" • "}
           <span>{moment(postData.created_at * 1000).fromNow()}</span>

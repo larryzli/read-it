@@ -36,6 +36,7 @@ class Comment extends Component {
       // VOTING
       upvoted: this.props.commentData.likes === true,
       downvoted: this.props.commentData.likes === false,
+      score: this.props.commentData.score,
 
       // FAVORITING
       favorited: this.props.commentData.saved,
@@ -73,7 +74,11 @@ class Comment extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: true, downvoted: false });
+      this.setState({
+        upvoted: true,
+        downvoted: false,
+        score: this.state.score + 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -86,7 +91,11 @@ class Comment extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: false, downvoted: true });
+      this.setState({
+        upvoted: false,
+        downvoted: true,
+        score: this.state.score - 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -99,7 +108,11 @@ class Comment extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: false, downvoted: false });
+      this.setState({
+        upvoted: false,
+        downvoted: false,
+        score: this.state.upvoted ? this.state.score - 1 : this.state.score + 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -232,7 +245,9 @@ class Comment extends Component {
               >
                 {this.props.commentData.score_hidden
                   ? "[score hidden]"
-                  : this.props.commentData.score + " points"}
+                  : this.state.score > 10000
+                    ? (this.state.score / 1000).toFixed(1) + "k"
+                    : this.state.score + " points"}
               </span>
 
               <span className="comment-age">

@@ -26,6 +26,7 @@ class PostCard extends Component {
       // VOTING
       upvoted: this.props.likes === true ? true : false,
       downvoted: this.props.likes === false ? true : false,
+      score: this.props.score,
 
       // FAVORITING
       favorited: this.props.saved,
@@ -53,7 +54,11 @@ class PostCard extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: true, downvoted: false });
+      this.setState({
+        upvoted: true,
+        downvoted: false,
+        score: this.state.score + 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -66,7 +71,11 @@ class PostCard extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: false, downvoted: true });
+      this.setState({
+        upvoted: false,
+        downvoted: true,
+        score: this.state.score - 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -79,7 +88,11 @@ class PostCard extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: false, downvoted: false });
+      this.setState({
+        upvoted: false,
+        downvoted: false,
+        score: this.state.upvoted ? this.state.score - 1 : this.state.score + 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -191,9 +204,9 @@ class PostCard extends Component {
                       : this.state.downvoted ? { color: "#ff445b" } : null
                   }
                 >
-                  {this.props.score > 10000
-                    ? (this.props.score / 1000).toFixed(1) + "k"
-                    : this.props.score}{" "}
+                  {this.state.score > 10000
+                    ? (this.state.score / 1000).toFixed(1) + "k"
+                    : this.state.score}{" "}
                   points
                 </span>
                 {" • "}

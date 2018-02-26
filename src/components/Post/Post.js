@@ -9,6 +9,7 @@ import Comment from "../Comment/Comment";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
 import replyIcon from "../../icons/ic_reply_white_20px.svg";
+import commentIcon from "../../icons/comment_large.svg";
 // IMPORT REDUX FUNCTION
 import { getUserInfo } from "../../ducks/userReducer";
 
@@ -35,6 +36,7 @@ class Post extends Component {
 
       // DATA
       postData: {},
+      score: 0,
       comments: [],
       filter: this.props.match.params.filter || "best",
 
@@ -62,7 +64,11 @@ class Post extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: true, downvoted: false });
+      this.setState({
+        upvoted: true,
+        downvoted: false,
+        score: this.state.score + 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -78,7 +84,11 @@ class Post extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: false, downvoted: true });
+      this.setState({
+        upvoted: false,
+        downvoted: true,
+        score: this.state.score - 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -91,7 +101,11 @@ class Post extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: false, downvoted: false });
+      this.setState({
+        upvoted: false,
+        downvoted: false,
+        score: this.state.upvoted ? this.state.score - 1 : this.state.score + 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -177,6 +191,7 @@ class Post extends Component {
       .then(response => {
         this.setState({
           postData: response.data.post,
+          score: response.data.post.score,
           comments: response.data.comments,
           loading: false,
           upvoted: response.data.post.likes === true,
@@ -193,6 +208,21 @@ class Post extends Component {
     this.loadContent(this.state.filter);
   }
   render() {
+    const newCommentButton = (
+      <div className="new-post-container" onClick={this.toggleNewPost}>
+        <div
+          className="new-post-icon"
+          style={{
+            paddingTop: "14px",
+            paddingLeft: "13px",
+            paddingRight: "13px",
+            paddingBottom: "10px"
+          }}
+        >
+          <img src={commentIcon} alt="add new post" />
+        </div>
+      </div>
+    );
     const sortDrawer = (
       <div className="drawer-wrapper" onClick={e => this.toggleSort()}>
         <div className="drawer-container">
@@ -256,6 +286,7 @@ class Post extends Component {
           <div>
             <PostData
               postData={this.state.postData}
+              score={this.state.score}
               upvoted={this.state.upvoted}
               downvoted={this.state.downvoted}
               favorited={this.state.favorited}
@@ -272,11 +303,7 @@ class Post extends Component {
             <div className="comments-wrapper">{comments}</div>
           </div>
         )}
-        {/* <div className="new-post-container" onClick={this.toggleNewPost}>
-          <div className="new-comment-icon">
-            <img src={commentIcon} alt="add new post" />
-          </div>
-        </div> */}
+        {newCommentButton}
       </div>
     );
   }
