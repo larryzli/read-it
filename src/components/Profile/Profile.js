@@ -270,7 +270,7 @@ class Profile extends Component {
           postID={post.data.id}
           likes={post.data.likes}
           saved={post.data.saved}
-          enableControls={this.props.enableControls}
+          enableControls={this.props.user.user.id ? true : false}
           hidden={post.data.hidden}
           clicked={post.data.clicked}
           visited={post.data.visited}
