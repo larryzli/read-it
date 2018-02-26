@@ -11,7 +11,7 @@ import SavedNavigation from "../../components/Navigation/SavedNavigation";
 import PostCard from "../PostCard/PostCard";
 import { getUserInfo } from "../../ducks/userReducer";
 
-class Profile extends Component {
+class Saved extends Component {
   constructor(props) {
     super(props);
 
@@ -53,18 +53,20 @@ class Profile extends Component {
   }
 
   refreshHandler = () => {
-    this.setState({ loading: true, after: "", posts: [] });
+    if (this.state.loggedIn) {
+      this.setState({ loading: true, after: "", posts: [] });
 
-    let url = `/api/user/saved?username=${this.state.username}`;
+      let url = `/api/user/saved?username=${this.state.username}`;
 
-    axios.get(url).then(response => {
-      console.log(response);
-      this.setState({
-        posts: response.data.data.children,
-        after: response.data.data.after,
-        loading: false
+      axios.get(url).then(response => {
+        console.log(response);
+        this.setState({
+          posts: response.data.data.children,
+          after: response.data.data.after,
+          loading: false
+        });
       });
-    });
+    }
   };
 
   loadContent = (filter, loadMore) => {
@@ -190,4 +192,4 @@ const mapStateToProps = state => {
   return state;
 };
 
-export default connect(mapStateToProps, { getUserInfo })(Profile);
+export default connect(mapStateToProps, { getUserInfo })(Saved);
