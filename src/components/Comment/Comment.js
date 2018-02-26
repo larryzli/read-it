@@ -48,10 +48,37 @@ class Comment extends Component {
   }
   // COMMENT REPLY INPUT METHODS
   toggleInput = () => {
-    this.setState({ showReplyInput: !this.state.showReplyInput });
+    if (this.props.enableControls) {
+      this.setState({ showReplyInput: !this.state.showReplyInput });
+    } else {
+      alert("Please log in to leave a reply");
+    }
   };
   inputChange = value => {
     this.setState({ replyText: value });
+  };
+  submitReply = () => {
+    axios
+      .post("/api/reply", {
+        parentId: `${this.props.commentData.name}`,
+        text: this.state.replyText
+      })
+      .then(response => {
+        const newReply = [{}];
+        // newReply[0].commentData = response.data.json.data.things[0].data;
+        // newReply[0].commentData.depth = this.props.commentData.depth + 1;
+        newReply[0].data = response.data.json.data.things[0].data;
+        newReply[0].data.depth = this.props.commentData.depth + 1;
+        newReply[0].enableControls = true;
+        newReply[0].postID = this.props.postID;
+        console.log(newReply);
+        this.setState({
+          replyText: "",
+          showReplyInput: false,
+          moreComments: newReply.concat(this.state.moreComments)
+        });
+      })
+      .catch(console.log);
   };
   // COMMENT REPLY METHODS
   revealReplies = () => {
@@ -155,7 +182,6 @@ class Comment extends Component {
   };
 
   render() {
-    console.log(this.props);
     // COMMENT COLORS
     const borderColors = [
       "#8F6DCE",
@@ -174,7 +200,9 @@ class Comment extends Component {
           onChange={e => this.inputChange(e.target.value)}
           placeholder={`Reply to ${this.props.commentData.author}`}
         />
-        <button className="reply-submit">POST REPLY</button>
+        <button className="reply-submit" onClick={e => this.submitReply()}>
+          POST REPLY
+        </button>
       </div>
     );
     let replies;

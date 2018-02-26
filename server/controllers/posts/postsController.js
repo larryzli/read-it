@@ -95,7 +95,7 @@ const reply = (req, res, next) => {
       }),
       {
         headers: {
-          Authorization: `Bearer ${req.body.accessToken}`,
+          Authorization: `Bearer ${req.user.accessToken}`,
           "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
         }
       }

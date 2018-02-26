@@ -49,7 +49,10 @@ class PostCard extends Component {
   upvote() {
     if (this.props.enableControls) {
       axios
-        .post("/api/vote", { vote: 1, id: `t3_${this.props.postID}` })
+        .post("/api/vote", {
+          vote: 1,
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
@@ -66,7 +69,10 @@ class PostCard extends Component {
   downvote() {
     if (this.props.enableControls) {
       axios
-        .post("/api/vote", { vote: -1, id: `t3_${this.props.postID}` })
+        .post("/api/vote", {
+          vote: -1,
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
@@ -83,7 +89,10 @@ class PostCard extends Component {
   cancelvote() {
     if (this.props.enableControls) {
       axios
-        .post("/api/vote", { vote: 0, id: `t3_${this.props.postID}` })
+        .post("/api/vote", {
+          vote: 0,
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
@@ -100,7 +109,9 @@ class PostCard extends Component {
   favorite() {
     if (this.props.enableControls) {
       axios
-        .post("/api/favorites/save", { id: `t3_${this.props.postID}` })
+        .post("/api/favorites/save", {
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
@@ -113,7 +124,9 @@ class PostCard extends Component {
   unfavorite() {
     if (this.props.enableControls) {
       axios
-        .post("/api/favorites/unsave", { id: `t3_${this.props.postID}` })
+        .post("/api/favorites/unsave", {
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
@@ -126,7 +139,9 @@ class PostCard extends Component {
   hide() {
     if (this.props.enableControls) {
       axios
-        .post("/api/post/hide", { id: `t3_${this.props.postID}` })
+        .post("/api/post/hide", {
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
@@ -139,7 +154,9 @@ class PostCard extends Component {
   unhide() {
     if (this.props.enableControls) {
       axios
-        .post("/api/post/unhide", { id: `t3_${this.props.postID}` })
+        .post("/api/post/unhide", {
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })

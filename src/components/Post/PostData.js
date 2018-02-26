@@ -29,8 +29,7 @@ const PostData = ({
   favorite,
   unfavorite,
   hide,
-  unhide,
-  toggleReply
+  unhide
 }) => {
   return (
     <div className="postdata-container">

@@ -45,7 +45,8 @@ class Post extends Component {
       showSortDrawer: false,
 
       // REPLY
-      showReplyInput: false
+      showReplyInput: false,
+      replyText: ""
     };
 
     this.goHome = this.goHome.bind(this);
@@ -173,8 +174,33 @@ class Post extends Component {
     }
   };
   toggleReply = () => {
-    this.setState({ showReplyInput: !this.state.showReplyInput });
-    // window.scrollTo(0, 0);
+    if (this.props.user.user.id) {
+      // document.querySelector(".reply-wrapper").scrollTop = 0;
+      // console.log("SCROLL TO TOP");
+      this.setState({ showReplyInput: !this.state.showReplyInput });
+      // document.querySelector(".reply-container").scrollTop = 0;
+    } else {
+      alert("Please log in to leave a comment");
+    }
+  };
+  inputChange = value => {
+    this.setState({ replyText: value });
+  };
+  submitComment = () => {
+    axios
+      .post("/api/reply", {
+        parentId: `t3_${this.state.postData.post_id}`,
+        text: this.state.replyText
+      })
+      .then(response => {
+        console.log(response);
+        this.setState({
+          replyText: "",
+          showReplyInput: false,
+          comments: response.data.json.data.things.concat(this.state.comments)
+        });
+      })
+      .catch(console.log);
   };
   changeFilter = filterVal => {
     this.setState({
@@ -287,7 +313,9 @@ class Post extends Component {
           onChange={e => this.inputChange(e.target.value)}
           placeholder={`Comment on this post`}
         />
-        <button className="reply-submit">POST COMMENT</button>
+        <button className="reply-submit" onClick={e => this.submitComment()}>
+          POST COMMENT
+        </button>
       </div>
     );
     // LOADER
@@ -297,7 +325,7 @@ class Post extends Component {
       </div>
     );
     return (
-      <div>
+      <div className="post-container">
         {this.state.showSortDrawer ? sortDrawer : null}
         <PostNavigation
           title={this.state.postData.subreddit_title}
@@ -335,7 +363,9 @@ class Post extends Component {
                 hide={this.hide}
                 unhide={this.unhide}
               />
-              {this.state.showReplyInput ? reply : null}
+              <div className="reply-wrapper">
+                {this.state.showReplyInput ? reply : null}
+              </div>
               <div className="comments-wrapper">{comments}</div>
             </div>
           )}
