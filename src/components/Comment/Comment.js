@@ -147,6 +147,7 @@ class Comment extends Component {
   };
 
   render() {
+    console.log(this.props);
     // COMMENT COLORS
     const borderColors = [
       "#8F6DCE",
@@ -231,7 +232,14 @@ class Comment extends Component {
         >
           <div className="comment-text" onClick={e => this.toggleControls()}>
             <div className="comment-data">
-              <span className="comment-author">
+              <span
+                className="comment-author"
+                style={
+                  this.props.commentData.is_submitter
+                    ? { color: "#4a90e2" }
+                    : null
+                }
+              >
                 {this.props.commentData.author}
               </span>
 

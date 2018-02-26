@@ -379,13 +379,13 @@ html {
       padding: 10px 0;
       font-size: 12px; }
     .postdata-container .postdata-info-container .postdata-info {
-      font-size: 10px;
+      font-size: 12px;
       padding: 3px 0; }
       .postdata-container .postdata-info-container .postdata-info .postdata-subreddit {
         color: #4a90e2;
         white-space: nowrap; }
     .postdata-container .postdata-info-container .postdata-data {
-      font-size: 10px; }
+      font-size: 12px; }
       .postdata-container .postdata-info-container .postdata-data .postdata-score {
         font-weight: 600;
         color: #bbb; }
