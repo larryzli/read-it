@@ -158,48 +158,48 @@ class Menu extends Component {
                   >
                     <div className="menu-submenu-bottom-item">My Profile</div>
                   </NavLink>
-                  <NavLink
+                  {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Comments</div>
-                  </NavLink>
-                  <NavLink
+                  </NavLink> */}
+                  {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Submitted</div>
-                  </NavLink>
-                  <NavLink
+                  </NavLink> */}
+                  {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Upvoted</div>
-                  </NavLink>
+                  </NavLink> */}
                   <NavLink
-                    to="/saved"
+                    to="/profile/me/saved"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Saved</div>
                   </NavLink>
-                  <NavLink
+                  {/* <NavLink
                     to="/friends"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Friends</div>
-                  </NavLink>
-                  <NavLink
+                  </NavLink> */}
+                  {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Watching</div>
-                  </NavLink>
+                  </NavLink> */}
                 </div>
               ) : null}
             </div>
