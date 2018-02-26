@@ -29,7 +29,7 @@ class Sidebar extends Component {
   }
 
   getInfo(subreddit_name) {
-    if (subreddit_name) {
+    if (subreddit_name && subreddit_name.toLowerCase() !== "all") {
       this.props.getSidebarSubreddit(subreddit_name);
     } else {
       this.props.getSidebarTrending();
@@ -59,7 +59,8 @@ class Sidebar extends Component {
   render() {
     return (
       <div>
-        {this.props.subreddit_name ? (
+        {this.props.subreddit_name &&
+        this.props.subreddit_name.toLowerCase() !== "all" ? (
           <div>
             <div>
               {this.props.user.user.id ? (
