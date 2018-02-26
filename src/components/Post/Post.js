@@ -193,11 +193,13 @@ class Post extends Component {
         text: this.state.replyText
       })
       .then(response => {
+        const newComment = response.data.json.data.things;
+        newComment[0].data.depth = 0;
         console.log(response);
         this.setState({
           replyText: "",
           showReplyInput: false,
-          comments: response.data.json.data.things.concat(this.state.comments)
+          comments: newComment.concat(this.state.comments)
         });
       })
       .catch(console.log);
