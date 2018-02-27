@@ -134,7 +134,10 @@ class Comment extends Component {
   };
   // COMMENT CONTROLS METHODS
   toggleControls = () => {
-    this.setState({ showControls: !this.state.showControls });
+    this.setState({
+      showControls: !this.state.showControls,
+      showReplyInput: false
+    });
   };
   upvote = () => {
     if (this.props.enableControls) {

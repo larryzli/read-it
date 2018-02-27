@@ -174,7 +174,6 @@ class PostCard extends Component {
     if (this.state.hidden) {
       return null;
     }
-    console.log(this.props);
     return (
       // POST
       <div className="card-container">
