@@ -26,6 +26,7 @@ class Comment extends Component {
       moreComments: [],
       showMore: true,
       showControls: false,
+      showContinue: true,
 
       // REPLY INPUT
       showReplyInput: false,
@@ -34,6 +35,7 @@ class Comment extends Component {
 
       // LOADING
       loading: false,
+      loadingContinue: false,
 
       // VOTING
       upvoted: this.props.commentData.likes === true,
@@ -66,8 +68,6 @@ class Comment extends Component {
       })
       .then(response => {
         const newReply = [{}];
-        // newReply[0].commentData = response.data.json.data.things[0].data;
-        // newReply[0].commentData.depth = this.props.commentData.depth + 1;
         newReply[0].data = response.data.json.data.things[0].data;
         newReply[0].data.depth = this.props.commentData.depth + 1;
         newReply[0].enableControls = true;
@@ -97,6 +97,37 @@ class Comment extends Component {
           loading: false
         });
       });
+  };
+  continueThread = (parent_id, depth) => {
+    this.setState({ loadingContinue: true });
+    parent_id = parent_id.split("_")[1];
+    const url = this.props.commentData.permalink.split("/");
+    const title = url[url.length - 3];
+    axios
+      .get(
+        `/api/post/${this.props.commentData.subreddit}/${
+          this.props.postID
+        }/${title}/${parent_id}?sort=${this.props.filter}`
+      )
+      .then(response => {
+        // console.log(response.data.comments[0].data.replies.data.children);
+        const newReplies = response.data.comments[0].data.replies.data.children;
+        newReplies.forEach(function increaseDepth(el) {
+          el.data.depth += 9;
+          if (el.data.replies) {
+            increaseDepth(el.data.replies.data.children[0]);
+          }
+        });
+        // console.log(this.state.moreComments);
+        const index = this.state.moreComments.findIndex(el => {
+          return el.data.id === parent_id;
+        });
+        // console.log(index);
+        const newMoreComments = this.state.moreComments;
+        newMoreComments.splice(index + 1, newReplies.length, ...newReplies);
+        this.setState({ moreComments: newMoreComments });
+      })
+      .catch(console.log);
   };
   // COMMENT CONTROLS METHODS
   toggleControls = () => {
@@ -183,6 +214,7 @@ class Comment extends Component {
   };
 
   render() {
+    // console.log(this.props);
     // COMMENT COLORS
     const borderColors = [
       "#8F6DCE",
@@ -217,6 +249,7 @@ class Comment extends Component {
                 key={index}
                 commentData={reply.data}
                 enableControls={this.props.enableControls}
+                filter={this.props.filter}
               />
             );
           } else {
@@ -247,16 +280,37 @@ class Comment extends Component {
     }
     // MORE COMMENTS
     let moreComments = this.state.moreComments.map((comment, index) => {
-      return (
-        <Comment
-          postID={this.props.postID}
-          key={index}
-          commentData={comment.data}
-          style={{
-            marginLeft: `${5 * comment.data.depth - 5}px`
-          }}
-        />
-      );
+      if (comment.data.id !== "_") {
+        return (
+          <Comment
+            postID={this.props.postID}
+            key={index}
+            commentData={comment.data}
+            filter={this.props.filter}
+            style={{
+              marginLeft: `${5 * comment.data.depth - 5}px`
+            }}
+          />
+        );
+      } else {
+        console.log(comment);
+        console.log(this.state, this.props);
+        return this.state.showContinue ? (
+          <div
+            className="comment-container load-more"
+            style={{
+              borderLeft: `5px solid ${borderColors[comment.data.depth % 5]}`,
+              marginLeft: `${5 * (comment.data.depth - 1)}px`
+            }}
+            key={index}
+            onClick={e =>
+              this.continueThread(comment.data.parent_id, comment.data.depth)
+            }
+          >
+            Continue this thread
+          </div>
+        ) : null;
+      }
     });
     // LOADER
     const loader = (

@@ -301,6 +301,7 @@ class Post extends Component {
           key={index}
           commentData={comment.data}
           enableControls={this.state.enableControls}
+          filter={this.state.filter}
         />
       );
     });

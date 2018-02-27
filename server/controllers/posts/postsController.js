@@ -73,12 +73,44 @@ const getPost = (req, res, next) => {
 
 const getMoreComments = (req, res, next) => {
   const { post_id, children } = req.params;
+  let url = `https://www.reddit.com/api/morechildren.json?link_id=t3_${post_id}&children=${children}&api_type=json`;
+  if (req.user) {
+    url = `https://oauth.reddit.com/api/morechildren?link_id=t3_${post_id}&children=${children}&api_type=json`;
+  }
   axios
-    .get(
-      `https://www.reddit.com/api/morechildren.json?link_id=t3_${post_id}&children=${children}&api_type=json`
-    )
+    .get(url)
     .then(response => {
       res.status(200).json(response.data);
+    })
+    .catch(console.log);
+};
+
+const continueThread = (req, res, next) => {
+  const { subreddit_title, post_id, parent_id, title } = req.params;
+  let baseURL = `https://www.reddit.com/r/${subreddit_title}/comments/${post_id}/${title}/${parent_id}.json?`;
+  let headers = {};
+  if (req.user) {
+    baseURL = `https://oauth.reddit.com/r/${subreddit_title}/comments/${post_id}/${title}/${parent_id}?`;
+    headers = {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    };
+  }
+  const { sort } = req.query;
+
+  if (sort) {
+    baseURL += `sort=${sort}&`;
+  }
+
+  axios
+    .get(baseURL, headers)
+    .then(response => {
+      // console.log(response);
+      res.status(200).json({
+        comments: response.data[1].data.children
+      });
     })
     .catch(console.log);
 };
@@ -270,6 +302,7 @@ const submit = (req, res, next) => {
 module.exports = {
   getPost,
   getMoreComments,
+  continueThread,
   reply,
   deleteComment,
   editComment,
