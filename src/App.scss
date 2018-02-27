@@ -6,7 +6,7 @@ $grey3: #bbb;
 $grey4: rgb(80, 80, 80);
 $grey5: grey;
 $white: #fff;
-$blue1: #4a90e2;
+$blue1: #5ca4f7;
 $up: #06d6a0;
 $down: #ff445b;
 
@@ -573,6 +573,15 @@ body {
       color: white;
       padding: 10px 0;
       font-size: 12px;
+
+      a {
+        text-decoration: none;
+        color: $blue1;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
 
     .postdata-info {
@@ -682,6 +691,21 @@ body {
         overflow-wrap: break-word;
         word-wrap: break-word;
         word-break: break-word;
+
+        p:first-child {
+          margin-top: 0px;
+        }
+        p:last-child {
+          margin-bottom: 0px;
+        }
+        a {
+          text-decoration: none;
+          color: $blue1;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
     }
   }

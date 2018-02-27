@@ -228,7 +228,7 @@ body {
             .posts .card-container .post-container .post-route .post-info .post-details .post-tags .post-tag .tag-icon {
               margin-bottom: -2px; }
             .posts .card-container .post-container .post-route .post-info .post-details .post-subreddit {
-              color: #4a90e2;
+              color: #5ca4f7;
               white-space: nowrap; }
             .posts .card-container .post-container .post-route .post-info .post-details .post-author {
               white-space: nowrap; }
@@ -319,7 +319,7 @@ body {
         overflow: hidden;
         margin-top: 2px; }
         .message-card-info .message-post .message-post-title .message-subreddit .message-subreddit-name {
-          color: #4a90e2;
+          color: #5ca4f7;
           font-weight: 500;
           word-wrap: break-word;
           overflow-wrap: break-word;
@@ -388,11 +388,16 @@ body {
       color: white;
       padding: 10px 0;
       font-size: 12px; }
+      .postdata-container .postdata-info-container .postdata-body a {
+        text-decoration: none;
+        color: #5ca4f7; }
+        .postdata-container .postdata-info-container .postdata-body a:hover {
+          text-decoration: underline; }
     .postdata-container .postdata-info-container .postdata-info {
       font-size: 12px;
       padding: 3px 0; }
       .postdata-container .postdata-info-container .postdata-info .postdata-subreddit {
-        color: #4a90e2;
+        color: #5ca4f7;
         white-space: nowrap; }
     .postdata-container .postdata-info-container .postdata-data {
       font-size: 12px; }
@@ -466,6 +471,15 @@ body {
         overflow-wrap: break-word;
         word-wrap: break-word;
         word-break: break-word; }
+        .comment-wrapper .comment-container .comment-text .comment-body p:first-child {
+          margin-top: 0px; }
+        .comment-wrapper .comment-container .comment-text .comment-body p:last-child {
+          margin-bottom: 0px; }
+        .comment-wrapper .comment-container .comment-text .comment-body a {
+          text-decoration: none;
+          color: #5ca4f7; }
+          .comment-wrapper .comment-container .comment-text .comment-body a:hover {
+            text-decoration: underline; }
   .comment-wrapper .comment-controls {
     display: flex;
     justify-content: space-between;
@@ -591,7 +605,7 @@ body {
 
 .load-more {
   font-size: 10px;
-  color: #4a90e2;
+  color: #5ca4f7;
   margin-left: 5px;
   cursor: pointer; }
 
@@ -736,7 +750,7 @@ body {
             color: #fff;
             cursor: pointer; }
         .filter-container .filter-list .filter-list-item .filter-item-content .edit:hover {
-          background-color: #4a90e2;
+          background-color: #5ca4f7;
           color: #fff; }
         .filter-container .filter-list .filter-list-item .filter-item-content .delete:hover {
           background-color: #ff445b;

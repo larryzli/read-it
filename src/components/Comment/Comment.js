@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
+import ReactMarkdown from "react-markdown";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
 // import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
@@ -284,7 +285,12 @@ class Comment extends Component {
                 className="comment-author"
                 style={
                   this.props.commentData.is_submitter
-                    ? { color: "#4a90e2" }
+                    ? {
+                        backgroundColor: "#4a90e2",
+                        padding: "0 5px",
+                        color: "#ffffff",
+                        borderRadius: "3px"
+                      }
                     : null
                 }
               >
@@ -310,7 +316,9 @@ class Comment extends Component {
                 {moment(this.props.commentData.created_utc * 1000).fromNow()}
               </span>
             </div>
-            <div className="comment-body">{this.props.commentData.body}</div>
+            <div className="comment-body">
+              <ReactMarkdown source={this.props.commentData.body} />
+            </div>
           </div>
           {replies ? (
             <div

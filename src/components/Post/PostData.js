@@ -2,6 +2,7 @@
 import React from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 // IMPORT ICONS
 import commentIcon from "../../icons/comment_tiny.svg";
 import upvoteIcon from "../../icons/ic_keyboard_arrow_up_white_24px.svg";
@@ -31,6 +32,7 @@ const PostData = ({
   hide,
   unhide
 }) => {
+  console.log(postData);
   return (
     <div className="postdata-container">
       <div>
@@ -59,7 +61,11 @@ const PostData = ({
           <span className="postdata-author">{postData.author}</span>
         </div>
         {postData.is_self && postData.body ? (
-          <div className="postdata-body">{postData.body}</div>
+          <div className="postdata-body">
+            <ReactMarkdown
+              source={postData.body.split("https://www.reddit.com").join("")}
+            />
+          </div>
         ) : null}
         <div className="postdata-data">
           <span
