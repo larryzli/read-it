@@ -784,10 +784,8 @@ body {
       margin: 0;
       font-size: 12px;
       color: grey;
-      margin-bottom: 10px;
       background-color: #333;
       padding: 10px;
-      margin-bottom: 10px;
       display: flex;
       align-items: center; }
       .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subtitle img {
@@ -799,7 +797,7 @@ body {
       box-shadow: 0px 0px 2px #111;
       margin: 0 10px;
       border-radius: 3px;
-      margin-bottom: 10px; }
+      margin-top: 10px; }
       .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subreddit .sidebar-link {
         text-decoration: none;
         color: #5ca4f7;

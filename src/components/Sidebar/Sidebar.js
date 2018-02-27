@@ -14,6 +14,7 @@ import {
   getSidebarSubreddit,
   getSidebarTrending
 } from "./../../ducks/subredditReducer";
+import { getUserInfo } from "../../ducks/userReducer";
 
 // COMPONENT
 class Sidebar extends Component {
@@ -31,7 +32,9 @@ class Sidebar extends Component {
   // active_user_count
   // user_is_subscriber
   componentDidMount() {
-    this.getInfo(this.props.subreddit_name);
+    this.props.getUserInfo().then(response => {
+      this.getInfo(this.props.subreddit_name);
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -42,7 +45,11 @@ class Sidebar extends Component {
 
   getInfo(subreddit_name) {
     if (subreddit_name && subreddit_name.toLowerCase() !== "all") {
-      this.props.getSidebarSubreddit(subreddit_name);
+      this.props.getSidebarSubreddit(subreddit_name).then(response => {
+        this.setState({
+          subscribed: this.props.subreddit.subreddit.user_is_subscriber
+        });
+      });
     } else {
       this.props.getSidebarTrending();
     }
@@ -215,5 +222,6 @@ const mapStateToProps = state => state;
 
 export default connect(mapStateToProps, {
   getSidebarSubreddit,
-  getSidebarTrending
+  getSidebarTrending,
+  getUserInfo
 })(Sidebar);

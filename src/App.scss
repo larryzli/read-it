@@ -1132,10 +1132,9 @@ body {
         margin: 0;
         font-size: 12px;
         color: $grey5;
-        margin-bottom: 10px;
+        // margin-bottom: 10px;
         background-color: $grey1;
         padding: 10px;
-        margin-bottom: 10px;
         display: flex;
         align-items: center;
 
@@ -1151,7 +1150,7 @@ body {
         box-shadow: $shadow;
         margin: 0 10px;
         border-radius: 3px;
-        margin-bottom: 10px;
+        margin-top: 10px;
 
         .sidebar-link {
           text-decoration: none;
