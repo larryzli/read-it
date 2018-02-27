@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import moment from "moment";
+import ReactMarkdown from "react-markdown";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
 // import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
@@ -14,6 +15,7 @@ import starIconEmpty from "../../icons/ic_star_border_white_20px.svg";
 import starIconFilled from "../../icons/ic_star_white_20px.svg";
 import profileIcon from "../../icons/ic_person_white_20px.svg";
 import replyIcon from "../../icons/ic_reply_white_20px.svg";
+import clearIcon from "../../icons/ic_clear_white_20px.svg";
 // import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
 
 // COMPONENT
@@ -26,6 +28,9 @@ class Comment extends Component {
       showMore: true,
       showControls: false,
 
+      // DELETED
+      deleted: false,
+
       // REPLY INPUT
       showReplyInput: false,
       replySubmitted: false,
@@ -33,6 +38,7 @@ class Comment extends Component {
 
       // LOADING
       loading: false,
+      loadingContinue: false,
 
       // VOTING
       upvoted: this.props.commentData.likes === true,
@@ -65,8 +71,6 @@ class Comment extends Component {
       })
       .then(response => {
         const newReply = [{}];
-        // newReply[0].commentData = response.data.json.data.things[0].data;
-        // newReply[0].commentData.depth = this.props.commentData.depth + 1;
         newReply[0].data = response.data.json.data.things[0].data;
         newReply[0].data.depth = this.props.commentData.depth + 1;
         newReply[0].enableControls = true;
@@ -97,9 +101,43 @@ class Comment extends Component {
         });
       });
   };
+  continueThread = (parent_id, depth) => {
+    this.setState({ [`loadContinue${parent_id}`]: true });
+    parent_id = parent_id.split("_")[1];
+    const url = this.props.commentData.permalink.split("/");
+    const title = url[url.length - 3];
+    axios
+      .get(
+        `/api/post/${this.props.commentData.subreddit}/${
+          this.props.postID
+        }/${title}/${parent_id}?sort=${this.props.filter}`
+      )
+      .then(response => {
+        const newReplies = response.data.comments[0].data.replies.data.children;
+        newReplies.forEach(function increaseDepth(el) {
+          el.data.depth += 9;
+          if (el.data.replies) {
+            increaseDepth(el.data.replies.data.children[0]);
+          }
+        });
+        const index = this.state.moreComments.findIndex(el => {
+          return el.data.id === parent_id;
+        });
+        const newMoreComments = this.state.moreComments;
+        newMoreComments.splice(index + 1, newReplies.length, ...newReplies);
+        this.setState({
+          moreComments: newMoreComments,
+          [`loadContinue${parent_id}`]: false
+        });
+      })
+      .catch(console.log);
+  };
   // COMMENT CONTROLS METHODS
   toggleControls = () => {
-    this.setState({ showControls: !this.state.showControls });
+    this.setState({
+      showControls: !this.state.showControls,
+      showReplyInput: false
+    });
   };
   upvote = () => {
     if (this.props.enableControls) {
@@ -180,8 +218,24 @@ class Comment extends Component {
       alert("Please login to use this feature");
     }
   };
+  delete = () => {
+    if (this.props.enableControls) {
+      axios
+        .post("/api/comment/delete", {
+          id: `t1_${this.props.commentData.id}`
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(console.log);
+      this.setState({ deleted: true });
+    } else {
+      alert("Please login to use this feature");
+    }
+  };
 
   render() {
+    // console.log(this.props);
     // COMMENT COLORS
     const borderColors = [
       "#8F6DCE",
@@ -190,6 +244,12 @@ class Comment extends Component {
       "#139AC6",
       "#FFD166"
     ];
+    // LOADER
+    const loader = (
+      <div className="loader-wrapper" key={"loader"}>
+        <img src={loading} className="loader-svg" alt="loading" />
+      </div>
+    );
     // REPLIES
     const replyInput = (
       <div className="reply-container">
@@ -216,6 +276,8 @@ class Comment extends Component {
                 key={index}
                 commentData={reply.data}
                 enableControls={this.props.enableControls}
+                filter={this.props.filter}
+                user={this.props.user}
               />
             );
           } else {
@@ -244,25 +306,44 @@ class Comment extends Component {
         }
       );
     }
+
     // MORE COMMENTS
     let moreComments = this.state.moreComments.map((comment, index) => {
-      return (
-        <Comment
-          postID={this.props.postID}
-          key={index}
-          commentData={comment.data}
-          style={{
-            marginLeft: `${5 * comment.data.depth - 5}px`
-          }}
-        />
-      );
+      if (comment.data.id !== "_") {
+        return (
+          <Comment
+            postID={this.props.postID}
+            key={index}
+            commentData={comment.data}
+            filter={this.props.filter}
+            user={this.props.user}
+            style={{
+              marginLeft: `${5 * comment.data.depth - 5}px`
+            }}
+          />
+        );
+      } else {
+        return (
+          <div key={index}>
+            <div
+              className="comment-container load-more"
+              style={{
+                borderLeft: `5px solid ${borderColors[comment.data.depth % 5]}`,
+                marginLeft: `${5 * (comment.data.depth - 1)}px`
+              }}
+              onClick={e =>
+                this.continueThread(comment.data.parent_id, comment.data.depth)
+              }
+            >
+              Continue this thread
+            </div>
+            {this.state[`loadContinue${comment.data.parent_id}`]
+              ? loader
+              : null}
+          </div>
+        );
+      }
     });
-    // LOADER
-    const loader = (
-      <div className="loader-wrapper" key={"loader"}>
-        <img src={loading} className="loader-svg" alt="loading" />
-      </div>
-    );
     return (
       <div className="comment-wrapper">
         <div
@@ -284,11 +365,25 @@ class Comment extends Component {
                 className="comment-author"
                 style={
                   this.props.commentData.is_submitter
-                    ? { color: "#4a90e2" }
-                    : null
+                    ? {
+                        backgroundColor: "#4a90e2",
+                        padding: "0 5px",
+                        color: "#ffffff",
+                        borderRadius: "3px"
+                      }
+                    : this.props.commentData.author === this.props.user
+                      ? {
+                          backgroundColor: "#06d6a0",
+                          padding: "0 5px",
+                          color: "#ffffff",
+                          borderRadius: "3px"
+                        }
+                      : null
                 }
               >
-                {this.props.commentData.author}
+                {this.state.deleted
+                  ? "[deleted]"
+                  : this.props.commentData.author}
               </span>
 
               <span
@@ -310,7 +405,13 @@ class Comment extends Component {
                 {moment(this.props.commentData.created_utc * 1000).fromNow()}
               </span>
             </div>
-            <div className="comment-body">{this.props.commentData.body}</div>
+            <div className="comment-body">
+              <ReactMarkdown
+                source={
+                  this.state.deleted ? "[deleted]" : this.props.commentData.body
+                }
+              />
+            </div>
           </div>
           {replies ? (
             <div
@@ -381,9 +482,16 @@ class Comment extends Component {
                 onClick={e => this.toggleInput()}
               />
             </div>
-            {/* <div className="comment-right-controls">
-              <img className="comment-control-icon" src={moreIcon} alt="" />
-            </div> */}
+            {this.props.user === this.props.commentData.author ? (
+              <div className="comment-right-controls">
+                <img
+                  className="comment-control-icon"
+                  src={clearIcon}
+                  alt="delete comment"
+                  onClick={e => this.delete()}
+                />
+              </div>
+            ) : null}
           </div>
         ) : null}
         {this.state.showReplyInput ? replyInput : null}

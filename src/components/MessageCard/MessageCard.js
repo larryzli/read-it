@@ -1,5 +1,6 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
+import ReactMarkdown from "react-markdown";
 // IMPORT ICONS
 import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
 import unreadIcon from "../../icons/ic_drafts_white_20px.svg";
@@ -83,7 +84,9 @@ class MessageCard extends Component {
             ) : null}
             <div className="message-body">
               <div>{"Body: "}</div>
-              <div className="message-body-text">{this.props.body}</div>
+              <div className="message-body-text">
+                <ReactMarkdown source={this.props.body} />
+              </div>
             </div>
           </div>
           <div
@@ -104,7 +107,7 @@ class MessageCard extends Component {
         {this.state.showControls ? (
           <div className="card-controls">
             <div className="card-left-controls">
-              {this.props.new ? (
+              {this.props.new && this.props.filter !== "sent" ? (
                 <img
                   className="card-control-icon"
                   src={readIcon}
@@ -112,7 +115,7 @@ class MessageCard extends Component {
                   onClick={e => this.props.read(this.props.name)}
                   style={{ marginRight: "7px" }}
                 />
-              ) : (
+              ) : this.props.filter !== "sent" ? (
                 <img
                   className="card-control-icon"
                   src={unreadIcon}
@@ -120,7 +123,7 @@ class MessageCard extends Component {
                   onClick={e => this.props.unread(this.props.name)}
                   style={{ marginRight: "7px" }}
                 />
-              )}
+              ) : null}
               <img
                 className="card-control-icon"
                 src={profileIcon}
@@ -132,18 +135,33 @@ class MessageCard extends Component {
                   className="card-control-icon"
                   src={replyIcon}
                   alt="reply to message"
-                  onClick={e => console.log("reply function")}
+                  onClick={e =>
+                    this.props.sendReply(
+                      this.props.filter !== "sent"
+                        ? this.props.author
+                        : this.props.dest,
+                      this.props.filter !== "sent"
+                        ? this.props.subject
+                        : "re: " + this.props.subject
+                    )
+                  }
                 />
               ) : (
                 <img
                   className="card-control-icon"
                   src={findIcon}
                   alt="show post"
-                  onClick={e => console.log("show function")}
+                  onClick={e =>
+                    this.props.goToPost(
+                      this.props.subreddit,
+                      this.props.context
+                    )
+                  }
                 />
               )}
             </div>
-            {this.state.messageType === "Message" ? (
+            {this.state.messageType === "Message" &&
+            this.props.filter !== "sent" ? (
               <div className="card-right-controls">
                 <img
                   className="card-control-icon"

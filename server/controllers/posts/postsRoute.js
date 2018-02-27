@@ -1,6 +1,7 @@
 const {
   getPost,
   getMoreComments,
+  continueThread,
   reply,
   deleteComment,
   editComment,
@@ -15,6 +16,10 @@ const {
 module.exports = function(app) {
   app.get("/api/post/:subreddit_title/:post_id", getPost);
   app.get("/api/post/comments/more/:post_id/:children", getMoreComments);
+  app.get(
+    "/api/post/:subreddit_title/:post_id/:title/:parent_id",
+    continueThread
+  );
   // REPLY EXPECTS (parentId, text) EXAMPLE ('t1_nfj43n', 'Hello world')
   app.post("/api/reply", reply);
   // COMMENT DELETE EXPECTS (id) EXAMPLE ('t1_duckn4b') NOTE: on reddits data, this id can be found on the property 'name'

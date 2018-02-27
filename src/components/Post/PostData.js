@@ -2,6 +2,7 @@
 import React from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 // IMPORT ICONS
 import commentIcon from "../../icons/comment_tiny.svg";
 import upvoteIcon from "../../icons/ic_keyboard_arrow_up_white_24px.svg";
@@ -13,6 +14,7 @@ import starIconFilled from "../../icons/ic_star_white_20px.svg";
 import hideIcon from "../../icons/ic_visibility_off_white_20px.svg";
 import unhideIcon from "../../icons/ic_visibility_white_20px.svg";
 import profileIcon from "../../icons/ic_person_white_20px.svg";
+import defaultPreview from "../../icons/default-preview.svg";
 
 // COMPONENT
 const PostData = ({
@@ -34,12 +36,16 @@ const PostData = ({
   return (
     <div className="postdata-container">
       <div>
-        {postData.image ? (
+        {postData.domain !== `self.${postData.subreddit_title}` ? (
           <a className="postdata-link" href={postData.url}>
             <img
               className="postdata-image"
               src={postData.image}
               alt="link preview"
+              onError={e => {
+                e.target.onError = null;
+                e.target.src = defaultPreview;
+              }}
             />
 
             <div className="postdata-link-info-container">
@@ -50,7 +56,13 @@ const PostData = ({
         ) : null}
       </div>
       <div className="postdata-info-container">
-        <div className="postdata-title">{postData.post_title}</div>
+        <div className="postdata-title">
+          {postData.domain !== `self.${postData.subreddit_title}` ? (
+            <a href={postData.url}>{postData.post_title}</a>
+          ) : (
+            postData.post_title
+          )}
+        </div>
         <div className="postdata-info">
           <span className="postdata-subreddit">
             /r/{postData.subreddit_title}
@@ -59,7 +71,17 @@ const PostData = ({
           <span className="postdata-author">{postData.author}</span>
         </div>
         {postData.is_self && postData.body ? (
-          <div className="postdata-body">{postData.body}</div>
+          <div className="postdata-body">
+            <ReactMarkdown
+              source={
+                postData.body
+                // .split("https://www.reddit.com")
+                // .join("")
+                // .split("http://www.reddit.com")
+                // .join("")
+              }
+            />
+          </div>
         ) : null}
         <div className="postdata-data">
           <span

@@ -101,7 +101,6 @@ class Subreddit extends Component {
     this.setState({ open });
   };
   closeMenu = () => {
-    console.log("close");
     this.setState({ open: false });
   };
   openMenu = () => {

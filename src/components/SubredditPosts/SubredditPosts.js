@@ -56,6 +56,12 @@ class SubredditPosts extends Component {
         <img src={loading} className="loader-svg" alt="loading" />
       </div>
     );
+    const end = <div className="end-message">End of posts</div>;
+    const empty = (
+      <div className="end-message">
+        {"There doesn't seem to be anything here"}
+      </div>
+    );
     return (
       <div>
         {this.props.navigation}
@@ -81,6 +87,10 @@ class SubredditPosts extends Component {
           refreshFunction={this.props.refreshHandler}
         >
           <div className="posts">{posts}</div>
+          {!this.props.subredditPosts.length && !this.props.isLoading
+            ? empty
+            : null}
+          {this.props.subredditPosts.length && !this.props.hasMore ? end : null}
         </InfiniteScroll>
       </div>
     );

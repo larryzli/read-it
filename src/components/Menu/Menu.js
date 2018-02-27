@@ -6,9 +6,10 @@ import axios from "axios";
 // IMPORT ICONS
 import profileIcon from "../../icons/ic_person_white_20px.svg";
 import messageIcon from "../../icons/ic_email_white_20px.svg";
-import settingsIcon from "../../icons/ic_settings_white_20px.svg";
+// import settingsIcon from "../../icons/ic_settings_white_20px.svg";
 import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
 import filterIcon from "../../icons/ic_filter_list_white_20px.svg";
+import appLogo from "../../icons/app-logo.svg";
 // IMPORT REDUX FUNCTIONS
 import { getUserInfo, logout, getFilters } from "../../ducks/userReducer";
 
@@ -96,10 +97,7 @@ class Menu extends Component {
     return (
       <div className="menu-container">
         <div className="menu-logo-container">
-          <span className="menu-logo">
-            N<span className="logo-up">V</span>
-            <span className="logo-down">V</span>IT
-          </span>
+          <img className="menu-logo" src={appLogo} alt="app logo" />
           <div className="menu-pin" onClick={this.props.onDock}>
             {this.props.docked ? "-" : "+"}
           </div>
@@ -124,141 +122,150 @@ class Menu extends Component {
             </button>
           )}
         </div>
-        <div className="menu-submenu-list">
-          {this.props.user.user.id ? (
-            <div className="menu-submenu-item">
-              <div
-                className="menu-submenu-top"
-                onClick={e => this.toggleProfileSubnav()}
-              >
-                <span className="menu-submenu-title">
-                  <img className="menu-submenu-icon" src={profileIcon} alt="" />Profile
-                </span>
+        {this.props.user.user.id ? (
+          <div className="menu-submenu-list">
+            {this.props.user.user.id ? (
+              <div className="menu-submenu-item">
+                <div
+                  className="menu-submenu-top"
+                  onClick={e => this.toggleProfileSubnav()}
+                >
+                  <span className="menu-submenu-title">
+                    <img
+                      className="menu-submenu-icon"
+                      src={profileIcon}
+                      alt=""
+                    />Profile
+                  </span>
+                  {this.state.showProfileSubnav ? (
+                    <img
+                      // onClick={e => this.toggleProfileSubnav()}
+                      src={dropdownIcon}
+                      alt="dropdown"
+                      style={{ transform: "rotate(0.5turn)" }}
+                    />
+                  ) : (
+                    <img
+                      // onClick={e => this.toggleProfileSubnav()}
+                      src={dropdownIcon}
+                      alt="dropdown"
+                    />
+                  )}
+                </div>
                 {this.state.showProfileSubnav ? (
-                  <img
-                    // onClick={e => this.toggleProfileSubnav()}
-                    src={dropdownIcon}
-                    alt="dropdown"
-                    style={{ transform: "rotate(0.5turn)" }}
-                  />
-                ) : (
-                  <img
-                    // onClick={e => this.toggleProfileSubnav()}
-                    src={dropdownIcon}
-                    alt="dropdown"
-                  />
-                )}
-              </div>
-              {this.state.showProfileSubnav ? (
-                <div className="menu-submenu-bottom">
-                  <NavLink
-                    to={`/profile/${this.props.user.user.name}`}
-                    className="menu-submenu-bottom-link"
-                    onClick={this.props.closeMenu}
-                  >
-                    <div className="menu-submenu-bottom-item">My Profile</div>
-                  </NavLink>
-                  {/* <NavLink
+                  <div className="menu-submenu-bottom">
+                    <NavLink
+                      to={`/profile/${this.props.user.user.name}`}
+                      className="menu-submenu-bottom-link"
+                      onClick={this.props.closeMenu}
+                    >
+                      <div className="menu-submenu-bottom-item">My Profile</div>
+                    </NavLink>
+                    {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Comments</div>
                   </NavLink> */}
-                  {/* <NavLink
+                    {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Submitted</div>
                   </NavLink> */}
-                  {/* <NavLink
+                    {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Upvoted</div>
                   </NavLink> */}
-                  <NavLink
-                    to="/profile/me/saved"
-                    className="menu-submenu-bottom-link"
-                    onClick={this.props.closeMenu}
-                  >
-                    <div className="menu-submenu-bottom-item">Saved</div>
-                  </NavLink>
-                  {/* <NavLink
+                    <NavLink
+                      to="/profile/me/saved"
+                      className="menu-submenu-bottom-link"
+                      onClick={this.props.closeMenu}
+                    >
+                      <div className="menu-submenu-bottom-item">Saved</div>
+                    </NavLink>
+                    {/* <NavLink
                     to="/friends"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Friends</div>
                   </NavLink> */}
-                  {/* <NavLink
+                    {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Watching</div>
                   </NavLink> */}
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-          {this.props.user.user.id ? (
-            <div className="menu-submenu-item">
-              <div
-                className="menu-submenu-top"
-                onClick={e => this.toggleMessagesSubnav()}
-              >
-                <span className="menu-submenu-title">
-                  <img className="menu-submenu-icon" src={messageIcon} alt="" />Messaging
-                </span>
-                {this.state.showMessagesSubnav ? (
-                  <img
-                    // onClick={e => this.toggleMessagesSubnav()}
-                    src={dropdownIcon}
-                    alt="dropdown"
-                    style={{ transform: "rotate(0.5turn)" }}
-                  />
-                ) : (
-                  <img
-                    // onClick={e => this.toggleMessagesSubnav()}
-                    src={dropdownIcon}
-                    alt="dropdown"
-                  />
-                )}
+                  </div>
+                ) : null}
               </div>
-              {this.state.showMessagesSubnav ? (
-                <div className="menu-submenu-bottom">
-                  <NavLink
-                    to="/messages/inbox"
-                    className="menu-submenu-bottom-link"
-                    onClick={this.props.closeMenu}
-                  >
-                    <div className="menu-submenu-bottom-item">Inbox</div>
-                  </NavLink>
-                  <NavLink
-                    to="/messages/unread"
-                    className="menu-submenu-bottom-link"
-                    onClick={this.props.closeMenu}
-                  >
-                    <div className="menu-submenu-bottom-item">Unread</div>
-                  </NavLink>
-                  {/* <NavLink
+            ) : null}
+            {this.props.user.user.id ? (
+              <div className="menu-submenu-item">
+                <div
+                  className="menu-submenu-top"
+                  onClick={e => this.toggleMessagesSubnav()}
+                >
+                  <span className="menu-submenu-title">
+                    <img
+                      className="menu-submenu-icon"
+                      src={messageIcon}
+                      alt=""
+                    />Messaging
+                  </span>
+                  {this.state.showMessagesSubnav ? (
+                    <img
+                      // onClick={e => this.toggleMessagesSubnav()}
+                      src={dropdownIcon}
+                      alt="dropdown"
+                      style={{ transform: "rotate(0.5turn)" }}
+                    />
+                  ) : (
+                    <img
+                      // onClick={e => this.toggleMessagesSubnav()}
+                      src={dropdownIcon}
+                      alt="dropdown"
+                    />
+                  )}
+                </div>
+                {this.state.showMessagesSubnav ? (
+                  <div className="menu-submenu-bottom">
+                    <NavLink
+                      to="/messages/inbox"
+                      className="menu-submenu-bottom-link"
+                      onClick={this.props.closeMenu}
+                    >
+                      <div className="menu-submenu-bottom-item">Inbox</div>
+                    </NavLink>
+                    <NavLink
+                      to="/messages/unread"
+                      className="menu-submenu-bottom-link"
+                      onClick={this.props.closeMenu}
+                    >
+                      <div className="menu-submenu-bottom-item">Unread</div>
+                    </NavLink>
+                    {/* <NavLink
                   to="/inbox"
                   className="menu-submenu-bottom-link"
                   onClick={this.props.closeMenu}
                 >
                   <div className="menu-submenu-bottom-item">Messages</div>
                 </NavLink> */}
-                  <NavLink
-                    to="/messages/sent"
-                    className="menu-submenu-bottom-link"
-                    onClick={this.props.closeMenu}
-                  >
-                    <div className="menu-submenu-bottom-item">Sent</div>
-                  </NavLink>
-                  {/* <NavLink
+                    <NavLink
+                      to="/messages/sent"
+                      className="menu-submenu-bottom-link"
+                      onClick={this.props.closeMenu}
+                    >
+                      <div className="menu-submenu-bottom-item">Sent</div>
+                    </NavLink>
+                    {/* <NavLink
                   to="/inbox"
                   className="menu-submenu-bottom-link"
                   onClick={this.props.closeMenu}
@@ -281,32 +288,37 @@ class Menu extends Component {
                 >
                   <div className="menu-submenu-bottom-item">Mentions</div>
                 </NavLink> */}
-                </div>
-              ) : null}
-            </div>
-          ) : null}
-          {this.props.user.user.id ? (
-            <div className="menu-submenu-item">
-              <div className="menu-submenu-top">
-                <NavLink
-                  to="/filter"
-                  className="menu-submenu-title"
-                  onClick={this.props.closeMenu}
-                >
-                  <img className="menu-submenu-icon" src={filterIcon} alt="" />
-                  Domain Filters
-                </NavLink>
+                  </div>
+                ) : null}
               </div>
-            </div>
-          ) : null}
-          <div className="menu-submenu-item">
+            ) : null}
+            {this.props.user.user.id ? (
+              <div className="menu-submenu-item">
+                <div className="menu-submenu-top">
+                  <NavLink
+                    to="/filter"
+                    className="menu-submenu-title"
+                    onClick={this.props.closeMenu}
+                  >
+                    <img
+                      className="menu-submenu-icon"
+                      src={filterIcon}
+                      alt=""
+                    />
+                    Domain Filters
+                  </NavLink>
+                </div>
+              </div>
+            ) : null}
+            {/* <div className="menu-submenu-item">
             <div className="menu-submenu-top">
               <span className="menu-submenu-title">
                 <img className="menu-submenu-icon" src={settingsIcon} alt="" />Settings
               </span>
             </div>
+          </div> */}
           </div>
-        </div>
+        ) : null}
         <div className="menu-subreddit-container">
           <form
             className="menu-subreddit-search-form"

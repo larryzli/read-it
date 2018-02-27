@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 // IMPORT ICONS
 import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
 import commentIcon from "../../icons/comment_tiny.svg";
@@ -14,6 +15,8 @@ import starIconFilled from "../../icons/ic_star_white_20px.svg";
 import hideIcon from "../../icons/ic_visibility_off_white_20px.svg";
 import unhideIcon from "../../icons/ic_visibility_white_20px.svg";
 import lockIcon from "../../icons/ic_lock_outline_white_10px.svg";
+import defaultThumb from "../../icons/default-thumbnail.svg";
+import warningThumb from "../../icons/warning-thumbnail.svg";
 // import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
 
 // COMPONENT
@@ -178,14 +181,43 @@ class PostCard extends Component {
           {!this.props.thumbnail ? null : this.props.thumbnail ===
           "self" ? null : this.props.thumbnail === "image" ? (
             <a className="post-link" href={this.props.url}>
-              <img className="post-thumbnail" src={this.props.url} alt="" />
+              <img
+                className="post-thumbnail"
+                src={this.props.url}
+                alt="post thumbnail"
+                onError={e => {
+                  e.target.onError = null;
+                  e.target.src = defaultThumb;
+                }}
+              />
+            </a>
+          ) : this.props.thumbnail === "default" ? (
+            <a className="post-link" href={this.props.url}>
+              <img
+                className="post-thumbnail"
+                src={defaultThumb}
+                alt="post thumbnail"
+              />
+            </a>
+          ) : this.props.thumbnail === "nsfw" ||
+          this.props.thumbnail === "spoiler" ? (
+            <a className="post-link" href={this.props.url}>
+              <img
+                className="post-thumbnail"
+                src={warningThumb}
+                alt="post thumbnail"
+              />
             </a>
           ) : (
             <a className="post-link" href={this.props.url}>
               <img
                 className="post-thumbnail"
                 src={this.props.thumbnail}
-                alt=""
+                alt="post thumbnail"
+                onError={e => {
+                  e.target.onError = null;
+                  e.target.src = defaultThumb;
+                }}
               />
             </a>
           )}
@@ -239,7 +271,7 @@ class PostCard extends Component {
               </div>
               {this.props.type === "t1" ? (
                 <div className="post-comment-body">
-                  {this.props.commentBody}
+                  <ReactMarkdown source={this.props.commentBody} />
                 </div>
               ) : null}
               <div className="post-data">

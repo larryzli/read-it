@@ -218,6 +218,21 @@ body {
             font-size: 12px;
             font-weight: 100;
             padding-right: 3px; }
+            .posts .card-container .post-container .post-route .post-info .post-comment-body :first-child {
+              margin-top: 0px; }
+            .posts .card-container .post-container .post-route .post-info .post-comment-body :last-child {
+              margin-bottom: 0px; }
+            .posts .card-container .post-container .post-route .post-info .post-comment-body a {
+              text-decoration: none;
+              color: #5ca4f7; }
+              .posts .card-container .post-container .post-route .post-info .post-comment-body a:hover {
+                text-decoration: underline; }
+            .posts .card-container .post-container .post-route .post-info .post-comment-body pre {
+              overflow: hidden;
+              overflow-x: scroll;
+              word-break: break-all; }
+              .posts .card-container .post-container .post-route .post-info .post-comment-body pre code {
+                word-break: break-all; }
           .posts .card-container .post-container .post-route .post-info .post-details {
             font-size: 10px;
             color: grey;
@@ -228,7 +243,7 @@ body {
             .posts .card-container .post-container .post-route .post-info .post-details .post-tags .post-tag .tag-icon {
               margin-bottom: -2px; }
             .posts .card-container .post-container .post-route .post-info .post-details .post-subreddit {
-              color: #4a90e2;
+              color: #5ca4f7;
               white-space: nowrap; }
             .posts .card-container .post-container .post-route .post-info .post-details .post-author {
               white-space: nowrap; }
@@ -319,7 +334,7 @@ body {
         overflow: hidden;
         margin-top: 2px; }
         .message-card-info .message-post .message-post-title .message-subreddit .message-subreddit-name {
-          color: #4a90e2;
+          color: #5ca4f7;
           font-weight: 500;
           word-wrap: break-word;
           overflow-wrap: break-word;
@@ -343,6 +358,15 @@ body {
       overflow: hidden;
       overflow-wrap: break-word;
       word-wrap: break-word; }
+      .message-card-info .message-body .message-body-text :first-child {
+        margin-top: 0px; }
+      .message-card-info .message-body .message-body-text :last-child {
+        margin-bottom: 0px; }
+      .message-card-info .message-body .message-body-text a {
+        text-decoration: none;
+        color: #5ca4f7; }
+        .message-card-info .message-body .message-body-text a:hover {
+          text-decoration: underline; }
 
 .message-dropdown {
   display: flex;
@@ -384,15 +408,32 @@ body {
       font-weight: 300;
       color: #fff;
       margin-bottom: 3px; }
+      .postdata-container .postdata-info-container .postdata-title a {
+        text-decoration: none;
+        color: #fff; }
     .postdata-container .postdata-info-container .postdata-body {
-      color: white;
+      color: #fff;
       padding: 10px 0;
       font-size: 12px; }
+      .postdata-container .postdata-info-container .postdata-body :first-child {
+        margin-top: 0px; }
+      .postdata-container .postdata-info-container .postdata-body :last-child {
+        margin-bottom: 0px; }
+      .postdata-container .postdata-info-container .postdata-body a {
+        text-decoration: none;
+        color: #5ca4f7; }
+        .postdata-container .postdata-info-container .postdata-body a:hover {
+          text-decoration: underline; }
+      .postdata-container .postdata-info-container .postdata-body pre {
+        overflow: hidden;
+        overflow-x: scroll;
+        word-break: break-all;
+        max-width: 95vw; }
     .postdata-container .postdata-info-container .postdata-info {
       font-size: 12px;
       padding: 3px 0; }
       .postdata-container .postdata-info-container .postdata-info .postdata-subreddit {
-        color: #4a90e2;
+        color: #5ca4f7;
         white-space: nowrap; }
     .postdata-container .postdata-info-container .postdata-data {
       font-size: 12px; }
@@ -465,7 +506,24 @@ body {
       .comment-wrapper .comment-container .comment-text .comment-body {
         overflow-wrap: break-word;
         word-wrap: break-word;
-        word-break: break-word; }
+        word-break: break-word;
+        max-width: 100%;
+        max-width: 90vw; }
+        .comment-wrapper .comment-container .comment-text .comment-body :first-child {
+          margin-top: 0px; }
+        .comment-wrapper .comment-container .comment-text .comment-body :last-child {
+          margin-bottom: 0px; }
+        .comment-wrapper .comment-container .comment-text .comment-body a {
+          text-decoration: none;
+          color: #5ca4f7; }
+          .comment-wrapper .comment-container .comment-text .comment-body a:hover {
+            text-decoration: underline; }
+        .comment-wrapper .comment-container .comment-text .comment-body pre {
+          overflow: hidden;
+          overflow-x: scroll;
+          word-break: break-all; }
+          .comment-wrapper .comment-container .comment-text .comment-body pre code {
+            word-break: break-all; }
   .comment-wrapper .comment-controls {
     display: flex;
     justify-content: space-between;
@@ -591,7 +649,7 @@ body {
 
 .load-more {
   font-size: 10px;
-  color: #4a90e2;
+  color: #5ca4f7;
   margin-left: 5px;
   cursor: pointer; }
 
@@ -666,6 +724,99 @@ body {
       background-color: #fff;
       color: #ff445b; }
 
+.sidebar-wrapper {
+  color: white;
+  text-decoration: none; }
+  .sidebar-wrapper .sidebar-container .sidebar-banner {
+    width: 100%;
+    object-fit: cover;
+    box-shadow: 0px 0px 2px #111;
+    margin-bottom: -5px; }
+  .sidebar-wrapper .sidebar-container .sidebar-box {
+    display: flex;
+    padding: 10px;
+    box-shadow: 0px 0px 2px #111;
+    margin: 0 10px;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-bottom: 10px; }
+    .sidebar-wrapper .sidebar-container .sidebar-box .sidebar-icon {
+      width: 50px;
+      height: 50px;
+      object-fit: cover; }
+    .sidebar-wrapper .sidebar-container .sidebar-box .sidebar-data {
+      display: flex;
+      flex-direction: column;
+      margin-left: 10px;
+      justify-content: center; }
+      .sidebar-wrapper .sidebar-container .sidebar-box .sidebar-data .sidebar-name {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 5px; }
+      .sidebar-wrapper .sidebar-container .sidebar-box .sidebar-data .sidebar-stat {
+        font-size: 12px;
+        color: #bbb; }
+    .sidebar-wrapper .sidebar-container .sidebar-box .sidebar-button {
+      width: 100%;
+      height: 50px;
+      border-radius: 3px;
+      border: none;
+      outline: none;
+      color: #fff; }
+    .sidebar-wrapper .sidebar-container .sidebar-box .unsubscribe {
+      background-color: #ff445b; }
+      .sidebar-wrapper .sidebar-container .sidebar-box .unsubscribe:hover {
+        color: #ff445b;
+        background-color: #fff; }
+    .sidebar-wrapper .sidebar-container .sidebar-box .subscribe {
+      background-color: #06d6a0; }
+      .sidebar-wrapper .sidebar-container .sidebar-box .subscribe:hover {
+        color: #06d6a0;
+        background-color: #fff; }
+  .sidebar-wrapper .sidebar-container .sidebar-content {
+    display: flex;
+    flex-direction: column; }
+    .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-title {
+      margin: 0;
+      font-size: 18px;
+      padding: 10px; }
+    .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subtitle {
+      margin: 0;
+      font-size: 12px;
+      color: grey;
+      background-color: #333;
+      padding: 10px;
+      display: flex;
+      align-items: center; }
+      .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subtitle img {
+        margin-right: 10px; }
+    .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subreddit {
+      margin-bottom: 5px;
+      display: flex;
+      padding: 10px;
+      box-shadow: 0px 0px 2px #111;
+      margin: 0 10px;
+      border-radius: 3px;
+      margin-top: 10px; }
+      .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subreddit .sidebar-link {
+        text-decoration: none;
+        color: #5ca4f7;
+        font-size: 12px; }
+        .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subreddit .sidebar-link:hover {
+          text-decoration: underline; }
+    .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-body {
+      font-size: 12px;
+      padding: 10px; }
+      .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-body :first-child {
+        margin-top: 0px; }
+      .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-body :last-child {
+        margin-bottom: 0px; }
+      .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-body a {
+        text-decoration: none;
+        color: #5ca4f7; }
+        .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-body a:hover {
+          text-decoration: underline; }
+
 .filter-container {
   display: flex;
   flex-direction: column;
@@ -736,7 +887,7 @@ body {
             color: #fff;
             cursor: pointer; }
         .filter-container .filter-list .filter-list-item .filter-item-content .edit:hover {
-          background-color: #4a90e2;
+          background-color: #5ca4f7;
           color: #fff; }
         .filter-container .filter-list .filter-list-item .filter-item-content .delete:hover {
           background-color: #ff445b;
