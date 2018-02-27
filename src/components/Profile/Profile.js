@@ -72,7 +72,7 @@ class Profile extends Component {
   };
 
   refreshHandler = () => {
-    this.setState({ loading: true, after: "" });
+    this.setState({ loading: true, after: "", posts: [] });
 
     let url = `/api/user/about?username=${
       this.props.match.params.username
@@ -169,6 +169,7 @@ class Profile extends Component {
         <img src={loading} className="loader-svg" alt="loading" />
       </div>
     );
+    const end = <div className="end-message">End of profile</div>;
     // CREATE MESSAGE BUTTON
     const newMessageButton = (
       <div
@@ -272,7 +273,9 @@ class Profile extends Component {
       </div>
     );
     // EMPTY POSTS
-    const emptyPosts = <div>There doesn't seem to be anything here</div>;
+    const emptyPosts = (
+      <div className="end-message">There doesn't seem to be anything here</div>
+    );
     //PROFILE COMMENTS AND POSTS
     const posts = [];
     this.state.posts.forEach((post, index) => {
@@ -401,6 +404,7 @@ class Profile extends Component {
           <div className="posts">
             {posts.length > 0 || this.state.loading ? posts : emptyPosts}
           </div>
+          {this.state.posts.length && !this.state.after ? end : null}
         </InfiniteScroll>
         {this.props.user.user.name &&
         this.props.match.params.username !== this.props.user.user.name
