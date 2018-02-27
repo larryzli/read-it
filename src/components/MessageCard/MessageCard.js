@@ -107,7 +107,7 @@ class MessageCard extends Component {
         {this.state.showControls ? (
           <div className="card-controls">
             <div className="card-left-controls">
-              {this.props.new ? (
+              {this.props.new && this.props.filter !== "sent" ? (
                 <img
                   className="card-control-icon"
                   src={readIcon}
@@ -115,7 +115,7 @@ class MessageCard extends Component {
                   onClick={e => this.props.read(this.props.name)}
                   style={{ marginRight: "7px" }}
                 />
-              ) : (
+              ) : this.props.filter !== "sent" ? (
                 <img
                   className="card-control-icon"
                   src={unreadIcon}
@@ -123,7 +123,7 @@ class MessageCard extends Component {
                   onClick={e => this.props.unread(this.props.name)}
                   style={{ marginRight: "7px" }}
                 />
-              )}
+              ) : null}
               <img
                 className="card-control-icon"
                 src={profileIcon}
@@ -136,7 +136,14 @@ class MessageCard extends Component {
                   src={replyIcon}
                   alt="reply to message"
                   onClick={e =>
-                    this.props.sendReply(this.props.author, this.props.subject)
+                    this.props.sendReply(
+                      this.props.filter !== "sent"
+                        ? this.props.author
+                        : this.props.dest,
+                      this.props.filter !== "sent"
+                        ? this.props.subject
+                        : "re: " + this.props.subject
+                    )
                   }
                 />
               ) : (
@@ -153,7 +160,8 @@ class MessageCard extends Component {
                 />
               )}
             </div>
-            {this.state.messageType === "Message" ? (
+            {this.state.messageType === "Message" &&
+            this.props.filter !== "sent" ? (
               <div className="card-right-controls">
                 <img
                   className="card-control-icon"

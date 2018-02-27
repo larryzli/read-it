@@ -15,6 +15,7 @@ import starIconEmpty from "../../icons/ic_star_border_white_20px.svg";
 import starIconFilled from "../../icons/ic_star_white_20px.svg";
 import profileIcon from "../../icons/ic_person_white_20px.svg";
 import replyIcon from "../../icons/ic_reply_white_20px.svg";
+import clearIcon from "../../icons/ic_clear_white_20px.svg";
 // import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
 
 // COMPONENT
@@ -26,6 +27,9 @@ class Comment extends Component {
       moreComments: [],
       showMore: true,
       showControls: false,
+
+      // DELETED
+      deleted: false,
 
       // REPLY INPUT
       showReplyInput: false,
@@ -211,6 +215,21 @@ class Comment extends Component {
       alert("Please login to use this feature");
     }
   };
+  delete = () => {
+    if (this.props.enableControls) {
+      axios
+        .post("/api/comment/delete", {
+          id: `t1_${this.props.commentData.id}`
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(console.log);
+      this.setState({ deleted: true });
+    } else {
+      alert("Please login to use this feature");
+    }
+  };
 
   render() {
     // console.log(this.props);
@@ -301,8 +320,6 @@ class Comment extends Component {
           />
         );
       } else {
-        console.log(comment);
-        console.log(this.state, this.props);
         return (
           <div key={index}>
             <div
@@ -351,10 +368,19 @@ class Comment extends Component {
                         color: "#ffffff",
                         borderRadius: "3px"
                       }
-                    : null
+                    : this.props.commentData.author === this.props.user
+                      ? {
+                          backgroundColor: "#06d6a0",
+                          padding: "0 5px",
+                          color: "#ffffff",
+                          borderRadius: "3px"
+                        }
+                      : null
                 }
               >
-                {this.props.commentData.author}
+                {this.state.deleted
+                  ? "[deleted]"
+                  : this.props.commentData.author}
               </span>
 
               <span
@@ -377,7 +403,11 @@ class Comment extends Component {
               </span>
             </div>
             <div className="comment-body">
-              <ReactMarkdown source={this.props.commentData.body} />
+              <ReactMarkdown
+                source={
+                  this.state.deleted ? "[deleted]" : this.props.commentData.body
+                }
+              />
             </div>
           </div>
           {replies ? (
@@ -449,9 +479,16 @@ class Comment extends Component {
                 onClick={e => this.toggleInput()}
               />
             </div>
-            {/* <div className="comment-right-controls">
-              <img className="comment-control-icon" src={moreIcon} alt="" />
-            </div> */}
+            {this.props.user === this.props.commentData.author ? (
+              <div className="comment-right-controls">
+                <img
+                  className="comment-control-icon"
+                  src={clearIcon}
+                  alt="delete comment"
+                  onClick={e => this.delete()}
+                />
+              </div>
+            ) : null}
           </div>
         ) : null}
         {this.state.showReplyInput ? replyInput : null}
