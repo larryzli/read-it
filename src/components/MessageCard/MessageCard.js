@@ -135,14 +135,21 @@ class MessageCard extends Component {
                   className="card-control-icon"
                   src={replyIcon}
                   alt="reply to message"
-                  onClick={e => console.log("reply function")}
+                  onClick={e =>
+                    this.props.sendReply(this.props.author, this.props.subject)
+                  }
                 />
               ) : (
                 <img
                   className="card-control-icon"
                   src={findIcon}
                   alt="show post"
-                  onClick={e => console.log("show function")}
+                  onClick={e =>
+                    this.props.goToPost(
+                      this.props.subreddit,
+                      this.props.context
+                    )
+                  }
                 />
               )}
             </div>

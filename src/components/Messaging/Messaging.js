@@ -41,6 +41,8 @@ class Messaging extends Component {
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.authorProfile = this.authorProfile.bind(this);
     this.createMessage = this.createMessage.bind(this);
+    this.sendReply = this.sendReply.bind(this);
+    this.goToPost = this.goToPost.bind(this);
   }
   componentDidMount() {
     this.props.getUserInfo().then(response => {
@@ -57,6 +59,22 @@ class Messaging extends Component {
         }
       } else this.setState({ loggedIn: false, loading: false });
     });
+  }
+
+  // SEND REPLY
+  sendReply(author, subject) {
+    if (subject[0] !== "r" && subject[1] !== "e" && subject[2] !== ":") {
+      subject = "re: " + subject;
+    }
+
+    this.props.history.push(`/createmessage/${author}/${subject}`);
+  }
+
+  // GO TO POST
+  goToPost(subreddit, postID) {
+    postID = postID.split("/");
+    postID = postID[postID.length - 4];
+    this.props.history.push(`/r/${subreddit}/post/${postID}`);
   }
 
   backAction() {
@@ -239,21 +257,7 @@ class Messaging extends Component {
     const end = <div className="end-message">End of messages</div>;
     const messages = this.state.inbox.map(message => {
       let m = message.data;
-
       return (
-        // <div key={m.name}>
-        //   <p>author: {m.author}</p>
-        //   <p>subreddit: {m.subreddit}</p>
-        //   <p>text: {m.body}</p>
-        //   {this.state.filter === "sent" ? null : m.new ? (
-        //     <button onClick={() => this.markRead(m.name)}>Mark Read</button>
-        //   ) : (
-        //     <button onClick={() => this.markUnread(m.name)}>Mark Unread</button>
-        //   )}
-        //   {message.kind === "t4" && this.state.filter !== "sent" ? (
-        //     <button onClick={() => this.deleteMessage(m.name)}>Delete</button>
-        //   ) : null}
-        // </div>
         <MessageCard
           filter={this.state.filter}
           age={moment(m.created_utc * 1000).fromNow()}
@@ -272,6 +276,8 @@ class Messaging extends Component {
           unread={this.markUnread}
           delete={this.deleteMessage}
           visitAuthor={this.authorProfile}
+          sendReply={this.sendReply}
+          goToPost={this.goToPost}
         />
       );
     });

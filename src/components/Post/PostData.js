@@ -14,6 +14,7 @@ import starIconFilled from "../../icons/ic_star_white_20px.svg";
 import hideIcon from "../../icons/ic_visibility_off_white_20px.svg";
 import unhideIcon from "../../icons/ic_visibility_white_20px.svg";
 import profileIcon from "../../icons/ic_person_white_20px.svg";
+import defaultPreview from "../../icons/default-preview.svg";
 
 // COMPONENT
 const PostData = ({
@@ -32,15 +33,20 @@ const PostData = ({
   hide,
   unhide
 }) => {
+  console.log(postData);
   return (
     <div className="postdata-container">
       <div>
-        {postData.image ? (
+        {postData.domain !== `self.${postData.subreddit_title}` ? (
           <a className="postdata-link" href={postData.url}>
             <img
               className="postdata-image"
               src={postData.image}
               alt="link preview"
+              onError={e => {
+                e.target.onError = null;
+                e.target.src = defaultPreview;
+              }}
             />
 
             <div className="postdata-link-info-container">
@@ -51,7 +57,13 @@ const PostData = ({
         ) : null}
       </div>
       <div className="postdata-info-container">
-        <div className="postdata-title">{postData.post_title}</div>
+        <div className="postdata-title">
+          {postData.domain !== `self.${postData.subreddit_title}` ? (
+            <a href={postData.url}>{postData.post_title}</a>
+          ) : (
+            postData.post_title
+          )}
+        </div>
         <div className="postdata-info">
           <span className="postdata-subreddit">
             /r/{postData.subreddit_title}

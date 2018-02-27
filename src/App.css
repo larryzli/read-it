@@ -393,8 +393,11 @@ body {
       font-weight: 300;
       color: #fff;
       margin-bottom: 3px; }
+      .postdata-container .postdata-info-container .postdata-title a {
+        text-decoration: none;
+        color: #fff; }
     .postdata-container .postdata-info-container .postdata-body {
-      color: white;
+      color: #fff;
       padding: 10px 0;
       font-size: 12px; }
       .postdata-container .postdata-info-container .postdata-body :first-child {
@@ -406,6 +409,11 @@ body {
         color: #5ca4f7; }
         .postdata-container .postdata-info-container .postdata-body a:hover {
           text-decoration: underline; }
+      .postdata-container .postdata-info-container .postdata-body pre {
+        overflow: hidden;
+        overflow-x: scroll;
+        word-break: break-all;
+        max-width: 95vw; }
     .postdata-container .postdata-info-container .postdata-info {
       font-size: 12px;
       padding: 3px 0; }
@@ -483,7 +491,9 @@ body {
       .comment-wrapper .comment-container .comment-text .comment-body {
         overflow-wrap: break-word;
         word-wrap: break-word;
-        word-break: break-word; }
+        word-break: break-word;
+        max-width: 100%;
+        max-width: 90vw; }
         .comment-wrapper .comment-container .comment-text .comment-body :first-child {
           margin-top: 0px; }
         .comment-wrapper .comment-container .comment-text .comment-body :last-child {
@@ -493,6 +503,12 @@ body {
           color: #5ca4f7; }
           .comment-wrapper .comment-container .comment-text .comment-body a:hover {
             text-decoration: underline; }
+        .comment-wrapper .comment-container .comment-text .comment-body pre {
+          overflow: hidden;
+          overflow-x: scroll;
+          word-break: break-all; }
+          .comment-wrapper .comment-container .comment-text .comment-body pre code {
+            word-break: break-all; }
   .comment-wrapper .comment-controls {
     display: flex;
     justify-content: space-between;
@@ -707,9 +723,8 @@ body {
     box-shadow: 0px 0px 2px #111;
     margin: 0 10px;
     border-radius: 3px;
-    margin-top: 10px; }
-    .sidebar-wrapper .sidebar-container .sidebar-box:last-child {
-      margin-bottom: 10px; }
+    margin-top: 10px;
+    margin-bottom: 10px; }
     .sidebar-wrapper .sidebar-container .sidebar-box .sidebar-icon {
       width: 50px;
       height: 50px;
@@ -743,36 +758,50 @@ body {
       .sidebar-wrapper .sidebar-container .sidebar-box .subscribe:hover {
         color: #06d6a0;
         background-color: #fff; }
-    .sidebar-wrapper .sidebar-container .sidebar-box .sidebar-title {
-      margin: 0;
-      font-size: 18px;
-      text-align: center; }
-  .sidebar-wrapper .sidebar-container .content {
+  .sidebar-wrapper .sidebar-container .sidebar-content {
     display: flex;
     flex-direction: column; }
-    .sidebar-wrapper .sidebar-container .content .sidebar-subtitle {
+    .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-title {
+      margin: 0;
+      font-size: 18px;
+      padding: 10px; }
+    .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subtitle {
       margin: 0;
       font-size: 12px;
       color: grey;
-      text-align: center;
+      margin-bottom: 10px;
+      background-color: #333;
+      padding: 10px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center; }
+      .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subtitle img {
+        margin-right: 10px; }
+    .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subreddit {
+      margin-bottom: 5px;
+      display: flex;
+      padding: 10px;
+      box-shadow: 0px 0px 2px #111;
+      margin: 0 10px;
+      border-radius: 3px;
       margin-bottom: 10px; }
-    .sidebar-wrapper .sidebar-container .content .sidebar-subreddit {
-      margin-bottom: 5px; }
-      .sidebar-wrapper .sidebar-container .content .sidebar-subreddit .sidebar-link {
+      .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subreddit .sidebar-link {
         text-decoration: none;
-        color: #5ca4f7; }
-        .sidebar-wrapper .sidebar-container .content .sidebar-subreddit .sidebar-link:hover {
+        color: #5ca4f7;
+        font-size: 12px; }
+        .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-subreddit .sidebar-link:hover {
           text-decoration: underline; }
-    .sidebar-wrapper .sidebar-container .content .sidebar-body {
-      font-size: 12px; }
-      .sidebar-wrapper .sidebar-container .content .sidebar-body :first-child {
+    .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-body {
+      font-size: 12px;
+      padding: 10px; }
+      .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-body :first-child {
         margin-top: 0px; }
-      .sidebar-wrapper .sidebar-container .content .sidebar-body :last-child {
+      .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-body :last-child {
         margin-bottom: 0px; }
-      .sidebar-wrapper .sidebar-container .content .sidebar-body a {
+      .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-body a {
         text-decoration: none;
         color: #5ca4f7; }
-        .sidebar-wrapper .sidebar-container .content .sidebar-body a:hover {
+        .sidebar-wrapper .sidebar-container .sidebar-content .sidebar-body a:hover {
           text-decoration: underline; }
 
 .filter-container {

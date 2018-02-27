@@ -13,6 +13,7 @@ import Saved from "./components/Profile/Saved";
 export default (
   <Switch>
     <Route exact path="/" component={Subreddit} />
+    <Route path="/createmessage/:username/:title" component={SendMessage} />
     <Route path="/createmessage/:username" component={SendMessage} />
     <Route path="/createmessage/" component={SendMessage} />
     <Route path="/profile/me/saved/" component={Saved} />

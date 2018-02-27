@@ -4,6 +4,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import ReactMarkdown from "react-markdown";
+// IMPORT ICONS
+import descriptionIcon from "../../icons/ic_description_white_20px.svg";
+import rulesIcon from "../../icons/ic_assignment_white_20px.svg";
+import titleIcon from "../../icons/ic_view_headline_white_20px.svg";
+import trendingIcon from "../../icons/ic_trending_up_white_20px.svg";
 // IMPORT REDUX FUNCTIONS
 import {
   getSidebarSubreddit,
@@ -129,14 +134,20 @@ class Sidebar extends Component {
               </div>
             ) : null}
 
-            <div className="sidebar-box">
+            <div className="sidebar-content">
+              <h3 className="sidebar-subtitle">
+                <img src={titleIcon} alt="subreddit title" /> TITLE:
+              </h3>
               <h2 className="sidebar-title">
                 {this.props.subreddit.subreddit.title}
               </h2>
             </div>
             {this.props.subreddit.subreddit.public_description ? (
-              <div className="sidebar-box content">
-                <h3 className="sidebar-subtitle">DESCRIPTION:</h3>
+              <div className="sidebar-content">
+                <h3 className="sidebar-subtitle">
+                  <img src={descriptionIcon} alt="subreddit description" />{" "}
+                  DESCRIPTION
+                </h3>
                 <div className="sidebar-body">
                   <ReactMarkdown
                     source={
@@ -152,8 +163,10 @@ class Sidebar extends Component {
                 </div>
               </div>
             ) : null}
-            <div className="sidebar-box content">
-              <h3 className="sidebar-subtitle">RULES:</h3>
+            <div className="sidebar-content">
+              <h3 className="sidebar-subtitle">
+                <img src={rulesIcon} alt="subreddit rules" /> RULES
+              </h3>
               <div className="sidebar-body">
                 <ReactMarkdown
                   source={
@@ -171,23 +184,25 @@ class Sidebar extends Component {
           </div>
         ) : (
           <div className="sidebar-container">
-            <div className="sidebar-box content">
-              <span className="sidebar-subtitle">TRENDING SUBREDDITS</span>
-              <ul>
-                {this.props.subreddit.trending.map((subreddit, i) => {
-                  return (
-                    <li key={i} className="sidebar-subreddit">
-                      <Link
-                        className="sidebar-link"
-                        onClick={e => this.props.closeSidebar()}
-                        to={`/r/${subreddit}`}
-                      >
-                        <span>{subreddit}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+            <div className="sidebar-content">
+              <h3 className="sidebar-subtitle">
+                <img src={trendingIcon} alt="trending subreddits" />TRENDING
+                SUBREDDITS
+              </h3>
+
+              {this.props.subreddit.trending.map((subreddit, i) => {
+                return (
+                  <div key={i} className="sidebar-subreddit">
+                    <Link
+                      className="sidebar-link"
+                      onClick={e => this.props.closeSidebar()}
+                      to={`/r/${subreddit}`}
+                    >
+                      <span>/r/{subreddit}</span>
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}

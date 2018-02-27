@@ -14,7 +14,7 @@ class SendMessage extends Component {
 
     this.state = {
       // MESSAGE DATA
-      subject: "",
+      subject: this.props.match.params.title || "",
       message: "",
       username: this.props.match.params.username || ""
     };
@@ -78,15 +78,22 @@ class SendMessage extends Component {
               className="submit-post-input"
             />
           )}
-          <input
-            placeholder="Subject"
-            type="text"
-            onChange={e => this.handleChange("subject", e.target.value)}
-            className="submit-post-input"
-          />
+          {this.props.match.params.title ? (
+            <div className="submit-post-subreddit">
+              Subject: {this.state.subject}
+            </div>
+          ) : (
+            <input
+              placeholder="Subject"
+              type="text"
+              onChange={e => this.handleChange("subject", e.target.value)}
+              className="submit-post-input"
+            />
+          )}
           <textarea
             placeholder="Message"
             type="text"
+            style={{ marginTop: "10px" }}
             onChange={e => this.handleChange("message", e.target.value)}
             className="submit-post-input submit-post-text-area"
           />

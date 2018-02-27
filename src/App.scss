@@ -582,10 +582,15 @@ body {
       font-weight: 300;
       color: $white;
       margin-bottom: 3px;
+
+      a {
+        text-decoration: none;
+        color: $white;
+      }
     }
 
     .postdata-body {
-      color: white;
+      color: $white;
       padding: 10px 0;
       font-size: 12px;
 
@@ -602,6 +607,12 @@ body {
         &:hover {
           text-decoration: underline;
         }
+      }
+      pre {
+        overflow: hidden;
+        overflow-x: scroll;
+        word-break: break-all;
+        max-width: 95vw;
       }
     }
 
@@ -712,6 +723,8 @@ body {
         overflow-wrap: break-word;
         word-wrap: break-word;
         word-break: break-word;
+        max-width: 100%;
+        max-width: 90vw;
 
         :first-child {
           margin-top: 0px;
@@ -725,6 +738,15 @@ body {
 
           &:hover {
             text-decoration: underline;
+          }
+        }
+        pre {
+          overflow: hidden;
+          overflow-x: scroll;
+          word-break: break-all;
+          // max-width: 90vw;
+          code {
+            word-break: break-all;
           }
         }
       }
@@ -1017,10 +1039,11 @@ body {
       margin: 0 10px;
       border-radius: 3px;
       margin-top: 10px;
+      margin-bottom: 10px;
 
-      &:last-child {
-        margin-bottom: 10px;
-      }
+      // &:last-of-type {
+      //   margin-bottom: 10px;
+      // }
 
       .sidebar-icon {
         width: 50px;
@@ -1070,30 +1093,46 @@ body {
           background-color: $white;
         }
       }
+    }
+    .sidebar-content {
+      display: flex;
+      flex-direction: column;
 
       .sidebar-title {
         margin: 0;
         font-size: 18px;
-        text-align: center;
+        padding: 10px;
       }
-    }
-    .content {
-      display: flex;
-      flex-direction: column;
 
       .sidebar-subtitle {
         margin: 0;
         font-size: 12px;
         color: $grey5;
-        text-align: center;
         margin-bottom: 10px;
+        background-color: $grey1;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+
+        img {
+          margin-right: 10px;
+        }
       }
 
       .sidebar-subreddit {
         margin-bottom: 5px;
+        display: flex;
+        padding: 10px;
+        box-shadow: $shadow;
+        margin: 0 10px;
+        border-radius: 3px;
+        margin-bottom: 10px;
+
         .sidebar-link {
           text-decoration: none;
           color: $blue1;
+          font-size: 12px;
 
           &:hover {
             text-decoration: underline;
@@ -1103,6 +1142,7 @@ body {
 
       .sidebar-body {
         font-size: 12px;
+        padding: 10px;
 
         :first-child {
           margin-top: 0px;
