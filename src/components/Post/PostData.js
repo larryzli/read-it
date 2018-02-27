@@ -62,7 +62,13 @@ const PostData = ({
         {postData.is_self && postData.body ? (
           <div className="postdata-body">
             <ReactMarkdown
-              source={postData.body.split("https://www.reddit.com").join("")}
+              source={
+                postData.body
+                // .split("https://www.reddit.com")
+                // .join("")
+                // .split("http://www.reddit.com")
+                // .join("")
+              }
             />
           </div>
         ) : null}

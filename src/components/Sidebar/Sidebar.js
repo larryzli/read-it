@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import ReactMarkdown from "react-markdown";
 // IMPORT REDUX FUNCTIONS
 import {
   getSidebarSubreddit,
@@ -13,6 +14,10 @@ import {
 class Sidebar extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      subscribed: this.props.subreddit.subreddit.user_is_subscriber
+    };
     this.handleSubscribe = this.handleSubscribe.bind(this);
     this.handleUnsubscribe = this.handleUnsubscribe.bind(this);
     this.getInfo = this.getInfo.bind(this);
@@ -39,6 +44,7 @@ class Sidebar extends Component {
   }
 
   handleSubscribe() {
+    this.setState({ subscribed: !this.state.subscribed });
     axios
       .post("/api/subscribe", {
         sr_name: this.props.subreddit.subreddit.display_name,
@@ -49,6 +55,7 @@ class Sidebar extends Component {
   }
 
   handleUnsubscribe() {
+    this.setState({ subscribed: !this.state.subscribed });
     axios
       .post("/api/subscribe", {
         sr_name: this.props.subreddit.subreddit.display_name,
@@ -58,37 +65,109 @@ class Sidebar extends Component {
       .catch(console.log);
   }
 
+  numberWithCommas = (num = 0) => {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
   render() {
     console.log(this.props);
     return (
-      <div>
+      <div className="sidebar-wrapper">
         {this.props.subreddit_name &&
         this.props.subreddit_name.toLowerCase() !== "all" ? (
-          <div>
-            <div>
-              {this.props.user.user.id ? (
-                this.props.subreddit.subreddit.user_is_subscriber ? (
-                  <button>Unsubscribe</button>
-                ) : (
-                  <button>Subscribe</button>
-                )
+          <div className="sidebar-container">
+            {this.props.subreddit.subreddit.banner_img ? (
+              <img
+                src={this.props.subreddit.subreddit.banner_img}
+                alt="subreddit banner"
+                className="sidebar-banner"
+              />
+            ) : null}
+            <div className="sidebar-box">
+              {this.props.subreddit.subreddit.icon_img ? (
+                <img
+                  src={this.props.subreddit.subreddit.icon_img}
+                  alt="subreddit-icon"
+                  className="sidebar-icon"
+                />
               ) : null}
-            </div>
-            <div>
-              <h2>{this.props.subreddit.subreddit.title}</h2>
-              <h3>Subscribers:</h3>
-              <p>{this.props.subreddit.subreddit.subscribers}</p>
-              <h3>Active Users:</h3>
-              <p>{this.props.subreddit.subreddit.active_user_count}</p>
-              {this.props.subreddit.subreddit.public_description ? (
-                <div>
-                  <h3>Description:</h3>
-
-                  <p>{this.props.subreddit.subreddit.public_description}</p>
+              <div className="sidebar-data">
+                <div className="sidebar-name">
+                  /r/{this.props.subreddit_name}
                 </div>
-              ) : null}
-              <h3>Rules:</h3>
-              <p>{this.props.subreddit.subreddit.description}</p>
+
+                <div className="sidebar-stat">
+                  {this.numberWithCommas(
+                    this.props.subreddit.subreddit.subscribers
+                  )}{" "}
+                  subscribers
+                </div>
+                <div className="sidebar-stat">
+                  {this.numberWithCommas(
+                    this.props.subreddit.subreddit.active_user_count
+                  )}{" "}
+                  online
+                </div>
+              </div>
+            </div>
+            {this.props.user.user.id ? (
+              <div className="sidebar-box">
+                {this.state.subscribed ? (
+                  <button
+                    className="sidebar-button unsubscribe"
+                    onClick={e => this.handleUnsubscribe()}
+                  >
+                    – UNSUBSCRIBE
+                  </button>
+                ) : (
+                  <button
+                    className="sidebar-button subscribe"
+                    onClick={e => this.handleSubscribe()}
+                  >
+                    + SUBSCRIBE
+                  </button>
+                )}
+              </div>
+            ) : null}
+
+            <div className="sidebar-box">
+              <h2 className="sidebar-title">
+                {this.props.subreddit.subreddit.title}
+              </h2>
+            </div>
+            {this.props.subreddit.subreddit.public_description ? (
+              <div className="sidebar-box content">
+                <h3 className="sidebar-subtitle">DESCRIPTION:</h3>
+                <div className="sidebar-body">
+                  <ReactMarkdown
+                    source={
+                      this.props.subreddit.subreddit.public_description
+                        ? this.props.subreddit.subreddit.public_description
+                        : // .split("https://www.reddit.com")
+                          // .join("")
+                          // .split("http://www.reddit.com")
+                          // .join("")
+                          null
+                    }
+                  />
+                </div>
+              </div>
+            ) : null}
+            <div className="sidebar-box content">
+              <h3 className="sidebar-subtitle">RULES:</h3>
+              <div className="sidebar-body">
+                <ReactMarkdown
+                  source={
+                    this.props.subreddit.subreddit.description
+                      ? this.props.subreddit.subreddit.description
+                      : // .split("https://www.reddit.com")
+                        // .join("")
+                        // .split("http://www.reddit.com")
+                        // .join("")
+                        null
+                  }
+                />
+              </div>
             </div>
           </div>
         ) : (

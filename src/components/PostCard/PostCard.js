@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 // IMPORT ICONS
 import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
 import commentIcon from "../../icons/comment_tiny.svg";
@@ -239,7 +240,7 @@ class PostCard extends Component {
               </div>
               {this.props.type === "t1" ? (
                 <div className="post-comment-body">
-                  {this.props.commentBody}
+                  <ReactMarkdown source={this.props.commentBody} />
                 </div>
               ) : null}
               <div className="post-data">

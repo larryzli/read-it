@@ -1,5 +1,6 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
+import ReactMarkdown from "react-markdown";
 // IMPORT ICONS
 import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
 import unreadIcon from "../../icons/ic_drafts_white_20px.svg";
@@ -83,7 +84,9 @@ class MessageCard extends Component {
             ) : null}
             <div className="message-body">
               <div>{"Body: "}</div>
-              <div className="message-body-text">{this.props.body}</div>
+              <div className="message-body-text">
+                <ReactMarkdown source={this.props.body} />
+              </div>
             </div>
           </div>
           <div
