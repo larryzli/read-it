@@ -168,7 +168,6 @@ class PostCard extends Component {
     }
   }
   render() {
-    console.log(this.props);
     if (this.state.hidden) {
       return null;
     }

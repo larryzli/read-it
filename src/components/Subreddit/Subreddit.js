@@ -101,6 +101,7 @@ class Subreddit extends Component {
     this.setState({ open });
   };
   closeMenu = () => {
+    console.log("close");
     this.setState({ open: false });
   };
   openMenu = () => {
@@ -111,8 +112,7 @@ class Subreddit extends Component {
   };
   openSidebar = () => {
     this.setState({
-      sidebarOpen: !this.state.sidebarOpen,
-      sidebarDocked: false
+      sidebarOpen: !this.state.sidebarOpen
     });
   };
   toggleSort = () => {
@@ -391,7 +391,10 @@ class Subreddit extends Component {
         >
           <Drawer
             sidebar={
-              <Sidebar subreddit_name={this.props.match.params.subreddit} />
+              <Sidebar
+                subreddit_name={this.props.match.params.subreddit}
+                closeSidebar={this.openSidebar}
+              />
             }
             open={this.state.sidebarOpen}
             touch={this.state.sidebarTouch}
