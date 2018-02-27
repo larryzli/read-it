@@ -16,6 +16,7 @@ class SubredditPosts extends Component {
     const domainFilters = domainFiltersObj.map(e => e.filter_name);
     const posts = [];
     this.props.subredditPosts.forEach((post, index) => {
+      // console.log(post);
       if (!domainFilters.includes(post.domain)) {
         posts.push(
           <PostCard

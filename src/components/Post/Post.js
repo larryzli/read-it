@@ -302,6 +302,7 @@ class Post extends Component {
           commentData={comment.data}
           enableControls={this.state.enableControls}
           filter={this.state.filter}
+          user={this.props.user.user.name}
         />
       );
     });

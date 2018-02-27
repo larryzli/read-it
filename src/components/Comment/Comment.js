@@ -255,6 +255,7 @@ class Comment extends Component {
                 commentData={reply.data}
                 enableControls={this.props.enableControls}
                 filter={this.props.filter}
+                user={this.props.user}
               />
             );
           } else {
@@ -293,6 +294,7 @@ class Comment extends Component {
             key={index}
             commentData={comment.data}
             filter={this.props.filter}
+            user={this.props.user}
             style={{
               marginLeft: `${5 * comment.data.depth - 5}px`
             }}

@@ -26,6 +26,7 @@ export default (
     <Route path="/profile/:username" component={Profile} />
     <Route path="/submit/:type" component={SubmitPost} />
     <Route path="/filter" component={Filter} />
+    <Route path="/messages/:name/:title" component={Messaging} />
     <Route path="/messages/:name" component={Messaging} />
     <Route path="/:filter/:period" component={Subreddit} />
     <Route path="/:filter" component={Subreddit} />
