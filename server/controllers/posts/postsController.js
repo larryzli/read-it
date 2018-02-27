@@ -74,11 +74,18 @@ const getPost = (req, res, next) => {
 const getMoreComments = (req, res, next) => {
   const { post_id, children } = req.params;
   let url = `https://www.reddit.com/api/morechildren.json?link_id=t3_${post_id}&children=${children}&api_type=json`;
+  let headers = {};
   if (req.user) {
     url = `https://oauth.reddit.com/api/morechildren?link_id=t3_${post_id}&children=${children}&api_type=json`;
+    headers = {
+      headers: {
+        Authorization: `bearer ${req.user.accessToken}`,
+        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+      }
+    };
   }
   axios
-    .get(url)
+    .get(url, headers)
     .then(response => {
       res.status(200).json(response.data);
     })
