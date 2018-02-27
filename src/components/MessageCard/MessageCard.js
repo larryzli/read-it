@@ -7,6 +7,7 @@ import readIcon from "../../icons/ic_markunread_white_20px.svg";
 import profileIcon from "../../icons/ic_person_white_20px.svg";
 import deleteIcon from "../../icons/ic_clear_white_20px.svg";
 import replyIcon from "../../icons/ic_reply_white_20px.svg";
+import findIcon from "../../icons/ic_find_in_page_white_20px.svg";
 
 // COMPONENT
 class MessageCard extends Component {
@@ -33,7 +34,10 @@ class MessageCard extends Component {
     return (
       <div className="card-container">
         <div className="post-container">
-          <div className="message-card-info">
+          <div
+            className="message-card-info"
+            onClick={e => this.toggleControls()}
+          >
             <div className="message-title">
               <span className="message-type">{this.state.messageType}</span>
               {this.props.filter === "inbox" ||
@@ -106,6 +110,7 @@ class MessageCard extends Component {
                   src={readIcon}
                   alt="mark read"
                   onClick={e => this.props.read(this.props.name)}
+                  style={{ marginRight: "7px" }}
                 />
               ) : (
                 <img
@@ -113,6 +118,7 @@ class MessageCard extends Component {
                   src={unreadIcon}
                   alt="mark unread"
                   onClick={e => this.props.unread(this.props.name)}
+                  style={{ marginRight: "7px" }}
                 />
               )}
               <img
@@ -128,7 +134,14 @@ class MessageCard extends Component {
                   alt="reply to message"
                   onClick={e => console.log("reply function")}
                 />
-              ) : null}
+              ) : (
+                <img
+                  className="card-control-icon"
+                  src={findIcon}
+                  alt="show post"
+                  onClick={e => console.log("show function")}
+                />
+              )}
             </div>
             {this.state.messageType === "Message" ? (
               <div className="card-right-controls">

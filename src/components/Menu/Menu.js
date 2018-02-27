@@ -10,7 +10,7 @@ import settingsIcon from "../../icons/ic_settings_white_20px.svg";
 import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
 import filterIcon from "../../icons/ic_filter_list_white_20px.svg";
 // IMPORT REDUX FUNCTIONS
-import { getUserInfo, logout } from "../../ducks/userReducer";
+import { getUserInfo, logout, getFilters } from "../../ducks/userReducer";
 
 // COMPENENT
 class Menu extends Component {
@@ -58,6 +58,7 @@ class Menu extends Component {
   componentDidMount() {
     this.props.getUserInfo().then(response => {
       if (this.props.user.user.id) {
+        this.props.getFilters();
         axios
           .get("/api/subscriptions")
           .then(response => {
@@ -157,48 +158,48 @@ class Menu extends Component {
                   >
                     <div className="menu-submenu-bottom-item">My Profile</div>
                   </NavLink>
-                  <NavLink
+                  {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Comments</div>
-                  </NavLink>
-                  <NavLink
+                  </NavLink> */}
+                  {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Submitted</div>
-                  </NavLink>
-                  <NavLink
+                  </NavLink> */}
+                  {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Upvoted</div>
-                  </NavLink>
+                  </NavLink> */}
                   <NavLink
-                    to="/inbox"
+                    to="/profile/me/saved"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Saved</div>
                   </NavLink>
-                  <NavLink
-                    to="/inbox"
+                  {/* <NavLink
+                    to="/friends"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Friends</div>
-                  </NavLink>
-                  <NavLink
+                  </NavLink> */}
+                  {/* <NavLink
                     to="/inbox"
                     className="menu-submenu-bottom-link"
                     onClick={this.props.closeMenu}
                   >
                     <div className="menu-submenu-bottom-item">Watching</div>
-                  </NavLink>
+                  </NavLink> */}
                 </div>
               ) : null}
             </div>
@@ -369,4 +370,6 @@ class Menu extends Component {
 const mapStateToProps = state => {
   return state;
 };
-export default connect(mapStateToProps, { getUserInfo, logout })(Menu);
+export default connect(mapStateToProps, { getUserInfo, logout, getFilters })(
+  Menu
+);

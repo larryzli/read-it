@@ -13,11 +13,11 @@ import starIconFilled from "../../icons/ic_star_white_20px.svg";
 import hideIcon from "../../icons/ic_visibility_off_white_20px.svg";
 import unhideIcon from "../../icons/ic_visibility_white_20px.svg";
 import profileIcon from "../../icons/ic_person_white_20px.svg";
-// import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
 
 // COMPONENT
 const PostData = ({
   postData,
+  score,
   upvoted,
   downvoted,
   favorited,
@@ -31,7 +31,6 @@ const PostData = ({
   hide,
   unhide
 }) => {
-  console.log(postData);
   return (
     <div className="postdata-container">
       <div>
@@ -63,11 +62,15 @@ const PostData = ({
           <div className="postdata-body">{postData.body}</div>
         ) : null}
         <div className="postdata-data">
-          <span className="postdata-score">
-            {postData.score > 10000
-              ? (postData.score / 1000).toFixed(1) + "k"
-              : postData.score}{" "}
-            points
+          <span
+            className="postdata-score"
+            style={
+              upvoted
+                ? { color: "#06D6A0" }
+                : downvoted ? { color: "#ff445b" } : null
+            }
+          >
+            {score > 10000 ? (score / 1000).toFixed(1) + "k" : score} points
           </span>
           {" • "}
           <span>{moment(postData.created_at * 1000).fromNow()}</span>
@@ -139,11 +142,12 @@ const PostData = ({
               onClick={hide}
             />
           )}
-          <img
+          <Link
             className="postdata-control-icon"
-            src={profileIcon}
-            alt="author profile"
-          />
+            to={`/profile/${postData.author}`}
+          >
+            <img src={profileIcon} alt="author profile" />
+          </Link>
           <Link
             to={`/r/${postData.subreddit_title}`}
             className="postdata-control-icon"

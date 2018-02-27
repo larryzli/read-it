@@ -110,22 +110,22 @@ const getUserAbout = (req, res, next) => {
 
 //GET USER SAVED POSTS
 const getUserSaved = (req, res, next) => {
-  const { username, sort, t, after, saved } = req.query;
-    baseURL = `https://oauth.reddit.com/user/${username}/saved.json`;
-    headers = {
-      headers: {
-        Authorization: `bearer ${req.user.accessToken}`,
-        "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
-      }
-    };
+  const { username, after } = req.query;
+  baseURL = `https://oauth.reddit.com/user/${username}/saved?`;
+  if (after) {
+    baseURL += `after=${after}&`;
+  }
+  headers = {
+    headers: {
+      Authorization: `bearer ${req.user.accessToken}`,
+      "User-Agent": `web-app:navit:v0.0.1 (by /${USER_AGENT})`
+    }
+  };
   axios
     .get(baseURL, headers)
-    .then(response => 
-      res.status(200).json(response.data))
+    .then(response => res.status(200).json(response.data))
     .catch(console.log);
-    }
-
-
+};
 
 // SUBSCRIBE TO SUBREDDIT
 // NEEDS SR_NAME AND ACTION
@@ -181,6 +181,15 @@ const addFilter = (req, res, next) => {
     .catch(console.log);
 };
 
+const getFilters = (req, res, next) => {
+  const { id } = req.user;
+  const db = req.app.get("db");
+  db
+    .getFilterInfo([id])
+    .then(response => res.status(200).json(response))
+    .catch(console.log);
+};
+
 const removeFilter = (req, res, next) => {
   const { id } = req.body;
   const db = req.app.get("db");
@@ -210,6 +219,7 @@ module.exports = {
   addFilter,
   removeFilter,
   editFilter,
+  getFilters,
   getUserSaved,
   logout
 };

@@ -1,7 +1,9 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+// IMPORT REDUX FUNCTIONS
 import {
   getSidebarSubreddit,
   getSidebarTrending
@@ -29,7 +31,7 @@ class Sidebar extends Component {
   }
 
   getInfo(subreddit_name) {
-    if (subreddit_name) {
+    if (subreddit_name && subreddit_name.toLowerCase() !== "all") {
       this.props.getSidebarSubreddit(subreddit_name);
     } else {
       this.props.getSidebarTrending();
@@ -60,7 +62,8 @@ class Sidebar extends Component {
     console.log(this.props);
     return (
       <div>
-        {this.props.subreddit_name ? (
+        {this.props.subreddit_name &&
+        this.props.subreddit_name.toLowerCase() !== "all" ? (
           <div>
             <div>
               {this.props.user.user.id ? (
@@ -92,10 +95,10 @@ class Sidebar extends Component {
           <div>
             {this.props.subreddit.trending.map((subreddit, i) => {
               return (
-                <div key={i}>
-                  <a href={`/r/${subreddit}`}>
+                <div key={i} onClick={e => this.props.closeSidebar()}>
+                  <Link to={`/r/${subreddit}`}>
                     <h3>{subreddit}</h3>
-                  </a>
+                  </Link>
                 </div>
               );
             })}

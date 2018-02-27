@@ -7,9 +7,12 @@ import InfiniteScroll from "react-infinite-scroll-component";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
 import rightArrow from "../../icons/ic_arrow_drop_down_grey_20px.svg";
-//IMPORT COMPONENTS
+import newMessageIcon from "../../icons/ic_create_white_24px.svg";
+// IMPORT COMPONENTS
 import PostNavigation from "../../components/Navigation/PostNavigation";
 import PostCard from "../PostCard/PostCard";
+// IMPORT REDUX FUNCTIONS
+import { getUserInfo } from "../../ducks/userReducer";
 
 class Profile extends Component {
   constructor(props) {
@@ -26,11 +29,10 @@ class Profile extends Component {
 
       // USER INFO
       username: `${this.props.match.params.username}`,
-      showSortDrawer: false,
       created: "",
       commentKarma: 0,
       linkKarma: 0,
-      isFriend: true,
+      isFriend: null,
 
       // USER POSTS
       posts: [],
@@ -41,11 +43,33 @@ class Profile extends Component {
       showSortPeriodDrawer: false
     };
     this.goHome = this.goHome.bind(this);
+    this.addFriend = this.addFriend.bind(this);
+    this.removeFriend = this.removeFriend.bind(this);
   }
 
   componentDidMount() {
-    this.loadContent(this.state.filter);
+    this.props.getUserInfo().then(response => {
+      this.loadContent(this.state.filter);
+    });
   }
+
+  addFriend = () => {
+    axios
+      .post("/api/user/friend", { username: this.props.match.params.username })
+      .then(response => {
+        this.setState({ isFriend: true });
+      })
+      .catch(console.log);
+  };
+
+  removeFriend = () => {
+    axios
+      .delete(`/api/user/unfriend/${this.props.match.params.username}`)
+      .then(response => {
+        this.setState({ isFriend: false });
+      })
+      .catch(console.log);
+  };
 
   refreshHandler = () => {
     this.setState({ loading: true, after: "" });
@@ -66,6 +90,7 @@ class Profile extends Component {
         created: response.data.about.data.created_utc,
         linkKarma: response.data.about.data.link_karma,
         commentKarma: response.data.about.data.comment_karma,
+        isFriend: response.data.about.data.is_friend,
         loading: false
       });
     });
@@ -86,7 +111,6 @@ class Profile extends Component {
       url += `t=${timeFrame}&`;
     }
 
-    console.log(url);
     axios.get(url).then(response => {
       console.log(response);
       this.setState({
@@ -97,6 +121,7 @@ class Profile extends Component {
         created: response.data.about.data.created_utc,
         linkKarma: response.data.about.data.link_karma,
         commentKarma: response.data.about.data.comment_karma,
+        isFriend: response.data.about.data.is_friend,
         loading: false
       });
     });
@@ -133,11 +158,26 @@ class Profile extends Component {
       filterPeriodTitle: periodTitle
     });
   };
+
+  createMessage = username => {
+    this.props.history.push(`/createmessage/${username}`);
+  };
   render() {
     // LOADER
     const loader = (
       <div className="loader-wrapper" key={"loader"}>
         <img src={loading} className="loader-svg" alt="loading" />
+      </div>
+    );
+    // CREATE MESSAGE BUTTON
+    const newMessageButton = (
+      <div
+        className="new-post-container"
+        onClick={e => this.createMessage(this.props.match.params.username)}
+      >
+        <div className="new-post-icon">
+          <img src={newMessageIcon} alt="send message to user" />
+        </div>
       </div>
     );
     // SORT DRAWER
@@ -253,7 +293,7 @@ class Profile extends Component {
           postID={post.data.id}
           likes={post.data.likes}
           saved={post.data.saved}
-          enableControls={this.props.enableControls}
+          enableControls={this.props.user.user.id ? true : false}
           hidden={post.data.hidden}
           clicked={post.data.clicked}
           visited={post.data.visited}
@@ -272,7 +312,6 @@ class Profile extends Component {
         />
       );
     });
-
     return (
       <div className="profile-page">
         {this.state.showSortDrawer ? sortDrawer : null}
@@ -305,32 +344,68 @@ class Profile extends Component {
           }
           refreshFunction={this.refreshHandler}
         >
-          <div className="profile-karma-container">
-            <div className="profile-karma link-karma">
-              <div className="karma-value">
-                {this.state.linkKarma > 1000000
-                  ? (this.state.linkKarma / 1000000).toFixed(1) + "m"
-                  : this.state.linkKarma > 10000
-                    ? (this.state.linkKarma / 1000).toFixed(1) + "k"
-                    : this.state.linkKarma}
+          {!this.state.loading ? (
+            <div className="profile-info-container">
+              <div className="profile-karma link-karma">
+                <div className="karma-value">
+                  {this.state.linkKarma > 1000000
+                    ? (this.state.linkKarma / 1000000).toFixed(1) + "m"
+                    : this.state.linkKarma > 10000
+                      ? (this.state.linkKarma / 1000).toFixed(1) + "k"
+                      : this.state.linkKarma}
+                </div>
+                <div className="karma-label">Link Karma</div>
               </div>
-              <div className="karma-label">Link Karma</div>
-            </div>
-            <div className="profile-karma comment-karma">
-              <div className="karma-value">
-                {this.state.commentKarma > 1000000
-                  ? (this.state.commentKarma / 1000000).toFixed(1) + "m"
-                  : this.state.commentKarma > 10000
-                    ? (this.state.commentKarma / 1000).toFixed(1) + "k"
-                    : this.state.commentKarma}
+              <div className="profile-karma comment-karma">
+                <div className="karma-value">
+                  {this.state.commentKarma > 1000000
+                    ? (this.state.commentKarma / 1000000).toFixed(1) + "m"
+                    : this.state.commentKarma > 10000
+                      ? (this.state.commentKarma / 1000).toFixed(1) + "k"
+                      : this.state.commentKarma}
+                </div>
+                <div className="karma-label">Comment Karma</div>
               </div>
-              <div className="karma-label">Comment Karma</div>
             </div>
-          </div>
+          ) : null}
+          {!this.state.loading ? (
+            <div className="profile-info-container">
+              <div className="profile-age">
+                <div className="age-label">JOINED</div>
+                <div className="age-value">
+                  {moment(this.state.created * 1000).fromNow()}
+                </div>
+              </div>
+              {this.props.user.user.id &&
+              this.props.user.user.name !== this.state.username ? (
+                <div className="profile-friend">
+                  {this.state.isFriend ? (
+                    <button
+                      className="profile-friend-button remove-friend"
+                      onClick={e => this.removeFriend()}
+                    >
+                      - REMOVE FRIEND
+                    </button>
+                  ) : (
+                    <button
+                      className="profile-friend-button add-friend"
+                      onClick={e => this.addFriend()}
+                    >
+                      + ADD FRIEND
+                    </button>
+                  )}
+                </div>
+              ) : null}
+            </div>
+          ) : null}
           <div className="posts">
             {posts.length > 0 || this.state.loading ? posts : emptyPosts}
           </div>
         </InfiniteScroll>
+        {this.props.user.user.name &&
+        this.props.match.params.username !== this.props.user.user.name
+          ? newMessageButton
+          : null}
       </div>
     );
   }
@@ -340,4 +415,4 @@ const mapStateToProps = state => {
   return state;
 };
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps, { getUserInfo })(Profile);

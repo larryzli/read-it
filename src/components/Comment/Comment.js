@@ -29,6 +29,7 @@ class Comment extends Component {
       // REPLY INPUT
       showReplyInput: false,
       replySubmitted: false,
+      replyText: "",
 
       // LOADING
       loading: false,
@@ -36,6 +37,7 @@ class Comment extends Component {
       // VOTING
       upvoted: this.props.commentData.likes === true,
       downvoted: this.props.commentData.likes === false,
+      score: this.props.commentData.score,
 
       // FAVORITING
       favorited: this.props.commentData.saved,
@@ -44,6 +46,40 @@ class Comment extends Component {
       hidden: false
     };
   }
+  // COMMENT REPLY INPUT METHODS
+  toggleInput = () => {
+    if (this.props.enableControls) {
+      this.setState({ showReplyInput: !this.state.showReplyInput });
+    } else {
+      alert("Please log in to leave a reply");
+    }
+  };
+  inputChange = value => {
+    this.setState({ replyText: value });
+  };
+  submitReply = () => {
+    axios
+      .post("/api/reply", {
+        parentId: `${this.props.commentData.name}`,
+        text: this.state.replyText
+      })
+      .then(response => {
+        const newReply = [{}];
+        // newReply[0].commentData = response.data.json.data.things[0].data;
+        // newReply[0].commentData.depth = this.props.commentData.depth + 1;
+        newReply[0].data = response.data.json.data.things[0].data;
+        newReply[0].data.depth = this.props.commentData.depth + 1;
+        newReply[0].enableControls = true;
+        newReply[0].postID = this.props.postID;
+        console.log(newReply);
+        this.setState({
+          replyText: "",
+          showReplyInput: false,
+          moreComments: newReply.concat(this.state.moreComments)
+        });
+      })
+      .catch(console.log);
+  };
   // COMMENT REPLY METHODS
   revealReplies = () => {
     this.setState({ showReplies: !this.state.showReplies });
@@ -73,7 +109,11 @@ class Comment extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: true, downvoted: false });
+      this.setState({
+        upvoted: true,
+        downvoted: false,
+        score: this.state.score + 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -86,7 +126,11 @@ class Comment extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: false, downvoted: true });
+      this.setState({
+        upvoted: false,
+        downvoted: true,
+        score: this.state.score - 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -99,7 +143,11 @@ class Comment extends Component {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: false, downvoted: false });
+      this.setState({
+        upvoted: false,
+        downvoted: false,
+        score: this.state.upvoted ? this.state.score - 1 : this.state.score + 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -143,6 +191,20 @@ class Comment extends Component {
       "#FFD166"
     ];
     // REPLIES
+    const replyInput = (
+      <div className="reply-container">
+        <textarea
+          type="text"
+          className="reply-input"
+          value={this.state.replyText}
+          onChange={e => this.inputChange(e.target.value)}
+          placeholder={`Reply to ${this.props.commentData.author}`}
+        />
+        <button className="reply-submit" onClick={e => this.submitReply()}>
+          POST REPLY
+        </button>
+      </div>
+    );
     let replies;
     if (this.props.commentData.replies) {
       replies = this.props.commentData.replies.data.children.map(
@@ -218,7 +280,14 @@ class Comment extends Component {
         >
           <div className="comment-text" onClick={e => this.toggleControls()}>
             <div className="comment-data">
-              <span className="comment-author">
+              <span
+                className="comment-author"
+                style={
+                  this.props.commentData.is_submitter
+                    ? { color: "#4a90e2" }
+                    : null
+                }
+              >
                 {this.props.commentData.author}
               </span>
 
@@ -232,7 +301,9 @@ class Comment extends Component {
               >
                 {this.props.commentData.score_hidden
                   ? "[score hidden]"
-                  : this.props.commentData.score + " points"}
+                  : this.state.score > 10000
+                    ? (this.state.score / 1000).toFixed(1) + "k"
+                    : this.state.score + " points"}
               </span>
 
               <span className="comment-age">
@@ -298,14 +369,24 @@ class Comment extends Component {
                   onClick={this.favorite}
                 />
               )}
-              <img className="comment-control-icon" src={profileIcon} alt="" />
-              <img className="comment-control-icon" src={replyIcon} alt="" />
+              <img
+                className="comment-control-icon"
+                src={profileIcon}
+                alt="view author profile"
+              />
+              <img
+                className="comment-control-icon"
+                src={replyIcon}
+                alt="reply to comment"
+                onClick={e => this.toggleInput()}
+              />
             </div>
             {/* <div className="comment-right-controls">
               <img className="comment-control-icon" src={moreIcon} alt="" />
             </div> */}
           </div>
         ) : null}
+        {this.state.showReplyInput ? replyInput : null}
         {this.state.showReplies && replies ? replies : null}
         {this.state.loading ? loader : null}
         {moreComments}

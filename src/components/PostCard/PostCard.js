@@ -13,6 +13,7 @@ import starIconEmpty from "../../icons/ic_star_border_white_20px.svg";
 import starIconFilled from "../../icons/ic_star_white_20px.svg";
 import hideIcon from "../../icons/ic_visibility_off_white_20px.svg";
 import unhideIcon from "../../icons/ic_visibility_white_20px.svg";
+import lockIcon from "../../icons/ic_lock_outline_white_10px.svg";
 // import moreIcon from "../../icons/ic_more_vert_white_20px.svg";
 
 // COMPONENT
@@ -26,6 +27,7 @@ class PostCard extends Component {
       // VOTING
       upvoted: this.props.likes === true ? true : false,
       downvoted: this.props.likes === false ? true : false,
+      score: this.props.score,
 
       // FAVORITING
       favorited: this.props.saved,
@@ -48,12 +50,19 @@ class PostCard extends Component {
   upvote() {
     if (this.props.enableControls) {
       axios
-        .post("/api/vote", { vote: 1, id: `t3_${this.props.postID}` })
+        .post("/api/vote", {
+          vote: 1,
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: true, downvoted: false });
+      this.setState({
+        upvoted: true,
+        downvoted: false,
+        score: this.state.score + 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -61,12 +70,19 @@ class PostCard extends Component {
   downvote() {
     if (this.props.enableControls) {
       axios
-        .post("/api/vote", { vote: -1, id: `t3_${this.props.postID}` })
+        .post("/api/vote", {
+          vote: -1,
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: false, downvoted: true });
+      this.setState({
+        upvoted: false,
+        downvoted: true,
+        score: this.state.score - 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -74,12 +90,19 @@ class PostCard extends Component {
   cancelvote() {
     if (this.props.enableControls) {
       axios
-        .post("/api/vote", { vote: 0, id: `t3_${this.props.postID}` })
+        .post("/api/vote", {
+          vote: 0,
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
         .catch(console.log);
-      this.setState({ upvoted: false, downvoted: false });
+      this.setState({
+        upvoted: false,
+        downvoted: false,
+        score: this.state.upvoted ? this.state.score - 1 : this.state.score + 1
+      });
     } else {
       alert("Please login to use this feature");
     }
@@ -87,7 +110,9 @@ class PostCard extends Component {
   favorite() {
     if (this.props.enableControls) {
       axios
-        .post("/api/favorites/save", { id: `t3_${this.props.postID}` })
+        .post("/api/favorites/save", {
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
@@ -100,7 +125,9 @@ class PostCard extends Component {
   unfavorite() {
     if (this.props.enableControls) {
       axios
-        .post("/api/favorites/unsave", { id: `t3_${this.props.postID}` })
+        .post("/api/favorites/unsave", {
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
@@ -113,7 +140,9 @@ class PostCard extends Component {
   hide() {
     if (this.props.enableControls) {
       axios
-        .post("/api/post/hide", { id: `t3_${this.props.postID}` })
+        .post("/api/post/hide", {
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
@@ -126,7 +155,9 @@ class PostCard extends Component {
   unhide() {
     if (this.props.enableControls) {
       axios
-        .post("/api/post/unhide", { id: `t3_${this.props.postID}` })
+        .post("/api/post/unhide", {
+          id: `${this.props.type}_${this.props.postID}`
+        })
         .then(response => {
           // console.log(response);
         })
@@ -136,7 +167,6 @@ class PostCard extends Component {
       alert("Please login to use this feature");
     }
   }
-  // openMore = () => {};
   render() {
     if (this.state.hidden) {
       return null;
@@ -173,6 +203,36 @@ class PostCard extends Component {
                 <span className="post-domain"> ({this.props.domain})</span>
               </div>
               <div className="post-details">
+                <span className="post-tags">
+                  {this.props.over18 ? (
+                    <span className="post-tag">
+                      <span className="red-tag">NSFW</span>
+                      {" • "}
+                    </span>
+                  ) : null}
+                  {this.props.spoiler ? (
+                    <span className="post-tag">
+                      <span className="red-tag">SPOILER</span>
+                      {" • "}
+                    </span>
+                  ) : null}
+                  {this.props.locked ? (
+                    <span className="post-tag">
+                      <img
+                        className="tag-icon"
+                        src={lockIcon}
+                        alt="locked post"
+                      />
+                      {" • "}
+                    </span>
+                  ) : null}
+                  {this.props.stickied ? (
+                    <span className="post-tag">STICKIED{" • "}</span>
+                  ) : null}
+                  {this.props.pinned ? (
+                    <span className="post-tag">PINNED{" • "}</span>
+                  ) : null}
+                </span>
                 <span className="post-subreddit">{this.props.subreddit}</span>
                 {" • "}
                 <span className="post-author">{this.props.author}</span>
@@ -191,9 +251,9 @@ class PostCard extends Component {
                       : this.state.downvoted ? { color: "#ff445b" } : null
                   }
                 >
-                  {this.props.score > 10000
-                    ? (this.props.score / 1000).toFixed(1) + "k"
-                    : this.props.score}{" "}
+                  {this.state.score > 10000
+                    ? (this.state.score / 1000).toFixed(1) + "k"
+                    : this.state.score}{" "}
                   points
                 </span>
                 {" • "}

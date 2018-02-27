@@ -1,5 +1,6 @@
 // IMPORT DEPENDENCIES
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import axios from "axios";
 import moment from "moment";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -8,6 +9,9 @@ import MessageNavigation from "../Navigation/MessageNavigation";
 import MessageCard from "../MessageCard/MessageCard";
 // IMPORT ICONS
 import loading from "../../icons/loading/loading-cylon-red.svg";
+import newMessageIcon from "../../icons/ic_create_white_24px.svg";
+// IMPORT REDUX FUNCTIONS
+import { getUserInfo } from "../../ducks/userReducer";
 
 // COMPONENT
 class Messaging extends Component {
@@ -21,6 +25,7 @@ class Messaging extends Component {
       inbox: [],
       after: "",
       filter: "",
+      loggedIn: null,
 
       // INBOX DRAWER
       showMessagesDrawer: false
@@ -35,18 +40,23 @@ class Messaging extends Component {
     this.backAction = this.backAction.bind(this);
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.authorProfile = this.authorProfile.bind(this);
+    this.createMessage = this.createMessage.bind(this);
   }
   componentDidMount() {
-    const { name } = this.props.match.params;
-    if (name === "inbox") {
-      this.retrieveInbox();
-    }
-    if (name === "unread") {
-      this.retrieveUnread();
-    }
-    if (name === "sent") {
-      this.retrieveSent();
-    }
+    this.props.getUserInfo().then(response => {
+      if (this.props.user.user.id) {
+        const { name } = this.props.match.params;
+        if (name === "inbox") {
+          this.retrieveInbox();
+        }
+        if (name === "unread") {
+          this.retrieveUnread();
+        }
+        if (name === "sent") {
+          this.retrieveSent();
+        }
+      } else this.setState({ loggedIn: false, loading: false });
+    });
   }
 
   backAction() {
@@ -82,14 +92,15 @@ class Messaging extends Component {
     axios
       .get(url)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           inbox: loadMore
             ? this.state.inbox.concat(response.data.data.children)
             : response.data.data.children,
           filter: "inbox",
           after: response.data.data.after,
-          loading: false
+          loading: false,
+          loggedIn: true
         });
       })
       .catch(console.log);
@@ -103,14 +114,15 @@ class Messaging extends Component {
     axios
       .get(url)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           inbox: loadMore
             ? this.state.inbox.concat(response.data.data.children)
             : response.data.data.children,
           filter: "unread",
           after: response.data.data.after,
-          loading: false
+          loading: false,
+          loggedIn: true
         });
       })
       .catch(console.log);
@@ -124,14 +136,15 @@ class Messaging extends Component {
     axios
       .get(url)
       .then(response => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           inbox: loadMore
             ? this.state.inbox.concat(response.data.data.children)
             : response.data.data.children,
           filter: "sent",
           after: response.data.data.after,
-          loading: false
+          loading: false,
+          loggedIn: true
         });
       })
       .catch(console.log);
@@ -191,7 +204,18 @@ class Messaging extends Component {
       .catch(console.log);
   }
 
+  createMessage() {
+    this.props.history.push("/createmessage");
+  }
+
   render() {
+    const newMessageButton = (
+      <div className="new-post-container" onClick={this.createMessage}>
+        <div className="new-post-icon">
+          <img src={newMessageIcon} alt="add new post" />
+        </div>
+      </div>
+    );
     const messagesDrawer = (
       <div className="drawer-wrapper" onClick={this.toggleDrawer}>
         <div className="drawer-container">
@@ -212,10 +236,10 @@ class Messaging extends Component {
         <img src={loading} className="loader-svg" alt="loading" />
       </div>
     );
-    const end = <div className="end-message">No more messages</div>;
+    const end = <div className="end-message">End of messages</div>;
     const messages = this.state.inbox.map(message => {
       let m = message.data;
-      console.log(m);
+
       return (
         // <div key={m.name}>
         //   <p>author: {m.author}</p>
@@ -248,7 +272,6 @@ class Messaging extends Component {
           unread={this.markUnread}
           delete={this.deleteMessage}
           visitAuthor={this.authorProfile}
-          filter={this.state.filter}
         />
       );
     });
@@ -286,12 +309,21 @@ class Messaging extends Component {
           {this.state.inbox.length ? (
             <div className="posts">{messages}</div>
           ) : !this.state.loading ? (
-            <div className="end-message">No messages to display</div>
+            <div className="end-message">
+              {this.state.loggedIn
+                ? "No messages to display"
+                : "Please log in to view messages"}
+            </div>
           ) : null}
           {this.state.inbox.length && !this.state.after ? end : null}
         </InfiniteScroll>
+        {this.state.loggedIn === true ? newMessageButton : null}
       </div>
     );
   }
 }
-export default Messaging;
+const mapStateToProps = state => {
+  return state;
+};
+
+export default connect(mapStateToProps, { getUserInfo })(Messaging);
