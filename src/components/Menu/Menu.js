@@ -9,6 +9,7 @@ import messageIcon from "../../icons/ic_email_white_20px.svg";
 // import settingsIcon from "../../icons/ic_settings_white_20px.svg";
 import dropdownIcon from "../../icons/ic_arrow_drop_down_grey_20px.svg";
 import filterIcon from "../../icons/ic_filter_list_white_20px.svg";
+import appLogo from "../../icons/app-logo.svg";
 // IMPORT REDUX FUNCTIONS
 import { getUserInfo, logout, getFilters } from "../../ducks/userReducer";
 
@@ -96,10 +97,7 @@ class Menu extends Component {
     return (
       <div className="menu-container">
         <div className="menu-logo-container">
-          <span className="menu-logo">
-            N<span className="logo-up">V</span>
-            <span className="logo-down">V</span>IT
-          </span>
+          <img className="menu-logo" src={appLogo} alt="app logo" />
           <div className="menu-pin" onClick={this.props.onDock}>
             {this.props.docked ? "-" : "+"}
           </div>
