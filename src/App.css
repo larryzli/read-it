@@ -756,6 +756,13 @@ body {
       color: grey;
       text-align: center;
       margin-bottom: 10px; }
+    .sidebar-wrapper .sidebar-container .content .sidebar-subreddit {
+      margin-bottom: 5px; }
+      .sidebar-wrapper .sidebar-container .content .sidebar-subreddit .sidebar-link {
+        text-decoration: none;
+        color: #5ca4f7; }
+        .sidebar-wrapper .sidebar-container .content .sidebar-subreddit .sidebar-link:hover {
+          text-decoration: underline; }
     .sidebar-wrapper .sidebar-container .content .sidebar-body {
       font-size: 12px; }
       .sidebar-wrapper .sidebar-container .content .sidebar-body :first-child {

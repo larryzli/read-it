@@ -170,16 +170,25 @@ class Sidebar extends Component {
             </div>
           </div>
         ) : (
-          <div>
-            {this.props.subreddit.trending.map((subreddit, i) => {
-              return (
-                <div key={i} onClick={e => this.props.closeSidebar()}>
-                  <Link to={`/r/${subreddit}`}>
-                    <h3>{subreddit}</h3>
-                  </Link>
-                </div>
-              );
-            })}
+          <div className="sidebar-container">
+            <div className="sidebar-box content">
+              <span className="sidebar-subtitle">TRENDING SUBREDDITS</span>
+              <ul>
+                {this.props.subreddit.trending.map((subreddit, i) => {
+                  return (
+                    <li key={i} className="sidebar-subreddit">
+                      <Link
+                        className="sidebar-link"
+                        onClick={e => this.props.closeSidebar()}
+                        to={`/r/${subreddit}`}
+                      >
+                        <span>{subreddit}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         )}
       </div>

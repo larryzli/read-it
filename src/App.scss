@@ -1089,6 +1089,18 @@ body {
         margin-bottom: 10px;
       }
 
+      .sidebar-subreddit {
+        margin-bottom: 5px;
+        .sidebar-link {
+          text-decoration: none;
+          color: $blue1;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
       .sidebar-body {
         font-size: 12px;
 
