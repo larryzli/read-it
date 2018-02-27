@@ -26,7 +26,6 @@ class Comment extends Component {
       moreComments: [],
       showMore: true,
       showControls: false,
-      showContinue: true,
 
       // REPLY INPUT
       showReplyInput: false,
@@ -99,7 +98,7 @@ class Comment extends Component {
       });
   };
   continueThread = (parent_id, depth) => {
-    this.setState({ loadingContinue: true });
+    this.setState({ [`loadContinue${parent_id}`]: true });
     parent_id = parent_id.split("_")[1];
     const url = this.props.commentData.permalink.split("/");
     const title = url[url.length - 3];
@@ -110,7 +109,6 @@ class Comment extends Component {
         }/${title}/${parent_id}?sort=${this.props.filter}`
       )
       .then(response => {
-        // console.log(response.data.comments[0].data.replies.data.children);
         const newReplies = response.data.comments[0].data.replies.data.children;
         newReplies.forEach(function increaseDepth(el) {
           el.data.depth += 9;
@@ -118,14 +116,15 @@ class Comment extends Component {
             increaseDepth(el.data.replies.data.children[0]);
           }
         });
-        // console.log(this.state.moreComments);
         const index = this.state.moreComments.findIndex(el => {
           return el.data.id === parent_id;
         });
-        // console.log(index);
         const newMoreComments = this.state.moreComments;
         newMoreComments.splice(index + 1, newReplies.length, ...newReplies);
-        this.setState({ moreComments: newMoreComments });
+        this.setState({
+          moreComments: newMoreComments,
+          [`loadContinue${parent_id}`]: false
+        });
       })
       .catch(console.log);
   };
@@ -223,6 +222,12 @@ class Comment extends Component {
       "#139AC6",
       "#FFD166"
     ];
+    // LOADER
+    const loader = (
+      <div className="loader-wrapper" key={"loader"}>
+        <img src={loading} className="loader-svg" alt="loading" />
+      </div>
+    );
     // REPLIES
     const replyInput = (
       <div className="reply-container">
@@ -278,6 +283,7 @@ class Comment extends Component {
         }
       );
     }
+
     // MORE COMMENTS
     let moreComments = this.state.moreComments.map((comment, index) => {
       if (comment.data.id !== "_") {
@@ -295,29 +301,27 @@ class Comment extends Component {
       } else {
         console.log(comment);
         console.log(this.state, this.props);
-        return this.state.showContinue ? (
-          <div
-            className="comment-container load-more"
-            style={{
-              borderLeft: `5px solid ${borderColors[comment.data.depth % 5]}`,
-              marginLeft: `${5 * (comment.data.depth - 1)}px`
-            }}
-            key={index}
-            onClick={e =>
-              this.continueThread(comment.data.parent_id, comment.data.depth)
-            }
-          >
-            Continue this thread
+        return (
+          <div key={index}>
+            <div
+              className="comment-container load-more"
+              style={{
+                borderLeft: `5px solid ${borderColors[comment.data.depth % 5]}`,
+                marginLeft: `${5 * (comment.data.depth - 1)}px`
+              }}
+              onClick={e =>
+                this.continueThread(comment.data.parent_id, comment.data.depth)
+              }
+            >
+              Continue this thread
+            </div>
+            {this.state[`loadContinue${comment.data.parent_id}`]
+              ? loader
+              : null}
           </div>
-        ) : null;
+        );
       }
     });
-    // LOADER
-    const loader = (
-      <div className="loader-wrapper" key={"loader"}>
-        <img src={loading} className="loader-svg" alt="loading" />
-      </div>
-    );
     return (
       <div className="comment-wrapper">
         <div
