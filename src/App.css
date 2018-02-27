@@ -218,6 +218,21 @@ body {
             font-size: 12px;
             font-weight: 100;
             padding-right: 3px; }
+            .posts .card-container .post-container .post-route .post-info .post-comment-body :first-child {
+              margin-top: 0px; }
+            .posts .card-container .post-container .post-route .post-info .post-comment-body :last-child {
+              margin-bottom: 0px; }
+            .posts .card-container .post-container .post-route .post-info .post-comment-body a {
+              text-decoration: none;
+              color: #5ca4f7; }
+              .posts .card-container .post-container .post-route .post-info .post-comment-body a:hover {
+                text-decoration: underline; }
+            .posts .card-container .post-container .post-route .post-info .post-comment-body pre {
+              overflow: hidden;
+              overflow-x: scroll;
+              word-break: break-all; }
+              .posts .card-container .post-container .post-route .post-info .post-comment-body pre code {
+                word-break: break-all; }
           .posts .card-container .post-container .post-route .post-info .post-details {
             font-size: 10px;
             color: grey;

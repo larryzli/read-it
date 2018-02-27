@@ -320,6 +320,30 @@ body {
             font-size: 12px;
             font-weight: 100;
             padding-right: 3px;
+
+            :first-child {
+              margin-top: 0px;
+            }
+            :last-child {
+              margin-bottom: 0px;
+            }
+            a {
+              text-decoration: none;
+              color: $blue1;
+
+              &:hover {
+                text-decoration: underline;
+              }
+            }
+            pre {
+              overflow: hidden;
+              overflow-x: scroll;
+              word-break: break-all;
+              // max-width: 90vw;
+              code {
+                word-break: break-all;
+              }
+            }
           }
 
           .post-details {

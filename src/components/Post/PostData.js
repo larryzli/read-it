@@ -33,7 +33,6 @@ const PostData = ({
   hide,
   unhide
 }) => {
-  console.log(postData);
   return (
     <div className="postdata-container">
       <div>
