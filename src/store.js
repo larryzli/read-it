@@ -16,6 +16,8 @@ const reducers = combineReducers({
     comment: commentReducer,
     message: messageReducer
 });
+
 const store = createStore(reducers, applyMiddleware(promiseMiddleware()));
 
+//Exporting Store
 export default store;
