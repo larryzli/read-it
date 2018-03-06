@@ -24,6 +24,7 @@ html {
   box-sizing: border-box;
   height: 100%;
   overflow: auto;
+  overscroll-behavior: contain;
 }
 
 body {
@@ -306,6 +307,21 @@ body {
             font-weight: 300;
             color: $white;
             padding-right: 3px;
+
+            .post-markdown-title {
+              display: inline;
+              font-weight: 500;
+
+              * {
+                margin: 0;
+                padding: 0;
+                display: inline;
+              }
+
+              a {
+                display: none;
+              }
+            }
 
             .post-domain {
               color: $grey3;
