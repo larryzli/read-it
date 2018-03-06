@@ -4,7 +4,8 @@ html {
   padding: 0;
   box-sizing: border-box;
   height: 100%;
-  overflow: auto; }
+  overflow: auto;
+  overscroll-behavior: contain; }
 
 body {
   height: 100%; }
@@ -208,6 +209,15 @@ body {
             font-weight: 300;
             color: #fff;
             padding-right: 3px; }
+            .posts .card-container .post-container .post-route .post-info .post-title .post-markdown-title {
+              display: inline;
+              font-weight: 500; }
+              .posts .card-container .post-container .post-route .post-info .post-title .post-markdown-title * {
+                margin: 0;
+                padding: 0;
+                display: inline; }
+              .posts .card-container .post-container .post-route .post-info .post-title .post-markdown-title a {
+                display: none; }
             .posts .card-container .post-container .post-route .post-info .post-title .post-domain {
               color: #bbb;
               font-weight: 200;

@@ -231,7 +231,10 @@ class PostCard extends Component {
           >
             <div className="post-info">
               <div className="post-title">
-                {this.props.title}
+                <ReactMarkdown
+                  source={this.props.title}
+                  className="post-markdown-title"
+                />
                 <span className="post-domain"> ({this.props.domain})</span>
               </div>
               <div className="post-details">
